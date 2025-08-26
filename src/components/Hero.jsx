@@ -1,0 +1,55 @@
+export default function Hero() {
+  return (
+    <section className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          
+          {/* Left Side - Text */}
+          <div className="space-y-6 text-left order-2 lg:order-1">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-medium leading-tight">
+              Hey{' '}
+              <span className="text-green-400 font-bold italic">I'm Name</span>
+              ,<br className="hidden sm:block" />
+              <span className="block mt-2 lg:mt-0">
+                A computer science student.
+              </span>
+            </h1>
+            <p className="text-gray-300 text-base sm:text-lg font-medium max-w-lg leading-relaxed">
+              Dedicated to transforming businesses through strategic, results-driven lead generation and innovative digital solutions.
+            </p>
+            <div className="pt-4">
+              <button className="px-6 sm:px-8 py-3 bg-blue-100 text-black font-semibold rounded-full hover:bg-blue-200 transition-all duration-300 flex items-center group">
+                About Me 
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side - Image */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
+              {/* Main image container */}
+              <div className="aspect-[3/4] w-full bg-gradient-to-br from-pink-200 via-orange-200 to-pink-300 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Placeholder content - replace with actual image */}
+                <div className="w-full h-full bg-gradient-to-br from-pink-200 via-orange-200 to-pink-300 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                      <span className="text-4xl">👨‍💻</span>
+                    </div>
+                    <span className="text-gray-600 text-sm font-medium">Your Image Here</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-green-400/20 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
