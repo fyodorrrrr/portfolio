@@ -6,6 +6,23 @@ import { useState } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+    setIsOpen(false); // Close mobile menu after clicking
+  };
+
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
+
   return (
     <>
       {/* Mobile Navbar - Full Width at Top */}
@@ -37,49 +54,44 @@ export default function Navbar() {
           <div className="bg-black/90 backdrop-blur-md border-t border-gray-700">
             <ul className="flex flex-col p-4 space-y-3 text-gray-300">
               <li>
-                <Link 
-                  href="#home" 
-                  className="block hover:text-white transition duration-200 py-2 px-2"
-                  onClick={() => setIsOpen(false)}
+                <button 
+                  onClick={(e) => handleNavClick(e, 'home')}
+                  className="block hover:text-white transition duration-300 py-2 px-2 text-left w-full"
                 >
                   Home
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  href="#about" 
-                  className="block hover:text-white transition duration-200 py-2 px-2"
-                  onClick={() => setIsOpen(false)}
+                <button 
+                  onClick={(e) => handleNavClick(e, 'about')}
+                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
                 >
                   About
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  href="#skills" 
-                  className="block hover:text-white transition duration-200 py-2 px-2"
-                  onClick={() => setIsOpen(false)}
+                <button 
+                  onClick={(e) => handleNavClick(e, 'skills')}
+                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
                 >
                   Skills
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  href="#projects" 
-                  className="block hover:text-white transition duration-200 py-2 px-2"
-                  onClick={() => setIsOpen(false)}
+                <button 
+                  onClick={(e) => handleNavClick(e, 'projects')}
+                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
                 >
                   Projects
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  href="#contact" 
-                  className="block hover:text-white transition duration-200 py-2 px-2"
-                  onClick={() => setIsOpen(false)}
+                <button 
+                  onClick={(e) => handleNavClick(e, 'contact')}
+                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
                 >
                   Get in Touch
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -94,29 +106,44 @@ export default function Navbar() {
           {/* Navigation Links */}
           <ul className="flex space-x-4 lg:space-x-6 text-gray-300 text-xs sm:text-sm">
             <li>
-              <Link href="#home" className="hover:text-white transition duration-200">
+              <button 
+                onClick={(e) => handleNavClick(e, 'home')}
+                className="hover:text-white transition duration-200"
+              >
                 Home
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#about" className="hover:text-white transition duration-200">
+              <button 
+                onClick={(e) => handleNavClick(e, 'about')}
+                className="hover:text-white transition duration-200"
+              >
                 About
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#skills" className="hover:text-white transition duration-200">
+              <button 
+                onClick={(e) => handleNavClick(e, 'skills')}
+                className="hover:text-white transition duration-200"
+              >
                 Skills
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#projects" className="hover:text-white transition duration-200">
+              <button 
+                onClick={(e) => handleNavClick(e, 'projects')}
+                className="hover:text-white transition duration-200"
+              >
                 Projects
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#contact" className="hover:text-white transition duration-200">
+              <button 
+                onClick={(e) => handleNavClick(e, 'contact')}
+                className="hover:text-white transition duration-200"
+              >
                 Get in Touch
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
