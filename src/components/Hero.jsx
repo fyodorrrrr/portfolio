@@ -10,7 +10,7 @@ export default function Hero() {
           <div className="space-y-6 text-left order-2 lg:order-1">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-medium leading-tight">
               Hey{' '}
-              <span className="text-green-400 font-bold italic">I'm Name</span>
+              <span className="text-green-400 font-bold italic">I'm Jose</span>
               ,<br className="hidden sm:block" />
               <span className="block mt-2 lg:mt-0">
                 A computer science student.
