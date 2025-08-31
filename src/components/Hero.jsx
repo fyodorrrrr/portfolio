@@ -1,3 +1,5 @@
+"use client";
+
 export default function Hero() {
   return (
     <section id="home" className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0">
@@ -18,8 +20,18 @@ export default function Hero() {
               Dedicated to transforming businesses through strategic, results-driven lead generation and innovative digital solutions.
             </p>
             <div className="pt-4">
-              <button className="px-6 sm:px-8 py-3 bg-blue-100 text-black font-semibold rounded-full hover:bg-blue-200 transition-all duration-300 flex items-center group">
-                About Me 
+              <button
+                className="px-6 sm:px-8 py-3 bg-blue-100 text-black font-semibold rounded-full 
+                  transition-all duration-300 flex items-center group
+                  hover:bg-blue-200 hover:scale-105 hover:shadow-xl"
+                onClick={() => {
+                  const aboutSection = document.getElementById('about');
+                  if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+              >
+                About Me
                 <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
