@@ -41,18 +41,13 @@ export default function Hero() {
 
           {/* Right Side - Image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
-              {/* Main image container */}
-              <div className="aspect-[3/4] w-full bg-gradient-to-br from-neutral-900 via-stone-800 to-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
-                {/* Placeholder content - replace with actual image */}
-                <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-stone-800 to-neutral-800 flex items-center justify-center">
-                  <img
-                    src="/assets/pic_jose.jpg" // Place your image in the public folder and update the path
-                    alt="Jose"
-                    className="w-75 h-75 mx-auto mb-4 rounded-full object-cover shadow-2xl"
-                  />
-                </div>
-              </div>
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+              {/* Full-size image as background */}
+              <img
+                src="/assets/port_jose.jpg"
+                alt="Jose"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-green-400/20 rounded-full blur-xl"></div>
