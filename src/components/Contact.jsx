@@ -101,11 +101,11 @@ export default function Contact() {
           </div>
 
           {/* Trust Signal */}
-          <div className="text-center">
+          {/* <div className="text-center">
             <p className="text-gray-400 text-sm">
               ✨ I usually respond within 24 hours
             </p>
-          </div>
+          </div> */}
 
         </div>
 
