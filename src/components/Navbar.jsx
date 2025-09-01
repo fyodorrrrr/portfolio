@@ -1,9 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  // Function to handle scrolling and update active section
+  const handleScroll = () => {
+    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const scrollPosition = window.scrollY + 100; // Add offset for navbar
+
+    // Find the current section based on scroll position
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const top = element.offsetTop;
+        const height = element.offsetHeight;
+        
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          setActiveSection(section);
+          break;
+        }
+      }
+    }
+  };
+
+  // Add scroll event listener
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -17,6 +44,8 @@ export default function Navbar() {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      
+      setActiveSection(sectionId);
     }
     setIsOpen(false);
   };
@@ -59,7 +88,11 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'home')}
-                  className="block hover:text-white transition duration-300 py-2 px-2 text-left w-full"
+                  className={`block py-2 px-2 text-left w-full transition duration-300 ${
+                    activeSection === 'home' 
+                      ? 'text-emerald-400 font-medium' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Home
                 </button>
@@ -67,7 +100,11 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'about')}
-                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
+                  className={`block py-2 px-2 text-left w-full transition duration-300 ${
+                    activeSection === 'about' 
+                      ? 'text-emerald-400 font-medium' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   About
                 </button>
@@ -75,7 +112,11 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'skills')}
-                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
+                  className={`block py-2 px-2 text-left w-full transition duration-300 ${
+                    activeSection === 'skills' 
+                      ? 'text-emerald-400 font-medium' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Skills
                 </button>
@@ -83,7 +124,11 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'projects')}
-                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
+                  className={`block py-2 px-2 text-left w-full transition duration-300 ${
+                    activeSection === 'projects' 
+                      ? 'text-emerald-400 font-medium' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Projects
                 </button>
@@ -91,7 +136,11 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'contact')}
-                  className="block hover:text-emerald-400 transition duration-200 py-2 px-2 text-left w-full font-medium font-heading "
+                  className={`block py-2 px-2 text-left w-full transition duration-300 font-heading ${
+                    activeSection === 'contact' 
+                      ? 'text-emerald-400 font-medium' 
+                      : 'text-gray-300 hover:text-emerald-400'
+                  }`}
                 >
                   Contact Me
                 </button>
@@ -111,37 +160,65 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links - Centered */}
-            <ul className="flex space-x-8 text-gray-300 text-sm tracking-wide">
+            <ul className="flex space-x-12 text-gray-300 text-sm tracking-wide">
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'home')}
-                  className="hover:text-white transition duration-200"
+                  className={`relative py-2 transition duration-300 ${
+                    activeSection === 'home' 
+                      ? 'text-emerald-400' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Home
+                  {activeSection === 'home' && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 rounded-full"></span>
+                  )}
                 </button>
               </li>
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'about')}
-                  className="hover:text-white transition duration-200"
+                  className={`relative py-2 transition duration-300 ${
+                    activeSection === 'about' 
+                      ? 'text-emerald-400' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   About
+                  {activeSection === 'about' && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 rounded-full"></span>
+                  )}
                 </button>
               </li>
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'skills')}
-                  className="hover:text-white transition duration-200"
+                  className={`relative py-2 transition duration-300 ${
+                    activeSection === 'skills' 
+                      ? 'text-emerald-400' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Skills
+                  {activeSection === 'skills' && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 rounded-full"></span>
+                  )}
                 </button>
               </li>
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'projects')}
-                  className="hover:text-white transition duration-200"
+                  className={`relative py-2 transition duration-300 ${
+                    activeSection === 'projects' 
+                      ? 'text-emerald-400' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                 >
                   Projects
+                  {activeSection === 'projects' && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 rounded-full"></span>
+                  )}
                 </button>
               </li>
             </ul>
@@ -149,7 +226,11 @@ export default function Navbar() {
             {/* Contact Button */}
             <button
               onClick={(e) => handleNavClick(e, 'contact')}
-              className="px-5 py-2 border border-emerald-400 text-stone-800 bg-emerald-400 hover:bg-emerald-200 hover:text-black transition-colors duration-300 text-sm font-medium font-heading rounded-full"
+              className={`px-5 py-2 border transition-colors duration-300 text-sm font-medium font-heading rounded-full ${
+                activeSection === 'contact'
+                  ? 'bg-emerald-500 text-white border-emerald-500'
+                  : 'border-emerald-400 text-stone-800 bg-emerald-400 hover:bg-emerald-200'
+              }`}
             >
               Contact Me
             </button>

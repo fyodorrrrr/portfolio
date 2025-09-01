@@ -90,7 +90,7 @@ export default function Contact() {
               <button
                 type="submit"
                 className="w-full py-4 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 active:bg-emerald-700 transition-colors duration-200 flex items-center justify-center group font-heading"
-              >
+              > Send Message
               </button>
 
             </form>
