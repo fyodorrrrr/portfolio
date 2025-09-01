@@ -1,8 +1,10 @@
+// tailwind.config.js
 module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        helvetica: ['Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'], // Base font
+        heading: ['Sora', 'sans-serif'], // Heading font
       },
     },
   },

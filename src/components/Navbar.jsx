@@ -29,10 +29,10 @@ export default function Navbar() {
   return (
     <>
       {/* Mobile Navbar - Full Width at Top */}
-      <nav className="fixed top-0 left-0 w-full bg-black/50 backdrop-blur-sm shadow-md z-50 md:hidden">
+      <nav className="fixed top-0 left-0 w-full bg-black/50 backdrop-blur-sm shadow-md z-50 md:hidden font-sans">
         <div className="flex justify-between items-center px-4 py-3">
           {/* Logo/Brand */}
-          <div className="text-white font-bold text-lg">
+          <div className="text-white font-bold text-lg font-heading">
             Jose
           </div>
           
@@ -55,7 +55,7 @@ export default function Navbar() {
         {/* Mobile Menu Items */}
         {isOpen && (
           <div className="bg-black/90 backdrop-blur-md border-t border-gray-700">
-            <ul className="flex flex-col p-4 space-y-3 text-gray-300">
+            <ul className="flex flex-col p-4 space-y-3 text-gray-300 font-sans">
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'home')}
@@ -91,7 +91,7 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'contact')}
-                  className="block hover:text-emerald-400 transition duration-200 py-2 px-2 text-left w-full font-medium"
+                  className="block hover:text-emerald-400 transition duration-200 py-2 px-2 text-left w-full font-medium font-heading "
                 >
                   Contact Me
                 </button>
@@ -102,16 +102,16 @@ export default function Navbar() {
       </nav>
 
       {/* Desktop Navbar - Centered with Contact Button */}
-      <nav className="fixed top-0 left-0 w-full bg-black/40 backdrop-blur-sm shadow-md z-50 hidden md:block">
+      <nav className="fixed top-0 left-0 w-full bg-black/40 backdrop-blur-sm shadow-md z-50 hidden md:block font-sans">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             {/* Logo/Brand */}
-            <div className="text-white font-bold text-xl">
+            <div className="text-white font-bold text-xl font-heading">
               Jose
             </div>
 
             {/* Navigation Links - Centered */}
-            <ul className="flex space-x-8 text-gray-300 text-sm">
+            <ul className="flex space-x-8 text-gray-300 text-sm tracking-wide">
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'home')}
@@ -149,7 +149,7 @@ export default function Navbar() {
             {/* Contact Button */}
             <button
               onClick={(e) => handleNavClick(e, 'contact')}
-              className="px-5 py-2 border border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-black transition-colors duration-300 text-sm font-medium"
+              className="px-5 py-2 border border-emerald-400 text-stone-800 bg-emerald-400 hover:bg-emerald-200 hover:text-black transition-colors duration-300 text-sm font-medium font-heading rounded-full"
             >
               Contact Me
             </button>
