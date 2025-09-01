@@ -2,7 +2,7 @@
 
 export default function Hero() {
   return (
-    <section id="home" className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0">
+    <section id="home" className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0 font-helvetica">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           

@@ -2,26 +2,16 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "Thrift Shop E-commerce",
-      description: "Full-stack e-commerce platform with seller and buyer features, built using Flask, MySQL, and React.",
-      tech: ["Flask", "MySQL", "React", "JavaScript"],
-      image: "/projects/thriftshop.png",
-      github: "#",
-      demo: "#",
+      title: "Haul Thrift Shop",
+      description: "A mobile thrift shop application built with Flutter and Firebase, featuring buyer and seller flows, wishlist, checkout, and real-time updates.",
+      tech: ["Flutter", "Dart", "Firebase", "Firestore", "Provider"],
+      image: "assets/HAUL.png", 
+      github: "#",   // You can replace with your GitHub repo link if public
+      demo: "#",     // Replace with demo video or APK download if available
       featured: true
     },
     {
       id: 2,
-      title: "Banking App",
-      description: "Simple banking system app developed in Flutter with Firebase integration for authentication and data storage.",
-      tech: ["Flutter", "Firebase", "Dart"],
-      image: "/projects/flutterbank.png",
-      github: "#",
-      demo: "#",
-      featured: false
-    },
-    {
-      id: 3,
       title: "Portfolio Website",
       description: "Personal portfolio built with React, Tailwind CSS, and Next.js showcasing projects and skills with modern UI.",
       tech: ["Next.js", "React", "Tailwind CSS"],
@@ -39,7 +29,7 @@ export default function Projects() {
         {/* Header */}
         <div className="text-center mb-20">
           <p className="text-emerald-400 text-sm font-medium tracking-wider uppercase mb-4">
-            My Work
+            My Recent Work
           </p>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white">
             Projects
@@ -161,18 +151,6 @@ export default function Projects() {
 
         {/* View More Section */}
         <div className="text-center mt-20 pt-16 border-t border-neutral-600">
-          <p className="text-gray-300 text-lg font-light mb-8">
-            Want to see more of my work?
-          </p>
-          <a 
-            href="#contact"
-            className="inline-flex items-center px-8 py-3 bg-neutral-700 border border-neutral-600 rounded-full text-white hover:bg-neutral-600 hover:border-neutral-500 transition-all duration-300 shadow-sm"
-          >
-            <span className="font-medium">Get In Touch</span>
-            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
         </div>
 
       </div>
