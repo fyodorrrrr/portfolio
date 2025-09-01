@@ -2,13 +2,13 @@
 
 export default function Hero() {
   return (
-    <section id="home" className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0 font-helvetica">
+    <section id="home" className="w-full min-h-screen flex items-center justify-center bg-stone-900 text-white py-12 lg:py-0 font-sans">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           
           {/* Left Side - Text */}
           <div className="space-y-6 text-left order-2 lg:order-1">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-medium leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-medium leading-tight font-heading">
               Hey{' '}
               <span className="text-green-400 font-bold italic">I'm Jose</span>
               ,<br className="hidden sm:block" />
@@ -23,7 +23,7 @@ export default function Hero() {
               <button
                 className="px-6 sm:px-8 py-3 bg-blue-100 text-black font-semibold rounded-full 
                   transition-all duration-300 flex items-center group
-                  hover:bg-blue-200 hover:scale-105 hover:shadow-xl"
+                  hover:bg-blue-200 hover:scale-105 hover:shadow-xl font-heading"
                 onClick={() => {
                   const aboutSection = document.getElementById('about');
                   if (aboutSection) {

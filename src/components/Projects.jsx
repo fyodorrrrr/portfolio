@@ -23,7 +23,7 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="min-h-screen bg-neutral-800 text-white py-20 px-4">
+    <section id="projects" className="min-h-screen bg-neutral-800 text-white py-20 px-4 font-sans">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
@@ -31,7 +31,7 @@ export default function Projects() {
           <p className="text-emerald-400 text-sm font-medium tracking-wider uppercase mb-4">
             My Recent Work
           </p>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white font-heading">
             Projects
           </h2>
           <div className="w-16 h-px bg-emerald-400 mx-auto mt-8"></div>
@@ -63,14 +63,14 @@ export default function Projects() {
                     <div className="flex space-x-4">
                       <a 
                         href={project.github}
-                        className="px-6 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-colors duration-200"
+                        className="px-6 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-colors duration-200 font-heading"
                       >
                         View Code
                       </a>
                       {project.demo && (
                         <a 
                           href={project.demo}
-                          className="px-6 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition-colors duration-200"
+                          className="px-6 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition-colors duration-200 font-heading"
                         >
                           Live Demo
                         </a>
@@ -94,7 +94,7 @@ export default function Projects() {
                     )}
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-medium text-white">
+                  <h3 className="text-2xl md:text-3xl font-medium text-white font-heading">
                     {project.title}
                   </h3>
                   
@@ -124,7 +124,7 @@ export default function Projects() {
                 <div className="flex space-x-6 pt-4">
                   <a 
                     href={project.github}
-                    className="group flex items-center text-gray-400 hover:text-white transition-colors duration-200"
+                    className="group flex items-center text-gray-400 hover:text-white transition-colors duration-200 font-heading"
                   >
                     <span className="text-sm font-medium">View Code</span>
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ export default function Projects() {
                   {project.demo && (
                     <a 
                       href={project.demo}
-                      className="group flex items-center text-emerald-400 hover:text-emerald-300 transition-colors duration-200"
+                      className="group flex items-center text-emerald-400 hover:text-emerald-300 transition-colors duration-200 font-heading"
                     >
                       <span className="text-sm font-medium">Live Demo</span>
                       <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">

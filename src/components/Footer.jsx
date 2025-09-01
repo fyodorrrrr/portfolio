@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-neutral-900 text-gray-400 py-8">
       <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Name & Copyright */}
-        <div className="text-base font-medium tracking-wide flex items-center gap-2">
+        <div className="text-base font-medium tracking-wide flex items-center gap-2 font-sans">
           <span className="text-emerald-400 font-bold">Jose</span>
           <span className="opacity-60">|</span>
           <span>© {new Date().getFullYear()}</span>
@@ -36,7 +36,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="mt-8 text-center text-xs text-gray-500 opacity-70">
+      <div className="mt-8 text-center text-xs text-gray-500 opacity-70 font-sans">
         Built with Next.js & Tailwind CSS
       </div>
     </footer>
