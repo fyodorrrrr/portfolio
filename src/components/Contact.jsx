@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <section id="contact" className="min-h-screen bg-neutral-800 text-white py-20 px-4">
+    <section id="contact" className="min-h-screen bg-stone-900 text-white py-20 px-4">
       <div className="max-w-4xl mx-auto">
         
         {/* Simplified Header */}

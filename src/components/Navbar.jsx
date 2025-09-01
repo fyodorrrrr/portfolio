@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -9,13 +8,17 @@ export default function Navbar() {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
+      // Get navbar height to offset scroll position
+      const navbarHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
       });
     }
-    setIsOpen(false); // Close mobile menu after clicking
+    setIsOpen(false);
   };
 
   const handleNavClick = (e, sectionId) => {
@@ -26,11 +29,11 @@ export default function Navbar() {
   return (
     <>
       {/* Mobile Navbar - Full Width at Top */}
-      <nav className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-sm shadow-md z-50 md:hidden">
+      <nav className="fixed top-0 left-0 w-full bg-black/50 backdrop-blur-sm shadow-md z-50 md:hidden">
         <div className="flex justify-between items-center px-4 py-3">
           {/* Logo/Brand */}
           <div className="text-white font-bold text-lg">
-            Portfolio
+            Jose
           </div>
           
           {/* Mobile Menu Button */}
@@ -88,9 +91,9 @@ export default function Navbar() {
               <li>
                 <button 
                   onClick={(e) => handleNavClick(e, 'contact')}
-                  className="block hover:text-white transition duration-200 py-2 px-2 text-left w-full"
+                  className="block hover:text-emerald-400 transition duration-200 py-2 px-2 text-left w-full font-medium"
                 >
-                  Get in Touch
+                  Contact Me
                 </button>
               </li>
             </ul>
@@ -98,54 +101,59 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Desktop Navbar - Positioned on Right */}
-      <nav className="fixed top-4 sm:top-7 right-4 sm:right-20 h-12 sm:h-14 w-auto
-        bg-black/80 backdrop-blur-sm rounded-full shadow-md z-50 
-        justify-center items-center px-3 sm:px-4 hidden md:flex">
-        <div className="px-2 py-3 flex justify-between items-center space-x-2">
-          {/* Navigation Links */}
-          <ul className="flex space-x-4 lg:space-x-6 text-gray-300 text-xs sm:text-sm">
-            <li>
-              <button 
-                onClick={(e) => handleNavClick(e, 'home')}
-                className="hover:text-white transition duration-200"
-              >
-                Home
-              </button>
-            </li>
-            <li>
-              <button 
-                onClick={(e) => handleNavClick(e, 'about')}
-                className="hover:text-white transition duration-200"
-              >
-                About
-              </button>
-            </li>
-            <li>
-              <button 
-                onClick={(e) => handleNavClick(e, 'skills')}
-                className="hover:text-white transition duration-200"
-              >
-                Skills
-              </button>
-            </li>
-            <li>
-              <button 
-                onClick={(e) => handleNavClick(e, 'projects')}
-                className="hover:text-white transition duration-200"
-              >
-                Projects
-              </button>
-            </li>
-            <li>
-              <button 
-                onClick={(e) => handleNavClick(e, 'contact')}
-                className="hover:text-white transition duration-200"
-              >
-                Get in Touch
-              </button>
-            </li>
-          </ul>
+      {/* Desktop Navbar - Centered with Contact Button */}
+      <nav className="fixed top-0 left-0 w-full bg-black/40 backdrop-blur-sm shadow-md z-50 hidden md:block">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            {/* Logo/Brand */}
+            <div className="text-white font-bold text-xl">
+              Jose
+            </div>
+
+            {/* Navigation Links - Centered */}
+            <ul className="flex space-x-8 text-gray-300 text-sm">
+              <li>
+                <button 
+                  onClick={(e) => handleNavClick(e, 'home')}
+                  className="hover:text-white transition duration-200"
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={(e) => handleNavClick(e, 'about')}
+                  className="hover:text-white transition duration-200"
+                >
+                  About
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={(e) => handleNavClick(e, 'skills')}
+                  className="hover:text-white transition duration-200"
+                >
+                  Skills
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={(e) => handleNavClick(e, 'projects')}
+                  className="hover:text-white transition duration-200"
+                >
+                  Projects
+                </button>
+              </li>
+            </ul>
+
+            {/* Contact Button */}
+            <button
+              onClick={(e) => handleNavClick(e, 'contact')}
+              className="px-5 py-2 border border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-black transition-colors duration-300 text-sm font-medium"
+            >
+              Contact Me
+            </button>
+          </div>
         </div>
       </nav>
     </>
