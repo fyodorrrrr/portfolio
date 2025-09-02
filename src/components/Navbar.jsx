@@ -1,13 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const scrollingRef = useRef(false);
 
   // Function to handle scrolling and update active section
   const handleScroll = () => {
+    // Skip scroll handling when programmatically scrolling
+    if (scrollingRef.current) return;
+    
     const sections = ['home', 'about', 'skills', 'projects', 'contact'];
     const scrollPosition = window.scrollY + 100; // Add offset for navbar
 
@@ -26,15 +30,35 @@ export default function Navbar() {
     }
   };
 
-  // Add scroll event listener
+  // Add scroll event listener with throttling
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Throttle the scroll event to improve performance
+    let timeout;
+    const throttledScroll = () => {
+      if (timeout) return;
+      
+      timeout = setTimeout(() => {
+        handleScroll();
+        timeout = null;
+      }, 100); // Throttle to once every 100ms
+    };
+    
+    window.addEventListener('scroll', throttledScroll);
+    return () => {
+      window.removeEventListener('scroll', throttledScroll);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      // Set active section immediately on click
+      setActiveSection(sectionId);
+      
+      // Disable scroll handling temporarily
+      scrollingRef.current = true;
+      
       // Get navbar height to offset scroll position
       const navbarHeight = 80;
       const elementPosition = element.getBoundingClientRect().top;
@@ -45,7 +69,10 @@ export default function Navbar() {
         behavior: 'smooth'
       });
       
-      setActiveSection(sectionId);
+      // Re-enable scroll handling after animation completes
+      setTimeout(() => {
+        scrollingRef.current = false;
+      }, 1000); // Typical smooth scroll takes ~1s
     }
     setIsOpen(false);
   };
