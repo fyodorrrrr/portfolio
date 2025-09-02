@@ -6,7 +6,7 @@ export default function Projects() {
       description: "A mobile thrift shop application built with Flutter and Firebase, featuring buyer and seller flows, wishlist, checkout, and real-time updates.",
       tech: ["Flutter", "Dart", "Firebase", "Firestore", "Provider"],
       image: "assets/HAUL.png", 
-      github: "#",   // You can replace with your GitHub repo link if public
+      github: "https://github.com/fyodorrrrr/haul-app",   // You can replace with your GitHub repo link if public
       demo: "#",     // Replace with demo video or APK download if available
       featured: true
     },
@@ -15,7 +15,7 @@ export default function Projects() {
       title: "Portfolio Website",
       description: "Personal portfolio built with React, Tailwind CSS, and Next.js showcasing projects and skills with modern UI.",
       tech: ["Next.js", "React", "Tailwind CSS"],
-      image: "/projects/portfolio.png",
+      image: "assets/port.png",
       github: "#",
       demo: "#",
       featured: false
