@@ -62,7 +62,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center px-4 py-3">
           {/* Logo/Brand */}
           <div className="text-white font-bold text-lg font-heading">
-            Jose
+            JoseDev
           </div>
           
           {/* Mobile Menu Button */}
@@ -156,7 +156,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center">
             {/* Logo/Brand */}
             <div className="text-white font-bold text-xl font-heading">
-              Jose
+              JoseDev
             </div>
 
             {/* Navigation Links - Centered */}
