@@ -1,7 +1,8 @@
 import { FaReact, FaNodeJs, FaGitAlt, FaGithub, FaFigma, FaCode } from "react-icons/fa";
-import { SiNextdotjs, SiTailwindcss, SiTypescript, SiFlutter, SiFlask, SiMysql, SiFirebase, SiVisualstudiocode } from "react-icons/si";
+import { SiNextdotjs, SiTailwindcss, SiTypescript, SiFlutter, SiFlask, SiMysql, SiFirebase } from "react-icons/si";
 import { AiOutlineApi } from "react-icons/ai";
 import { BsLightningChargeFill, BsInfinity } from "react-icons/bs";
+import { DiVisualstudio } from 'react-icons/di';
 
 export default function Skills() {
   const skillCategories = [
@@ -34,7 +35,7 @@ export default function Skills() {
         { name: "Git", icon: <FaGitAlt className="text-orange-500" /> },
         { name: "GitHub", icon: <FaGithub className="text-gray-200" /> },
         { name: "Figma", icon: <FaFigma className="text-purple-400" /> },
-        // { name: "VS Code", icon: <SiVisualstudiocode className="text-blue-500" /> },
+        { name: "VS Code", icon: <DiVisualstudio className="text-blue-500" /> },
         { name: "Firebase", icon: <SiFirebase className="text-yellow-500" /> }
       ]
     }
