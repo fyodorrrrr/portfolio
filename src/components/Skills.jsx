@@ -106,8 +106,8 @@ export default function Skills() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: "20+", label: "Projects Completed", icon: <BsLightningChargeFill className="text-yellow-400" /> },
-              { value: "3+", label: "Years Learning", icon: <FaCode className="text-blue-400" /> },
+              { value: "10+", label: "Projects Completed", icon: <BsLightningChargeFill className="text-yellow-400" /> },
+              { value: "2+", label: "Years Learning", icon: <FaCode className="text-blue-400" /> },
               { value: "10+", label: "Technologies", icon: <FaReact className="text-emerald-400" /> },
               { value: "∞", label: "Continuous Learning", icon: <BsInfinity className="text-purple-400" /> }
             ].map((stat, index) => (
