@@ -136,7 +136,7 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   onClick={(e) => handleNavClick(e, item.id)}
-                  className={`w-full py-2 text-center text-[1.15rem] font-semibold transition sm:text-[1.25rem] ${
+                  className={`group relative w-full py-2 text-center text-[1.15rem] font-semibold transition sm:text-[1.25rem] ${
                     activeSection === item.id
                       ? 'text-black'
                       : 'text-black/70 hover:text-black'
@@ -144,11 +144,12 @@ export default function Navbar() {
                   style={navFontStyle}
                 >
                   {item.label}
+                  <span className="absolute left-1/2 bottom-0 h-px w-0 -translate-x-1/2 bg-[#111111] transition-all duration-200 group-hover:w-full" />
                 </button>
               ))}
                 <button
                   onClick={(e) => handleNavClick(e, 'contact')}
-                className={`mt-2 flex w-full items-center justify-between rounded-full border px-4 py-3 text-left text-[1.15rem] font-semibold transition sm:text-[1.25rem] ${
+                className={`group mt-2 flex w-full items-center justify-between rounded-full border px-4 py-3 text-left text-[1.15rem] font-semibold transition sm:text-[1.25rem] ${
                   activeSection === 'contact'
                     ? 'border-[#111111] bg-[#111111] text-white'
                     : 'border-black/10 bg-white text-[#111111] hover:bg-[#f0ede6]'
@@ -157,6 +158,7 @@ export default function Navbar() {
               >
                 <span>Contact Me</span>
                 <span className="h-2.5 w-2.5 rounded-full bg-orange-500" />
+                <span className="absolute left-4 right-4 bottom-2 h-px w-0 bg-[#111111] transition-all duration-200 group-hover:w-[calc(100%-2rem)]" />
               </button>
             </div>
           </div>
@@ -181,7 +183,7 @@ export default function Navbar() {
                 <li key={item.id}>
                   <button
                     onClick={(e) => handleNavClick(e, item.id)}
-                    className={`relative py-1 transition ${
+                    className={`group relative py-1 transition ${
                       activeSection === item.id
                         ? 'text-black'
                         : 'text-black/75 hover:text-black'
@@ -189,6 +191,7 @@ export default function Navbar() {
                     style={navFontStyle}
                   >
                     {item.label}
+                    <span className="absolute left-1/2 -bottom-0.5 h-px w-0 -translate-x-1/2 bg-[#111111] transition-all duration-200 group-hover:w-full" />
                   </button>
                 </li>
               ))}
