@@ -42,18 +42,18 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="min-h-screen bg-stone-900 text-white flex items-center py-20 px-4 font-sans">
+    <section id="skills" className="min-h-screen bg-[#f2f0ea] text-[#111111] flex items-center py-20 px-4 font-sans">
       <div className="max-w-6xl mx-auto w-full">
         
         {/* Header with improved hierarchy */}
         <div className="text-center mb-16">
-          <p className="text-emerald-400 text-sm font-medium tracking-widest uppercase mb-4 opacity-90">
+          <p className="text-[#cc5a1f] text-sm font-medium tracking-widest uppercase mb-4 opacity-90">
             Expertise & Capabilities
           </p>
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6 font-heading">
             Technical Skills
           </h2>
-          <div className="w-20 h-1 bg-emerald-400 mx-auto"></div>
+          <div className="w-20 h-1 bg-[#cc5a1f] mx-auto"></div>
         </div>
 
         {/* Skills Grid with cards and icons */}
@@ -61,14 +61,14 @@ export default function Skills() {
           {skillCategories.map((category, index) => (
             <div 
               key={index} 
-              className="bg-neutral-800 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-emerald-900/20 hover:-translate-y-1 group"
+              className="bg-[#f8f6f1] rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-black/10 hover:-translate-y-1 group"
             >
               {/* Category Header with icon */}
-              <div className="bg-neutral-700/50 p-6 flex items-center gap-4 border-b border-neutral-700">
-                <div className="w-12 h-12 rounded-lg bg-neutral-800/80 flex items-center justify-center">
+              <div className="bg-[#efece6] p-6 flex items-center gap-4 border-b border-black/10">
+                <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center">
                   {category.icon}
                 </div>
-                <h3 className="text-xl font-medium text-white tracking-wide font-heading">
+                <h3 className="text-xl font-medium text-[#111111] tracking-wide font-heading">
                   {category.title}
                 </h3>
               </div>
@@ -78,12 +78,12 @@ export default function Skills() {
                 {category.skills.map((skill, skillIndex) => (
                   <div 
                     key={skillIndex}
-                    className="flex items-center p-3 bg-neutral-700/30 rounded-lg hover:bg-neutral-700/60 transition-all duration-200 group-hover:translate-x-1"
+                    className="flex items-center p-3 bg-white rounded-lg hover:bg-[#f0ede6] transition-all duration-200 group-hover:translate-x-1"
                   >
                     <div className="w-8 h-8 flex items-center justify-center mr-4">
                       {skill.icon}
                     </div>
-                    <span className="text-gray-300 font-medium">
+                    <span className="text-[#555555] font-medium">
                       {skill.name}
                     </span>
                   </div>
@@ -94,12 +94,12 @@ export default function Skills() {
         </div>
 
         {/* Stats Section with improved design */}
-        <div className="bg-neutral-800 rounded-2xl p-8 md:p-10 shadow-xl">
+        <div className="bg-[#f8f6f1] rounded-2xl p-8 md:p-10 shadow-xl">
           <div className="text-center mb-10">
-            <h3 className="text-2xl font-semibold text-white mb-2 font-heading">
+              <h3 className="text-2xl font-semibold text-[#111111] mb-2 font-heading">
               By the Numbers
             </h3>
-            <p className="text-gray-400 max-w-md mx-auto">
+              <p className="text-[#666666] max-w-md mx-auto">
               A quantitative look at my experience and learning journey
             </p>
           </div>
@@ -111,14 +111,14 @@ export default function Skills() {
               { value: "10+", label: "Technologies", icon: <FaReact className="text-emerald-400" /> },
               { value: "∞", label: "Continuous Learning", icon: <BsInfinity className="text-purple-400" /> }
             ].map((stat, index) => (
-              <div key={index} className="text-center p-5 bg-neutral-700/30 rounded-xl hover:bg-neutral-700/50 transition-all duration-300 hover:-translate-y-1">
-                <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-neutral-800/70 flex items-center justify-center">
+                <div key={index} className="text-center p-5 bg-white rounded-xl hover:bg-[#f0ede6] transition-all duration-300 hover:-translate-y-1 shadow-sm">
+                <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-[#f0ede6] flex items-center justify-center">
                   {stat.icon}
                 </div>
-                <div className="text-3xl md:text-4xl font-light text-emerald-400 mb-2">
+                <div className="text-3xl md:text-4xl font-light text-[#cc5a1f] mb-2">
                   {stat.value}
                 </div>
-                <div className="text-xs font-medium text-gray-400 tracking-wide uppercase">
+                <div className="text-xs font-medium text-[#666666] tracking-wide uppercase">
                   {stat.label}
                 </div>
               </div>
