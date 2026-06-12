@@ -207,7 +207,7 @@ export default function Navbar() {
               style={navFontStyle}
             >
               <span className="h-2.5 w-2.5 rounded-full bg-orange-500" />
-              <span>Contact Me</span>
+              <span>contact me</span>
             </button>
           </div>
         </div>
