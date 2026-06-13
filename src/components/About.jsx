@@ -50,11 +50,12 @@ export default function AboutMe() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center px-6">
                   <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[#cc5a1f]/10 flex items-center justify-center text-[#cc5a1f] text-xs font-semibold uppercase tracking-widest">
-                    Image
+                    <img
+                      src="/assets/about-me.jpg"
+                      alt="Jose"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
                   </div>
-                  <p className="text-sm text-[#666666]">
-                    Placeholder for an about photo
-                  </p>
                 </div>
               </div>
             </div>

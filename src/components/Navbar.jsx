@@ -170,7 +170,7 @@ export default function Navbar() {
         <div className="relative flex w-full items-start px-0 pt-0 pb-2">
           <button
             onClick={(e) => handleNavClick(e, 'home')}
-            className="absolute left-0 top-0 font-bold leading-none text-black"
+            className="absolute left-3 top-3 font-bold leading-none text-black"
             style={{ ...logoFontStyle, fontSize: '1.45rem', marginLeft: '0', marginTop: '0' }}
             aria-label="Go to home"
           >
