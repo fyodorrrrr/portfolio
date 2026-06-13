@@ -40,7 +40,7 @@ export default function Contact() {
             </a>
 
             <a 
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/jose-aquino-a16884382/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-6 rounded-xl hover:bg-[#f0ede6] transition-all duration-300 group text-center shadow-sm"
