@@ -27,7 +27,7 @@ export default function Contact() {
           {/* Quick Contact Options */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <a 
-              href="mailto:your@email.com"
+              href="mailto:aquinojxse@email.com"
               className="bg-white p-6 rounded-xl hover:bg-[#f0ede6] transition-all duration-300 group text-center shadow-sm"
             >
                 <div className="w-12 h-12 bg-[#cc5a1f]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#cc5a1f]/20 transition-colors duration-300">
@@ -36,7 +36,7 @@ export default function Contact() {
                 </svg>
               </div>
               <h3 className="text-[#111111] font-medium mb-2 font-heading">Email Me</h3>
-              <p className="text-[#666666] text-sm">your@email.com</p>
+              <p className="text-[#666666] text-sm">aquinojxse@email.com</p>
             </a>
 
             <a 
