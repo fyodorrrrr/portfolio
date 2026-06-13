@@ -13,13 +13,6 @@ export default function AboutMe() {
           </div>
 
           <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
-
-          <a
-            href="#skills"
-            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
-          >
-            View skills →
-          </a>
         </div>
 
         {/* Content Container */}

@@ -8,18 +8,11 @@ export default function Contact() {
           <div className="flex items-center gap-3 shrink-0">
             <span className="text-4xl sm:text-5xl font-semibold leading-none text-[#0f172a] font-heading">/</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-none text-[#0f172a] font-heading">
-              Contact
+              contact me
             </h2>
           </div>
 
           <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
-
-          <a
-            href="#home"
-            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
-          >
-            Back to top →
-          </a>
         </div>
 
         <div className="text-center mb-16">

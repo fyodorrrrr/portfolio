@@ -56,12 +56,6 @@ export default function Skills() {
 
           <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
 
-          <a
-            href="#projects"
-            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
-          >
-            View projects →
-          </a>
         </div>
 
         {/* Skills Grid with cards and icons */}
