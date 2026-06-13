@@ -44,7 +44,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div 
               key={project.id}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center  ${
                 index % 2 === 1 ? 'lg:grid-flow-dense' : ''
               }`}
             >
@@ -96,11 +96,11 @@ export default function Projects() {
                     )}
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-medium text-white font-heading">
+                  <h3 className="text-2xl md:text-3xl font-medium font-heading text-[#111111]">
                     {project.title}
                   </h3>
                   
-                  <p className="text-gray-300 text-lg font-light leading-relaxed">
+                  <p className="text-gray-400 text-lg font-light leading-relaxed">
                     {project.description}
                   </p>
                 </div>
