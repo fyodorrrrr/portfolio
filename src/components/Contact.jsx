@@ -3,11 +3,26 @@ export default function Contact() {
     <section id="contact" className="min-h-screen bg-[#f2f0ea] text-[#111111] py-20 px-4 font-sans">
       <div className="max-w-4xl mx-auto">
         
-        {/* Simplified Header */}
+        {/* Header */}
+        <div className="mb-16 flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-4xl sm:text-5xl font-semibold leading-none text-[#0f172a] font-heading">/</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-none text-[#0f172a] font-heading">
+              Contact
+            </h2>
+          </div>
+
+          <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
+
+          <a
+            href="#home"
+            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
+          >
+            Back to top →
+          </a>
+        </div>
+
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light text-[#111111] mb-6 font-heading">
-            Let's Work Together
-          </h2>
           <p className="text-[#555555] text-lg font-light max-w-2xl mx-auto">
             Have a project in mind or just want to chat? Drop me a message and I'll get back to you within 24 hours.
           </p>

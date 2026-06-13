@@ -45,15 +45,23 @@ export default function Skills() {
     <section id="skills" className="min-h-screen bg-[#f2f0ea] text-[#111111] flex items-center py-20 px-4 font-sans">
       <div className="max-w-6xl mx-auto w-full">
         
-        {/* Header with improved hierarchy */}
-        <div className="text-center mb-16">
-          <p className="text-[#cc5a1f] text-sm font-medium tracking-widest uppercase mb-4 opacity-90">
-            Expertise & Capabilities
-          </p>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6 font-heading">
-            Technical Skills
-          </h2>
-          <div className="w-20 h-1 bg-[#cc5a1f] mx-auto"></div>
+        {/* Header */}
+        <div className="mb-16 flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-4xl sm:text-5xl font-semibold leading-none text-[#0f172a] font-heading">/</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-none text-[#0f172a] font-heading">
+              skills
+            </h2>
+          </div>
+
+          <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
+
+          <a
+            href="#projects"
+            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
+          >
+            View projects →
+          </a>
         </div>
 
         {/* Skills Grid with cards and icons */}

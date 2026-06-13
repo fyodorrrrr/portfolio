@@ -27,14 +27,22 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-20">
-          <p className="text-[#cc5a1f] text-sm font-medium tracking-wider uppercase mb-4">
-            My Recent Work
-          </p>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-[#111111] font-heading">
-            Projects
-          </h2>
-          <div className="w-16 h-px bg-[#cc5a1f] mx-auto mt-8"></div>
+        <div className="mb-20 flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-4xl sm:text-5xl font-semibold leading-none text-[#0f172a] font-heading">/</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-none text-[#0f172a] font-heading">
+              projects
+            </h2>
+          </div>
+
+          <div className="h-px flex-1 bg-black/15 mt-2 sm:mt-3" />
+
+          <a
+            href="#contact"
+            className="shrink-0 text-sm sm:text-base font-medium text-[#cc5a1f] transition hover:opacity-75"
+          >
+            View contact →
+          </a>
         </div>
 
         {/* Projects Grid */}
