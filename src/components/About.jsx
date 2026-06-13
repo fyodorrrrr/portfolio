@@ -1,7 +1,7 @@
 export default function AboutMe() {
   return (
-    <section id="about" className="w-full bg-[#ece9e2] text-[#111111] py-20 px-4 sm:px-8 font-sans">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="w-full min-h-screen bg-[#ece9e2] text-[#111111] py-20 px-4 sm:px-8 font-sans flex items-center">
+      <div className="max-w-6xl mx-auto w-full">
         
         {/* Section Header - Matches Skills section style */}
         <div className="text-center mb-16">
@@ -15,9 +15,9 @@ export default function AboutMe() {
         </div>
 
         {/* Content Container */}
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col items-start">
           {/* Text Content */}
-          <div className="lg:w-7/12 space-y-8">
+          <div className="w-full space-y-8">
             <p className="text-[#4f4f4f] text-lg leading-relaxed max-w-3xl">
               A computer science student passionate about creating elegant, efficient, and user-friendly digital solutions. I enjoy exploring web development, AI & machine learning, and turning ideas into functional projects that make an impact.
             </p>
@@ -39,53 +39,6 @@ export default function AboutMe() {
               <div className="flex items-start space-x-3">
                 <div className="w-2 h-2 bg-[#cc5a1f] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[#555555]">User-centered design approach</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Expertise Cards - Matches Skills section style */}
-          <div className="lg:w-5/12">
-            <div className="grid grid-cols-1 gap-6">
-                <div className="bg-[#f8f6f1] p-6 rounded-xl border-l-4 border-[#cc5a1f] shadow-sm">
-                <div className="flex items-center mb-4">
-                    <div className="w-8 h-8 bg-[#cc5a1f]/10 rounded-lg flex items-center justify-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#cc5a1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg text-[#111111] font-heading">Web Development</h3>
-                </div>
-                  <p className="text-[#555555] text-sm">
-                  Building responsive, scalable web applications using modern frameworks and best practices.
-                </p>
-              </div>
-              
-                <div className="bg-[#f8f6f1] p-6 rounded-xl border-l-4 border-[#cc5a1f] shadow-sm">
-                <div className="flex items-center mb-4">
-                    <div className="w-8 h-8 bg-[#cc5a1f]/10 rounded-lg flex items-center justify-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#cc5a1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg text-[#111111] font-heading">AI & Machine Learning</h3>
-                </div>
-                  <p className="text-[#555555] text-sm">
-                  Experimenting with AI models and applying ML techniques to solve real-world challenges.
-                </p>
-              </div>
-              
-                <div className="bg-[#f8f6f1] p-6 rounded-xl border-l-4 border-[#cc5a1f] shadow-sm">
-                <div className="flex items-center mb-4">
-                    <div className="w-8 h-8 bg-[#cc5a1f]/10 rounded-lg flex items-center justify-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#cc5a1f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg text-[#111111] font-heading">Problem Solving</h3>
-                </div>
-                  <p className="text-[#555555] text-sm">
-                  Tackling complex problems algorithmically and optimizing solutions efficiently.
-                </p>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ export default function Skills() {
         </div>
 
         {/* Skills Grid with cards and icons */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
             <div 
               key={index} 
@@ -91,39 +91,6 @@ export default function Skills() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Stats Section with improved design */}
-        <div className="bg-[#f8f6f1] rounded-2xl p-8 md:p-10 shadow-xl">
-          <div className="text-center mb-10">
-              <h3 className="text-2xl font-semibold text-[#111111] mb-2 font-heading">
-              By the Numbers
-            </h3>
-              <p className="text-[#666666] max-w-md mx-auto">
-              A quantitative look at my experience and learning journey
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { value: "10+", label: "Projects Completed", icon: <BsLightningChargeFill className="text-yellow-400" /> },
-              { value: "2+", label: "Years Learning", icon: <FaCode className="text-blue-400" /> },
-              { value: "10+", label: "Technologies", icon: <FaReact className="text-emerald-400" /> },
-              { value: "∞", label: "Continuous Learning", icon: <BsInfinity className="text-purple-400" /> }
-            ].map((stat, index) => (
-                <div key={index} className="text-center p-5 bg-white rounded-xl hover:bg-[#f0ede6] transition-all duration-300 hover:-translate-y-1 shadow-sm">
-                <div className="w-10 h-10 mx-auto mb-4 rounded-full bg-[#f0ede6] flex items-center justify-center">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl md:text-4xl font-light text-[#cc5a1f] mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-xs font-medium text-[#666666] tracking-wide uppercase">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
       </div>

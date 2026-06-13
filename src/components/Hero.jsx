@@ -9,11 +9,11 @@ export default function Hero() {
           {/* Left Side - Text */}
           <div className="space-y-6 text-left order-2 lg:order-1">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-medium leading-tight font-heading">
-              Hey{' '}
-              <span className="text-[#cc5a1f] font-bold italic">I'm Jose</span>
+              hey{' '}
+              <span className="text-[#cc5a1f] font-bold italic">i'm jose</span>
               ,<br className="hidden sm:block" />
               <span className="block mt-2 lg:mt-0">
-                A computer science student.
+                a computer science student.
               </span>
             </h1>
               <p className="text-[#555555] text-base sm:text-lg font-medium max-w-lg leading-relaxed">
