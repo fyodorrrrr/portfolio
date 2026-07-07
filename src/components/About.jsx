@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutMe() {
   return (
     <section id="about" className="w-full min-h-screen bg-[#ece9e2] text-[#111111] pt-28 pb-20 px-4 sm:px-8 font-sans">
@@ -47,17 +49,13 @@ export default function AboutMe() {
           {/* Image Placeholder */}
           <div className="w-full lg:w-5/12 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-3xl border border-black/10 bg-[#f8f6f1] shadow-lg overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center px-6">
-                  <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[#cc5a1f]/10 flex items-center justify-center text-[#cc5a1f] text-xs font-semibold uppercase tracking-widest">
-                    <img
-                      src="/assets/about-me.jpg"
-                      alt="Jose"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
+              <Image
+                src="/assets/about-me.jpg"
+                alt="Jose"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function Hero() {
   return (
     <section id="home" className="w-full min-h-screen flex items-center justify-center bg-[#f2f0ea] text-[#111111] py-12 lg:py-0 font-sans">
@@ -43,10 +45,13 @@ export default function Hero() {
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
               {/* Full-size image as background */}
-              <img
+              <Image
                 src="/assets/port_jose.jpg"
                 alt="Jose"
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
               
               {/* Decorative elements */}

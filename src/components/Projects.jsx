@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Projects() {
   const projects = [
     {
@@ -5,7 +7,7 @@ export default function Projects() {
       title: "Haul Thrift Shop",
       description: "A mobile thrift shop application built with Flutter and Firebase, featuring buyer and seller flows, wishlist, checkout, and real-time updates.",
       tech: ["Flutter", "Dart", "Firebase", "Firestore", "Provider"],
-      image: "assets/HAUL.png", 
+      image: "/assets/HAUL.png",
       github: "https://github.com/fyodorrrrr/haul-app",   // You can replace with your GitHub repo link if public
       demo: "#",     // Replace with demo video or APK download if available
       featured: true
@@ -15,7 +17,7 @@ export default function Projects() {
       title: "Portfolio Website",
       description: "Personal portfolio built with React, Tailwind CSS, and Next.js showcasing projects and skills with modern UI.",
       tech: ["Next.js", "React", "Tailwind CSS"],
-      image: "assets/port.png",
+      image: "/assets/port.png",
       github: "#",
       demo: "#",
       featured: false
@@ -52,11 +54,13 @@ export default function Projects() {
               {/* Project Image */}
               <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                 <div className="relative group cursor-pointer">
-                  <div className="aspect-video bg-white rounded-xl overflow-hidden border border-black/10 shadow-lg">
-                    <img 
+                  <div className="relative aspect-video bg-white rounded-xl overflow-hidden border border-black/10 shadow-lg">
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   
