@@ -36,3 +36,7 @@ Path alias `@/*` maps to `src/*` (see `jsconfig.json`); imports in the codebase 
 Content (bio text, skills list, project list, social links) is hardcoded directly inside each component — there is no CMS, JSON data file, or MDX source. Update copy by editing the relevant component in `src/components/`.
 
 Images referenced by components live in `public/assets/` and are loaded via plain `<img>` tags (not `next/image`).
+
+## Git commits
+
+Do not add a `Co-Authored-By: Claude ...` (or any AI attribution) line to commit messages in this repo.

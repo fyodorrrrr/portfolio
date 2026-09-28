@@ -1,5 +1,9 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Link from "next/link";
 import SectionHeading from "./SectionHeading";
+import CredentialModal from "./CredentialModal";
 import { credentials } from "@/data/credentials";
 
 function groupByCategory(items) {
@@ -15,8 +19,9 @@ function groupByCategory(items) {
   return groups;
 }
 
-function CredentialRow({ credential }) {
-  const hasView = Boolean(credential.slug || credential.verifyUrl);
+function CredentialRow({ credential, onOpenModal }) {
+  const triggerRef = useRef(null);
+  const hasView = Boolean(credential.slug || credential.image || credential.verifyUrl);
 
   const inner = (
     <>
@@ -43,6 +48,19 @@ function CredentialRow({ credential }) {
     );
   }
 
+  if (credential.image) {
+    return (
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={() => onOpenModal(credential, triggerRef)}
+        className="credential-row"
+      >
+        {inner}
+      </button>
+    );
+  }
+
   if (credential.verifyUrl) {
     return (
       <a href={credential.verifyUrl} target="_blank" rel="noreferrer" className="credential-row">
@@ -56,6 +74,14 @@ function CredentialRow({ credential }) {
 
 export default function Credentials() {
   const groups = groupByCategory(credentials);
+  const [openCredential, setOpenCredential] = useState(null);
+  const activeTriggerRef = useRef(null);
+
+  const handleOpenModal = (credential, triggerRef) => {
+    activeTriggerRef.current = triggerRef.current;
+    setOpenCredential(credential);
+  };
+  const handleCloseModal = () => setOpenCredential(null);
 
   return (
     <section id="credentials" className="entry" data-reveal>
@@ -69,11 +95,15 @@ export default function Credentials() {
               <span className="rule" aria-hidden="true" />
             </div>
             {group.items.map((credential) => (
-              <CredentialRow credential={credential} key={credential.title} />
+              <CredentialRow credential={credential} key={credential.title} onOpenModal={handleOpenModal} />
             ))}
           </div>
         ))}
       </div>
+
+      {openCredential && (
+        <CredentialModal credential={openCredential} onClose={handleCloseModal} triggerRef={activeTriggerRef} />
+      )}
     </section>
   );
 }
