@@ -2,13 +2,13 @@ import "./globals.css";
 
 export const metadata = {
   metadataBase: new URL("https://example.com"),
-  title: "Jose Aquino — Computer Science Student & Developer",
+  title: "Jose Aquino — Software Engineer",
   description:
-    "Portfolio of Jose Aquino, a computer science student building web and mobile apps with React, Next.js, and Flutter.",
+    "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
   openGraph: {
-    title: "Jose Aquino — Computer Science Student & Developer",
+    title: "Jose Aquino — Software Engineer",
     description:
-      "Portfolio of Jose Aquino, a computer science student building web and mobile apps with React, Next.js, and Flutter.",
+      "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
     images: ["/assets/port_jose.jpg"],
   },
 };

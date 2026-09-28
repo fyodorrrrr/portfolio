@@ -6,9 +6,8 @@ import SocialLinks from "./SocialLinks";
 const navItems = [
   { id: "home", label: "home" },
   { id: "about", label: "about" },
-  { id: "background", label: "background" },
-  { id: "skills", label: "skills" },
   { id: "projects", label: "projects" },
+  { id: "credentials", label: "credentials" },
   { id: "contact", label: "contact" },
 ];
 
@@ -16,6 +15,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const scrollingRef = useRef(false);
+  const topbarRef = useRef(null);
+  const toggleRef = useRef(null);
+  const firstMobileLinkRef = useRef(null);
 
   const handleScroll = () => {
     if (scrollingRef.current) return;
@@ -49,6 +51,35 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const mainEl = document.querySelector("main");
+    mainEl?.setAttribute("inert", "");
+    firstMobileLinkRef.current?.focus();
+
+    const closeAndRefocus = () => {
+      setIsOpen(false);
+      toggleRef.current?.focus();
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") closeAndRefocus();
+    };
+    const handleClickOutside = (e) => {
+      if (topbarRef.current && !topbarRef.current.contains(e.target)) {
+        closeAndRefocus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      mainEl?.removeAttribute("inert");
+    };
+  }, [isOpen]);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (!element) return;
@@ -63,63 +94,56 @@ export default function Navbar() {
   };
 
   const handleNavClick = (e, sectionId) => {
+    if (e.metaKey || e.ctrlKey || e.button === 1) return;
     e.preventDefault();
     scrollToSection(sectionId);
   };
 
   return (
-    <div className="topbar">
-      <button onClick={(e) => handleNavClick(e, "home")} className="topbar-mark" aria-label="Go to home">
-        jose<span>.</span>
-      </button>
+    <header className="topbar" ref={topbarRef}>
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <div className="topbar-inner">
+        <nav className="topbar-index">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={(e) => handleNavClick(e, item.id)}
+              className={activeSection === item.id ? "active" : ""}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-      <nav className="topbar-index">
-        {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            onClick={(e) => handleNavClick(e, item.id)}
-            className={activeSection === item.id ? "active" : ""}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
+        <div className="topbar-actions">
+          <SocialLinks className="flex gap-4 social" iconClassName="w-[17px] h-[17px]" />
+        </div>
 
-      <div className="topbar-actions">
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noreferrer"
-          className="eyebrow hover:text-[var(--rust)] transition-colors duration-200"
+        <button
+          ref={toggleRef}
+          onClick={() => setIsOpen(!isOpen)}
+          className="mobile-toggle"
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
-          Résumé ↗
-        </a>
-        <SocialLinks className="flex gap-4 social" iconClassName="w-[17px] h-[17px]" />
-        <span className="eyebrow">Manila, PH — GMT+8</span>
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
       </div>
-
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="mobile-toggle"
-        aria-label="Toggle menu"
-        aria-expanded={isOpen}
-      >
-        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {isOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
 
       {isOpen && (
         <div className="mobile-panel">
           <nav className="mobile-panel-index">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <a
                 key={item.id}
+                ref={index === 0 ? firstMobileLinkRef : undefined}
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
                 className={activeSection === item.id ? "active" : ""}
@@ -128,17 +152,9 @@ export default function Navbar() {
               </a>
             ))}
           </nav>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="eyebrow hover:text-[var(--rust)] transition-colors duration-200"
-          >
-            Résumé ↗
-          </a>
           <SocialLinks className="flex gap-5" />
         </div>
       )}
-    </div>
+    </header>
   );
 }

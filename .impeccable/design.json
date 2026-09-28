@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-28T16:30:00Z",
+  "title": "Design System: Jose Aquino — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "pine-ink": {
+        "role": "primary",
+        "displayName": "Pine Ink",
+        "canonical": "oklch(35% 0.05 155)",
+        "tonalRamp": [
+          "oklch(15% 0.025 155)",
+          "oklch(25% 0.04 155)",
+          "oklch(35% 0.05 155)",
+          "oklch(45% 0.05 155)",
+          "oklch(58% 0.045 155)",
+          "oklch(70% 0.035 155)",
+          "oklch(85% 0.02 155)",
+          "oklch(95% 0.008 155)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(97% 0.003 90)",
+        "tonalRamp": [
+          "oklch(15% 0.002 90)",
+          "oklch(28% 0.002 90)",
+          "oklch(42% 0.002 90)",
+          "oklch(56% 0.002 90)",
+          "oklch(70% 0.003 90)",
+          "oklch(84% 0.003 90)",
+          "oklch(92% 0.003 90)",
+          "oklch(97% 0.003 90)"
+        ]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Pure White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(30% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(75% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(100% 0 0)"
+        ]
+      },
+      "near-black-ink": {
+        "role": "neutral",
+        "displayName": "Near-Black Ink",
+        "canonical": "oklch(20% 0 0)",
+        "tonalRamp": [
+          "oklch(10% 0 0)",
+          "oklch(20% 0 0)",
+          "oklch(32% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(58% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(86% 0 0)",
+          "oklch(96% 0 0)"
+        ]
+      },
+      "soft-graphite": {
+        "role": "neutral",
+        "displayName": "Soft Graphite",
+        "canonical": "oklch(48% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(28% 0 0)",
+          "oklch(40% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(74% 0 0)",
+          "oklch(87% 0 0)",
+          "oklch(96% 0 0)"
+        ]
+      },
+      "faint-ink": {
+        "role": "neutral",
+        "displayName": "Faint Ink",
+        "canonical": "oklch(45% 0 0 / 62%)",
+        "tonalRamp": [
+          "oklch(15% 0 0 / 62%)",
+          "oklch(28% 0 0 / 62%)",
+          "oklch(40% 0 0 / 62%)",
+          "oklch(45% 0 0 / 62%)",
+          "oklch(58% 0 0 / 62%)",
+          "oklch(72% 0 0 / 62%)",
+          "oklch(86% 0 0 / 62%)",
+          "oklch(96% 0 0 / 62%)"
+        ]
+      },
+      "hairline-grey": {
+        "role": "neutral",
+        "displayName": "Hairline Grey",
+        "canonical": "oklch(91% 0.002 90)",
+        "tonalRamp": [
+          "oklch(20% 0.002 90)",
+          "oklch(35% 0.002 90)",
+          "oklch(50% 0.002 90)",
+          "oklch(65% 0.002 90)",
+          "oklch(78% 0.002 90)",
+          "oklch(91% 0.002 90)",
+          "oklch(96% 0.002 90)",
+          "oklch(99% 0.001 90)"
+        ]
+      },
+      "ghost-divider": {
+        "role": "neutral",
+        "displayName": "Ghost Divider",
+        "canonical": "oklch(20% 0 0 / 6%)",
+        "tonalRamp": [
+          "oklch(10% 0 0 / 6%)",
+          "oklch(20% 0 0 / 6%)",
+          "oklch(32% 0 0 / 6%)",
+          "oklch(45% 0 0 / 6%)",
+          "oklch(58% 0 0 / 6%)",
+          "oklch(72% 0 0 / 6%)",
+          "oklch(86% 0 0 / 6%)",
+          "oklch(96% 0 0 / 6%)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only, and the smaller case-study page title clamp." },
+      "headline": { "displayName": "Headline / Dateline", "purpose": "Section headings (About, Projects, Contact). Requests weight 600 but has no matching face, so it renders as the Bold 700 face — visually identical in weight to Display." },
+      "title": { "displayName": "Title / Lede", "purpose": "The opening lede paragraph directly under a section heading." },
+      "body": { "displayName": "Body", "purpose": "Section descriptions, project captions, case-study copy. Book weight (450) throughout." },
+      "label": { "displayName": "Label", "purpose": "Eyebrow labels, tags, buttons, nav metadata — anything functional rather than prose. Uses the same Helixa family as prose; marked as functional by uppercase case and letter-spacing, not a separate mono font (retired from the prior ui-monospace stack)." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-standard", "value": "ease .2s", "purpose": "Default transition for hover/focus color, border, and gap changes." },
+      { "name": "reveal-rise", "value": "translateY(14px) → translateY(0), opacity 0 → 1, ease .6s", "purpose": "One-shot scroll-triggered section entrance; skipped entirely under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "carousel-mobile", "value": "640px" },
+      { "name": "nav-inline", "value": "720px" },
+      { "name": "content-grid-stack", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid filled submit button — the contact form's only primary action.",
+      "html": "<button class=\"ds-btn-primary\">Send note →</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:.6rem; background:var(--ink); color:var(--paper); border:none; padding:.85rem 1.6rem; font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:background .2s ease, gap .2s ease; } .ds-btn-primary:hover { gap:.95rem; } .ds-btn-primary:focus-visible { outline:2px solid var(--ink); outline-offset:3px; } .ds-btn-primary:disabled { opacity:.6; cursor:not-allowed; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Underline-style link CTA — hero's \"let's talk\" and case-study \"visit live site\" actions.",
+      "html": "<a href=\"#\" class=\"ds-btn-ghost\"><span>let's talk</span><span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-btn-ghost { display:inline-flex; align-items:center; gap:.65rem; font-size:.95rem; letter-spacing:.06em; text-transform:uppercase; font-family:'Helixa',Arial,Helvetica,sans-serif; color:var(--ink); text-decoration:none; padding-bottom:.4rem; border-bottom:1px solid var(--ink); transition:gap .2s ease; } .ds-btn-ghost:hover { gap:.9rem; } .ds-btn-ghost:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Tech-stack tag used in About and case-study pages — plain metadata, no selected/unselected state.",
+      "html": "<span class=\"ds-chip\">React</span>",
+      "css": ".ds-chip { font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.68rem; letter-spacing:.02em; padding:.3rem .55rem; border:1px solid var(--line); color:var(--ink-soft); display:inline-block; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Floating-label contact form field — borderless except a bottom hairline; label floats up on focus or once filled.",
+      "html": "<div class=\"ds-field\"><input type=\"text\" id=\"ds-name\" placeholder=\" \" /><label for=\"ds-name\">Your name</label></div>",
+      "css": ".ds-field { position:relative; margin-bottom:1.9rem; } .ds-field input { width:100%; background:transparent; border:none; border-bottom:1px solid var(--line); padding:.6rem 0; font-size:1rem; color:var(--ink); } .ds-field input:focus { outline:none; border-color:var(--ink); } .ds-field label { position:absolute; left:0; top:.6rem; font-size:.78rem; color:var(--ink-faint); letter-spacing:.01em; transition:all .18s ease; pointer-events:none; } .ds-field input:focus + label, .ds-field input:not(:placeholder-shown) + label { top:-.85rem; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Desktop nav item with an animated underline that scales in on hover/active.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link ds-nav-link--active\">projects</a><a href=\"#\" class=\"ds-nav-link\">contact</a></nav>",
+      "css": ".ds-nav { display:flex; align-items:center; gap:1.9rem; } .ds-nav-link { position:relative; padding:.3rem 0; font-size:.82rem; color:var(--ink-soft); text-decoration:none; transition:color .2s ease; } .ds-nav-link::after { content:''; position:absolute; left:0; bottom:-2px; width:100%; height:2px; background:var(--ink); transform:scaleX(0); transform-origin:left; transition:transform .2s ease; } .ds-nav-link:hover { color:var(--ink); } .ds-nav-link:hover::after { transform:scaleX(1); } .ds-nav-link--active { color:var(--ink); font-weight:700; } .ds-nav-link--active::after { transform:scaleX(1); }"
+    },
+    {
+      "name": "Plate (Card)",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Photo/screenshot frame — the system's only rounded, shadow-free \"raised\" surface. Shows an explicit uppercase Helixa placeholder when no real image exists.",
+      "html": "<div class=\"ds-plate\"><div class=\"ds-plate-placeholder\">Project Title</div></div>",
+      "css": ".ds-plate { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:var(--paper-deep); aspect-ratio:16/10; } .ds-plate-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:1rem; font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); }"
+    },
+    {
+      "name": "Footer",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature component: the system's one deliberate color inversion, marking the end of the page.",
+      "html": "<footer class=\"ds-footer\"><div class=\"ds-footer-brand\"><span>Jose</span><span class=\"ds-footer-sep\">|</span><span>© 2026</span></div></footer>",
+      "css": ".ds-footer { background:var(--ink); color:var(--paper); padding:2rem; display:flex; align-items:center; justify-content:space-between; font-weight:700; } .ds-footer-sep { opacity:.6; font-weight:400; margin:0 .5rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Masthead",
+    "overview": "This is a newspaper masthead's discipline applied to a practical-systems engineer's portfolio. The vocabulary is literally editorial — the codebase's own class names call section headers `.dateline` and the hero `.masthead` — but the discipline is what carries over, not the decoration. Dateline-style headings, small tracked-caps \"eyebrow\" labels, and hairline rules organize the page the way a broadsheet organizes a story: hierarchy through typography and rule-lines, not through color, shadow, or ornament.\n\nThe mood is quiet and restrained by construction: flat surfaces, square corners everywhere except photographic frames, borders instead of shadows, and exactly one accent color used so rarely it functions as punctuation rather than decoration. Nothing about this system is loud. Confidence comes from the display type's scale and the mono labels' certainty, not from visual noise.\n\nThe system also enforces an honesty constraint that started as a product principle and became a visual one: when a project has no real screenshot, the design shows an explicit uppercase mono placeholder inside the plate frame rather than a stock image or gradient standing in for content that doesn't exist yet. The visual system refuses to fake evidence.",
+    "keyCharacteristics": [
+      "Editorial structure (dateline headings, eyebrow labels, hairline dividers) borrowed from print, not screen-native card/shadow conventions",
+      "Flat by construction — no shadows anywhere in the system; depth comes from tonal contrast and hairline borders only",
+      "Square by default — 0px radius everywhere except two narrow exceptions (photo frames, icon-only circular controls)",
+      "One accent, used as punctuation — Pine Ink appears only as emphasized text, never as a background or state color",
+      "A single typeface (Helixa) throughout — functional text is marked by case and tracking, not by a separate mono font"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Pine Ink is the system's only chromatic color. If a second accent color is ever needed, that is a deliberate system change, not a per-component decision.", "section": "colors" },
+      { "name": "The No Fake Evidence Rule", "body": "A project plate without a real screenshot shows the uppercase mono placeholder treatment, never a substitute image, gradient, or icon.", "section": "colors" },
+      { "name": "The Case & Tracking Rule", "body": "Functional text (buttons, tags, labels, nav metadata) is marked as functional by uppercase case and letter-spacing, not by a separate typeface — the whole system runs on Helixa. This replaced a prior system-monospace stack that rendered as Consolas on most Windows/Chrome setups.", "section": "typography" },
+      { "name": "The Flat-By-Construction Rule", "body": "Do not introduce box-shadow to signal elevation or interactivity. A 'raised' surface gets a lighter background and/or a hairline border instead.", "section": "elevation" },
+      { "name": "The Two-Exception Rule", "body": "Radius exists only on photographic containers (12px) and icon-only round controls (50%). Every other component gets 0px radius.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep Pine Ink to text-only emphasis — never a background, border, or button fill.",
+      "Do default every new interactive element to 0px radius; only photo plates and icon-only round controls get an exception.",
+      "Do signal hover/interactivity through motion (gap widening, underline scale-in) rather than a background color swap.",
+      "Do use the uppercase/tracked treatment for anything functional — Helixa carries both prose and functional text now, so case and tracking are what mark the difference.",
+      "Do show the explicit placeholder treatment for a project without a real screenshot."
+    ],
+    "donts": [
+      "Don't add box-shadow anywhere to signal elevation.",
+      "Don't introduce a second accent color for a one-off emphasis need.",
+      "Don't let the nav's content go full-bleed — it shares the same content-max column as every section.",
+      "Don't fabricate a project's evidence (screenshots, repo links, metrics) to fill a visual gap."
+    ]
+  }
+}

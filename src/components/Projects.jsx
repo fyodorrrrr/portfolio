@@ -1,94 +1,122 @@
+"use client";
+
+import { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import SectionHeading from "./SectionHeading";
+import { projects } from "@/data/projects";
 
-export default function Projects() {
-  const projects = [
-    {
-      id: 1,
-      title: "Haul Thrift Shop",
-      description:
-        "A mobile thrift shop application built with Flutter and Firebase, featuring buyer and seller flows, wishlist, checkout, and real-time updates.",
-      challenge:
-        "[Describe the hardest technical problem you solved on this project and how you approached it]",
-      impact:
-        "[Describe the outcome, what you learned, or measurable impact of this project]",
-      tech: ["Flutter", "Dart", "Firebase", "Firestore", "Provider"],
-      image: "/assets/HAUL.png",
-      github: "https://github.com/fyodorrrrr/haul-app",
-      demo: "#",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Portfolio Website",
-      description:
-        "Personal portfolio built with React, Tailwind CSS, and Next.js showcasing projects and skills with modern UI.",
-      challenge:
-        "[Describe the hardest technical problem you solved on this project and how you approached it]",
-      impact:
-        "[Describe the outcome, what you learned, or measurable impact of this project]",
-      tech: ["Next.js", "React", "Tailwind CSS"],
-      image: "/assets/port.png",
-      github: "#",
-      demo: "#",
-      featured: false,
-    },
-  ];
-
+function ProjectPanel({ project, isClone }) {
   return (
-    <section id="projects" className="entry" data-reveal>
-      <div className="dateline">
-        <span className="slash">/</span>
-        <h2>projects</h2>
-        <span className="rule"></span>
+    <Link
+      href={`/projects/${project.slug}`}
+      className="project-panel"
+      aria-hidden={isClone ? "true" : undefined}
+      tabIndex={isClone ? -1 : undefined}
+    >
+      <div className="plate project-plate aspect-[2/1]">
+        {project.image ? (
+          <Image
+            src={project.image.src}
+            alt={project.title}
+            width={project.image.width}
+            height={project.image.height}
+            sizes="(max-width: 900px) 88vw, 60rem"
+            className="rounded-lg"
+          />
+        ) : (
+          <div className="plate-placeholder mono">{project.title}</div>
+        )}
       </div>
 
-      {projects.map((project, index) => (
-        <div className="case" key={project.id}>
-          <div className="plate case-plate aspect-[4/3]">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes="(max-width: 900px) 100vw, 45vw"
-              className="object-cover"
-            />
-          </div>
+      <div className="project-caption">
+        <h3>{project.title}</h3>
+        <p>{project.caption}</p>
+      </div>
+    </Link>
+  );
+}
 
-          <div>
-            <div className="case-index">
-              <span className="mono">Work {String(index + 1).padStart(2, "0")}</span>
-              {project.featured && <span className="status">Featured</span>}
-            </div>
+function findCenteredIndex(track, panels) {
+  const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+  panels.forEach((panel, i) => {
+    const rect = panel.getBoundingClientRect();
+    const distance = Math.abs(rect.left + rect.width / 2 - trackCenter);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = i;
+    }
+  });
+  return closestIndex;
+}
 
-            <h3>{project.title}</h3>
-            <p className="desc">{project.description}</p>
+export default function Projects() {
+  const trackRef = useRef(null);
+  const n = projects.length;
 
-            <div className="case-note">
-              <span className="eyebrow">Challenge</span>
-              <p>{project.challenge}</p>
-            </div>
-            <div className="case-note">
-              <span className="eyebrow">Impact</span>
-              <p>{project.impact}</p>
-            </div>
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-            <div className="case-tech">
-              {project.tech.map((tech) => (
-                <span key={tech}>{tech}</span>
-              ))}
-            </div>
+    // Center the first real panel on load (index 1: index 0 is the cloned last panel).
+    const initialPanels = Array.from(track.querySelectorAll(".project-panel"));
+    initialPanels[1]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
 
-            <div className="case-links">
-              {project.github !== "#" && (
-                <a href={project.github} target="_blank" rel="noreferrer">View code →</a>
-              )}
-              {project.demo !== "#" && (
-                <a href={project.demo} target="_blank" rel="noreferrer">Live demo →</a>
-              )}
-            </div>
-          </div>
+    let settleTimeout;
+    const handleScroll = () => {
+      clearTimeout(settleTimeout);
+      settleTimeout = setTimeout(() => {
+        const panels = Array.from(track.querySelectorAll(".project-panel"));
+        const centeredIndex = findCenteredIndex(track, panels);
+        if (centeredIndex === 0) {
+          // Landed on the cloned last panel — silently re-center the real last panel.
+          panels[panels.length - 2]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
+        } else if (centeredIndex === panels.length - 1) {
+          // Landed on the cloned first panel — silently re-center the real first panel.
+          panels[1]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
+        }
+      }, 120);
+    };
+
+    track.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      clearTimeout(settleTimeout);
+      track.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollByPanel = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const panels = Array.from(track.querySelectorAll(".project-panel"));
+    if (panels.length === 0) return;
+
+    const currentIndex = findCenteredIndex(track, panels);
+    const targetIndex = currentIndex + direction;
+    if (targetIndex < 0 || targetIndex >= panels.length) return;
+    panels[targetIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
+
+  return (
+    <section id="projects" className="entry projects-entry" data-reveal>
+      <SectionHeading description="A few things I've built across software, AI, and data.">selected work</SectionHeading>
+
+      <div className="project-carousel">
+        <div className="project-track" ref={trackRef}>
+          <ProjectPanel project={projects[n - 1]} isClone />
+          {projects.map((project) => (
+            <ProjectPanel project={project} key={project.slug} />
+          ))}
+          <ProjectPanel project={projects[0]} isClone />
         </div>
-      ))}
+      </div>
+
+      <div className="project-nav">
+        <button onClick={() => scrollByPanel(-1)} aria-label="Previous project">‹</button>
+        <button onClick={() => scrollByPanel(1)} aria-label="Next project">›</button>
+      </div>
     </section>
   );
 }

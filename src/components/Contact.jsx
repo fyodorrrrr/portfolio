@@ -1,11 +1,43 @@
+"use client";
+
+import { useState } from "react";
+import SectionHeading from "./SectionHeading";
+
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/aquinojxse@gmail.com";
+
 export default function Contact() {
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    // Honeypot: bots fill every field, humans never see this one.
+    if (form._honey.value) return;
+
+    setStatus("sending");
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+          _subject: `Portfolio contact from ${form.name.value}`,
+        }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
-    <section id="contact" className="entry alt" data-reveal>
-      <div className="dateline">
-        <span className="slash">/</span>
-        <h2>contact me</h2>
-        <span className="rule"></span>
-      </div>
+    <section id="contact" className="entry" data-reveal>
+      <SectionHeading description="Open to opportunities, collaborations, and the occasional good conversation.">contact me</SectionHeading>
 
       <div className="contact-grid">
         <div>
@@ -29,20 +61,30 @@ export default function Contact() {
           </div>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit} noValidate>
+          <input type="text" name="_honey" tabIndex="-1" autoComplete="off" className="hidden" aria-hidden="true" />
+
           <div className="form-field">
-            <input type="text" placeholder=" " required />
-            <label>Your name</label>
+            <input id="contact-name" type="text" name="name" placeholder=" " required disabled={status === "sending"} />
+            <label htmlFor="contact-name">Your name</label>
           </div>
           <div className="form-field">
-            <input type="email" placeholder=" " required />
-            <label>Your email</label>
+            <input id="contact-email" type="email" name="email" placeholder=" " required disabled={status === "sending"} />
+            <label htmlFor="contact-email">Your email</label>
           </div>
           <div className="form-field">
-            <textarea rows="4" placeholder=" " required></textarea>
-            <label>What are you building?</label>
+            <textarea id="contact-message" name="message" rows="4" placeholder=" " required disabled={status === "sending"}></textarea>
+            <label htmlFor="contact-message">What are you building?</label>
           </div>
-          <button type="submit" className="form-submit">Send note →</button>
+
+          <button type="submit" className="form-submit" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Send note →"}
+          </button>
+
+          <p className="form-status" role="status" aria-live="polite">
+            {status === "sent" && "Thanks — I'll get back to you within a day."}
+            {status === "error" && "Something went wrong. Try again, or email me directly."}
+          </p>
         </form>
       </div>
     </section>

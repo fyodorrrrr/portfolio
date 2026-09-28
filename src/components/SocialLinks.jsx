@@ -5,7 +5,7 @@ export default function SocialLinks({ className = "flex gap-5", iconClassName = 
         href="https://github.com/fyodorrrrr"
         target="_blank"
         rel="noreferrer"
-        className="hover:text-[#cc5a1f] transition-colors duration-200"
+        className="hover:opacity-60 transition-opacity duration-200"
         aria-label="GitHub"
       >
         <svg className={iconClassName} fill="currentColor" viewBox="0 0 24 24">
@@ -16,7 +16,7 @@ export default function SocialLinks({ className = "flex gap-5", iconClassName = 
         href="https://www.linkedin.com/in/jose-aquino-a16884382/"
         target="_blank"
         rel="noreferrer"
-        className="hover:text-[#cc5a1f] transition-colors duration-200"
+        className="hover:opacity-60 transition-opacity duration-200"
         aria-label="LinkedIn"
       >
         <svg className={iconClassName} fill="currentColor" viewBox="0 0 24 24">
@@ -25,7 +25,7 @@ export default function SocialLinks({ className = "flex gap-5", iconClassName = 
       </a>
       <a
         href="mailto:aquinojxse@gmail.com"
-        className="hover:text-[#cc5a1f] transition-colors duration-200"
+        className="hover:opacity-60 transition-opacity duration-200"
         aria-label="Email"
       >
         <svg className={iconClassName} fill="currentColor" viewBox="0 0 24 24">

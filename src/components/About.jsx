@@ -1,25 +1,33 @@
+import SectionHeading from "./SectionHeading";
+
 export default function AboutMe() {
   return (
     <section id="about" className="entry" data-reveal>
-      <div className="dateline">
-        <span className="slash">/</span>
-        <h2>about me</h2>
-        <span className="rule"></span>
-      </div>
+      <SectionHeading description="A quick introduction before the specifics.">about me</SectionHeading>
 
       <div className="about-grid">
-        <p className="about-lede">
-          A computer science student passionate about creating{" "}
-          <strong>elegant, efficient, and user-friendly</strong> digital solutions. I enjoy
-          exploring web development, AI &amp; machine learning, and turning ideas into
-          functional projects that make an impact.
-        </p>
+        <div>
+          <p className="about-lede">
+            I'm a computer science student and <strong>DOST scholar</strong> at Laguna State Polytechnic University, building systems that combine <strong>practical engineering</strong> with applied AI and data.
+            <br />
+            <br />
+            Recent work spans a GIS-based agricultural decision-support platform, a multi-agent evaluation pipeline for small language models, and REST APIs and data models for a church management system built in Django and PostgreSQL.
+          </p>
+
+          <div className="about-stack">
+            <span className="eyebrow">Working with</span>
+            <div className="about-stack-tags">
+              {["React", "Next.js", "Node.js", "Python", "PostgreSQL", "Firebase", "Git"].map((tech) => (
+                <span key={tech}>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
 
         <div className="marginalia">
-          <div className="row"><span className="k">Focus</span><span className="v">Clean, maintainable code</span></div>
-          <div className="row"><span className="k">Driven by</span><span className="v">Learning new technologies</span></div>
-          <div className="row"><span className="k">Strength</span><span className="v">Problem-solving</span></div>
-          <div className="row"><span className="k">Approach</span><span className="v">User-centered design</span></div>
+          <div className="row"><span className="k">Currently</span><span className="v">Thesis on multi-agent LLM evaluation</span></div>
+          <div className="row"><span className="k">Location</span><span className="v">Laguna, Philippines</span></div>
+          <div className="row"><span className="k">Looking for</span><span className="v">Software engineering roles</span></div>
         </div>
       </div>
     </section>
