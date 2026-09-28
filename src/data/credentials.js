@@ -29,7 +29,7 @@ export const credentials = [
     issuer: "Pearson VUE",
     date: "2025",
     verifyUrl: null,
-    logo: null,
+    logo: "/assets/logo/pearson-vue.svg",
   },
   {
     category: "Recognition",
