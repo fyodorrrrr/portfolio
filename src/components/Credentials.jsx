@@ -1,108 +1,31 @@
-"use client";
-
-import { useRef, useState } from "react";
 import Link from "next/link";
 import SectionHeading from "./SectionHeading";
-import CredentialModal from "./CredentialModal";
+import CredentialsList from "./CredentialsList";
 import { credentials } from "@/data/credentials";
 
-function groupByCategory(items) {
-  const groups = [];
-  for (const item of items) {
-    let group = groups.find((g) => g.category === item.category);
-    if (!group) {
-      group = { category: item.category, items: [] };
-      groups.push(group);
-    }
-    group.items.push(item);
-  }
-  return groups;
-}
-
-function CredentialRow({ credential, onOpenModal }) {
-  const triggerRef = useRef(null);
-  const hasView = Boolean(credential.slug || credential.image || credential.verifyUrl);
-
-  const inner = (
-    <>
-      {credential.logo && (
-        <img src={credential.logo} alt="" aria-hidden="true" className="credential-watermark" />
-      )}
-
-      <span className="credential-year">{credential.date}</span>
-
-      <div className="credential-info">
-        <span className="credential-issuer eyebrow">{credential.issuer}</span>
-        <h3 className="credential-title">{credential.title}</h3>
-      </div>
-
-      {hasView && <span className="credential-view">view →</span>}
-    </>
-  );
-
-  if (credential.slug) {
-    return (
-      <Link href={`/credentials/${credential.slug}`} className="credential-row">
-        {inner}
-      </Link>
-    );
-  }
-
-  if (credential.image) {
-    return (
-      <button
-        ref={triggerRef}
-        type="button"
-        onClick={() => onOpenModal(credential, triggerRef)}
-        className="credential-row"
-      >
-        {inner}
-      </button>
-    );
-  }
-
-  if (credential.verifyUrl) {
-    return (
-      <a href={credential.verifyUrl} target="_blank" rel="noreferrer" className="credential-row">
-        {inner}
-      </a>
-    );
-  }
-
-  return <div className="credential-row credential-row--static">{inner}</div>;
-}
+const LIMIT_PER_CATEGORY = 2;
+const HIDDEN_ON_HOME = ["Paticipations & Events"];
 
 export default function Credentials() {
-  const groups = groupByCategory(credentials);
-  const [openCredential, setOpenCredential] = useState(null);
-  const activeTriggerRef = useRef(null);
+  const homeItems = credentials.filter((c) => !HIDDEN_ON_HOME.includes(c.category));
 
-  const handleOpenModal = (credential, triggerRef) => {
-    activeTriggerRef.current = triggerRef.current;
-    setOpenCredential(credential);
-  };
-  const handleCloseModal = () => setOpenCredential(null);
+  const counts = {};
+  for (const { category } of homeItems) counts[category] = (counts[category] ?? 0) + 1;
+  const hasMore =
+    homeItems.length < credentials.length || Object.values(counts).some((n) => n > LIMIT_PER_CATEGORY);
 
   return (
     <section id="credentials" className="entry" data-reveal>
       <SectionHeading description="Certifications, training, and recognition I've earned.">credentials</SectionHeading>
 
-      <div className="credentials-list">
-        {groups.map((group) => (
-          <div className="credentials-group" key={group.category}>
-            <div className="credentials-group-heading">
-              <span className="eyebrow">{group.category}</span>
-              <span className="rule" aria-hidden="true" />
-            </div>
-            {group.items.map((credential) => (
-              <CredentialRow credential={credential} key={credential.title} onOpenModal={handleOpenModal} />
-            ))}
-          </div>
-        ))}
-      </div>
+      <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY} />
 
-      {openCredential && (
-        <CredentialModal credential={openCredential} onClose={handleCloseModal} triggerRef={activeTriggerRef} />
+      {hasMore && (
+        <div className="credentials-more-wrap">
+          <Link href="/credentials" className="credentials-more">
+            View all credentials <span className="credentials-more-arrow" aria-hidden="true">→</span>
+          </Link>
+        </div>
       )}
     </section>
   );

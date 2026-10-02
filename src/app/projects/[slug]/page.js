@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import ScreensCarousel from "@/components/ScreensCarousel";
 import { projects } from "@/data/projects";
 
 export function generateStaticParams() {
@@ -24,6 +24,7 @@ export default async function ProjectDetail({ params }) {
 
   const hasDemo = project.demo && project.demo !== "#";
   const hasGithub = project.github && project.github !== "#";
+  const slides = [project.image ?? {}, ...(project.gallery ?? [])];
 
   return (
     <div className="project-detail">
@@ -47,6 +48,8 @@ export default async function ProjectDetail({ params }) {
           ))}
         </div>
 
+        {project.role && <p className="project-detail-role">{project.role}</p>}
+
         {hasDemo && (
           <a href={project.demo} target="_blank" rel="noreferrer" className="form-submit project-detail-cta">
             Visit live site →
@@ -54,43 +57,36 @@ export default async function ProjectDetail({ params }) {
         )}
       </div>
 
-      <div className="plate project-detail-plate aspect-[2/1]">
-        {project.image ? (
-          <Image
-            src={project.image.src}
-            alt={project.title}
-            width={project.image.width}
-            height={project.image.height}
-            sizes="(max-width: 900px) 100vw, 72rem"
-            className="rounded-lg"
-          />
-        ) : (
-          <div className="plate-placeholder mono">{project.title}</div>
-        )}
+      <div className="project-detail-plate">
+        <ScreensCarousel title={project.title} slides={slides} />
       </div>
 
-      <div className="project-detail-section">
-        <span className="eyebrow">What I did</span>
-        <p>{project.whatIDid}</p>
-      </div>
-
-      {project.gallery && project.gallery.length > 0 && (
-        <div className="project-detail-section">
-          <span className="eyebrow">More screens</span>
-          <div className="project-detail-gallery">
-            {project.gallery.map((shot) => (
-              <div className="plate aspect-[2/1]" key={shot.src}>
-                <Image
-                  src={shot.src}
-                  alt={`${project.title} screenshot`}
-                  width={shot.width}
-                  height={shot.height}
-                  sizes="(max-width: 900px) 100vw, 36rem"
-                  className="rounded-lg"
-                />
-              </div>
-            ))}
+      {project.problem ? (
+        <>
+          <div className="project-detail-section">
+            <span className="eyebrow">The problem</span>
+            <p>{project.problem}</p>
           </div>
+          <div className="project-detail-section">
+            <span className="eyebrow">What I built</span>
+            <ol className="project-built-list">
+              {project.built.map((item, i) => (
+                <li key={i}>
+                  <span className="project-built-index">{String(i + 1).padStart(2, "0")}</span>
+                  <p>{item}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="project-detail-section">
+            <span className="eyebrow">Outcome</span>
+            <p>{project.outcome}</p>
+          </div>
+        </>
+      ) : (
+        <div className="project-detail-section">
+          <span className="eyebrow">What I did</span>
+          <p>{project.whatIDid}</p>
         </div>
       )}
 

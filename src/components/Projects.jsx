@@ -114,8 +114,12 @@ export default function Projects() {
       </div>
 
       <div className="project-nav">
-        <button onClick={() => scrollByPanel(-1)} aria-label="Previous project">‹</button>
-        <button onClick={() => scrollByPanel(1)} aria-label="Next project">›</button>
+        <button onClick={() => scrollByPanel(-1)} aria-label="Previous project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <button onClick={() => scrollByPanel(1)} aria-label="Next project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
       </div>
     </section>
   );
