@@ -374,7 +374,8 @@ body {
   color: inherit;
   display: block;
 }
-.project-plate { width: 100%; }
+.project-plate { width: 100%; background: transparent; border: 0; padding: 0; }
+.project-plate img { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
 
 .project-caption { margin-top: 1.2rem; }
 .project-caption h3 { margin: .4rem 0 .3rem; font-size: 1.3rem; letter-spacing: -.01em; font-weight: 600; }

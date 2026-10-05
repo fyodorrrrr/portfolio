@@ -14,14 +14,15 @@ function ProjectPanel({ project, isClone }) {
       aria-hidden={isClone ? "true" : undefined}
       tabIndex={isClone ? -1 : undefined}
     >
-      <div className="plate project-plate aspect-[2/1]">
-        {project.image ? (
+      <div className="plate project-plate aspect-[16/9]">
+        {project.thumbnail ? (
           <Image
-            src={project.image.src}
+            src={project.thumbnail.src}
             alt={project.title}
-            width={project.image.width}
-            height={project.image.height}
+            width={project.thumbnail.width}
+            height={project.thumbnail.height}
             sizes="(max-width: 900px) 88vw, 60rem"
+            quality={95}
             className="rounded-lg"
           />
         ) : (

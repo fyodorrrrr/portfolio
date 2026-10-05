@@ -24,7 +24,7 @@ export default async function ProjectDetail({ params }) {
 
   const hasDemo = project.demo && project.demo !== "#";
   const hasGithub = project.github && project.github !== "#";
-  const slides = [project.image ?? {}, ...(project.gallery ?? [])];
+  const slides = project.gallery?.length ? project.gallery : [{}];
 
   return (
     <div className="project-detail">
@@ -38,7 +38,6 @@ export default async function ProjectDetail({ params }) {
       </div>
 
       <div className="project-detail-header">
-        <span className="eyebrow">{project.meta}</span>
         <h1>{project.title}</h1>
         <p className="project-detail-desc">{project.description}</p>
 

@@ -1,8 +1,11 @@
+// Main-page thumbnails live in public/assets/thumbnails/<slug>.png (3600x2025).
+// Replace a file there to change a project's thumbnail; it is not shown on the detail page.
+const thumbnail = (slug) => ({ src: `/assets/thumbnails/${slug}.png`, width: 3600, height: 2025 });
+
 export const projects = [
   {
     slug: "agriwise",
     title: "AgriWise",
-    meta: "Hackathon project · 2026",
     caption: "GIS + AI decision support for land-use planning.",
     description:
       "A GIS and AI-driven decision-support platform helping farmers assess land suitability and plan crop decisions from geospatial and climate data.",
@@ -18,8 +21,9 @@ export const projects = [
     outcome:
       "Placed Top 3 at Hack4AProgress 2026. The team's rice price model achieved PHP 1.83/kg MAE vs. PHP 6.00/kg for a seasonal-naive baseline (R² = 0.68). Built and shipped feature-complete within a 2-day hackathon.",
     tech: ["Python", "GIS", "Machine Learning", "PostgreSQL", "React"],
-    image: { src: "/assets/works/agriwise/mapping.png", width: 1897, height: 939 },
+    thumbnail: thumbnail("agriwise"),
     gallery: [
+      { src: "/assets/works/agriwise/mapping.png", width: 1897, height: 939 },
       { src: "/assets/works/agriwise/dashboard.png", width: 1897, height: 943 },
       { src: "/assets/works/agriwise/forecasting.png", width: 1900, height: 946 },
     ],
@@ -30,7 +34,6 @@ export const projects = [
   {
     slug: "equiped",
     title: "EquipED",
-    meta: "Capstone project · 2025",
     caption: "AI-assisted review and continuous learning for Self-Paced Learning Modules.",
     description:
       "An AI-assisted evaluation system helping LSPU's curriculum office review Self-Paced Learning Modules (SLMs) for content accuracy, curriculum alignment, gender sensitivity, and IP compliance — with a feedback loop that learns from reviewer corrections.",
@@ -45,8 +48,9 @@ export const projects = [
     outcome:
       "Delivered a feature-complete workflow for evaluating SLMs, learning from reviewer corrections, and validating model improvements without removing human oversight.",
     tech: ["Python", "LLM Agents", "Evaluation Pipelines", "Prompt Engineering"],
-    image: { src: "/assets/works/equipED/model-validation.png", width: 1908, height: 942 },
+    thumbnail: thumbnail("equiped_thumb_"),
     gallery: [
+      { src: "/assets/works/equipED/model-validation.png", width: 1908, height: 942 },
       { src: "/assets/works/equipED/sign-in.png", width: 1917, height: 944 },
       { src: "/assets/works/equipED/overview.png", width: 1910, height: 941 },
       { src: "/assets/works/equipED/sme-workspace.png", width: 1910, height: 948 },
@@ -58,7 +62,6 @@ export const projects = [
   {
     slug: "sbcc-management-system",
     title: "SBCC Management System",
-    meta: "Client project · 2024",
     caption: "Member records, announcements, and reminders for a church community.",
     description:
       "A web-based management system for a church community, handling member records, targeted announcements and email, and birthday and anniversary reminders, built with Django and PostgreSQL.",
@@ -73,24 +76,55 @@ export const projects = [
     outcome:
       "Shipped backend features used by the client's staff for member management and community communication. The team's subsequent work extended these backend foundations into the public API and announcement UI.",
     tech: ["Django", "Python", "PostgreSQL", "REST APIs", "pytest"],
-    image: null,
+    thumbnail: thumbnail("sbcc_thumb"),
+    gallery: [
+      { src: "/assets/works/sbcc/sbcc.png", width: 1918, height: 866 },
+      { src: "/assets/works/sbcc/sbcc_2.png", width: 1892, height: 944 },
+    ],
     github: "#",
     demo: "#",
     featured: false,
   },
   {
-    slug: "haul-thrift-shop",
-    title: "Haul Thrift Shop",
-    meta: "Personal project · 2024",
-    caption: "Mobile thrift shop with real-time inventory and checkout.",
-    description:
-      "A mobile thrift shop application built with Flutter and Firebase, featuring buyer and seller flows, wishlist, checkout, and real-time updates.",
-    whatIDid:
-      "Independent thrift sellers needed a lightweight mobile storefront without building custom infrastructure. I used Firestore for real-time inventory and order state, with Provider for predictable state management across buyer and seller flows.",
-    tech: ["Flutter", "Dart", "Firebase", "Firestore", "Provider"],
-    image: { src: "/assets/HAUL.png", width: 2245, height: 1587 },
-    github: "https://github.com/fyodorrrrr/haul-app",
-    demo: "#",
-    featured: false,
-  },
+  slug: "haul-thrift-marketplace",
+  title: "Haul",
+  caption: "A cross-platform thrift marketplace for buying and selling preloved items.",
+  description:
+    "A cross-platform marketplace application for buying and selling secondhand items, built with Flutter and Firebase, with separate buyer and seller workflows for discovery, listings, orders, and inventory management.",
+  role:
+    "Team project · built the Flutter application architecture, Firebase integration, marketplace workflows, and access controls",
+
+  problem:
+    "Secondhand marketplaces need to support two distinct workflows: buyers need a simple way to discover and purchase items, while sellers need tools to manage listings, inventory, and orders. The challenge was to bring both workflows into a single cross-platform application backed by a cloud data layer.",
+
+  built: [
+    "Built the cross-platform Flutter application with separate buyer and seller workflows, using Provider for state management and a structured architecture for models, screens, and reusable widgets.",
+
+    "Integrated Firebase Authentication, Cloud Firestore, and Firebase Storage to manage user accounts, product data, orders, profiles, and product images, including user-specific order queries and persistent marketplace data.",
+
+    "Implemented role-aware marketplace workflows and Firebase security rules covering product listings, seller inventory, and order management, restricting sensitive operations and order access to the users involved."
+  ],
+
+  outcome:
+    "Delivered a cross-platform marketplace application for Android, iOS, and Web, with Firebase-backed authentication, persistent data, product management, and end-to-end buyer and seller workflows.",
+
+  tech: [
+    "Flutter",
+    "Dart",
+    "Firebase",
+    "Cloud Firestore",
+    "Firebase Storage",
+    "Provider"
+  ],
+
+  thumbnail: thumbnail("haul-thrift-shop"),
+
+  gallery: [
+    { src: "/assets/thumbnails/haul-thrift-shop.png", width: 3600, height: 2025 },
+  ],
+
+  github: "https://github.com/fyodorrrrr/haul-app",
+  demo: "#",
+  featured: false,
+},
 ];
