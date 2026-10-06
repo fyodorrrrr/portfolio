@@ -28,8 +28,16 @@ export default function ScreensCarousel({ title, slides }) {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    track.addEventListener("scroll", updateIndex, { passive: true });
-    return () => track.removeEventListener("scroll", updateIndex);
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateIndex);
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      track.removeEventListener("scroll", onScroll);
+    };
   }, [updateIndex]);
 
   const goTo = (target) => {
@@ -42,14 +50,21 @@ export default function ScreensCarousel({ title, slides }) {
   const multiple = slides.length > 1;
 
   return (
-    <div className="screens-carousel">
+    <div className="screens-carousel" role="region" aria-roledescription="carousel" aria-label={`${title} screenshots`}>
       <div className="screens-track" ref={trackRef}>
         {slides.map((slide, i) => (
-          <div className="plate screens-panel aspect-[2/1]" key={slide.src ?? "placeholder"}>
+          <div
+            className="plate screens-panel"
+            style={{ aspectRatio: slide.width && slide.height ? slide.width / slide.height : 2 }}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${slides.length}`}
+            key={slide.src ?? "placeholder"}
+          >
             {slide.src ? (
               <Image
                 src={slide.src}
-                alt={`${title} screenshot ${i + 1} of ${slides.length}`}
+                alt={slide.alt ?? `${title} screenshot ${i + 1} of ${slides.length}`}
                 width={slide.width}
                 height={slide.height}
                 sizes="(max-width: 900px) 100vw, 72rem"
@@ -71,7 +86,7 @@ export default function ScreensCarousel({ title, slides }) {
           <button onClick={() => goTo(index + 1)} disabled={index === slides.length - 1} aria-label="Next screen">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </button>
-          <span className="screens-count mono">
+          <span className="screens-count mono" aria-live="polite">
             {String(index + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
           </span>
         </div>

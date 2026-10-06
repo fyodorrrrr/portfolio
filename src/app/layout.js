@@ -1,4 +1,5 @@
 import "./globals.css";
+import PageCurtain from "@/components/PageCurtain";
 
 export const metadata = {
   metadataBase: new URL("https://example.com"),
@@ -16,7 +17,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <PageCurtain />
+      </body>
     </html>
   );
 }

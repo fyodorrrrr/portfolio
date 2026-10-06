@@ -31,9 +31,10 @@ export const credentials = [
     date: "2026",
     verifyUrl: null,
     logo: "/assets/logo/dostlogo.svg",
+    image: "/assets/certificates/hack4aprogress.png",
     modal: true,
     description:
-      "Placed Top 3 at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
+      "Placed Top 3 at the DOST Hack4AProgress regional ahackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
     skills: ["Machine Learning", "RAG", "FastAPI", "Next.js"],
     result: "Top 3 — Regional",
     related: { label: "See the AgriWise project", href: "/projects/agriwise" },

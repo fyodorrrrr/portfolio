@@ -19,13 +19,13 @@ export const projects = [
       "Built an explainable market recommendation engine that ranks markets using farmer-relative distance, market size, coordinate confidence, and analytics support, with per-market score breakdowns instead of a black-box ranking.",
     ],
     outcome:
-      "Placed Top 3 at Hack4AProgress 2026. The team's rice price model achieved PHP 1.83/kg MAE vs. PHP 6.00/kg for a seasonal-naive baseline (R² = 0.68). Built and shipped feature-complete within a 2-day hackathon.",
+      "Placed among the Top 3 at DOST Hack4AProgress 2026. Built feature-complete within a 2-day hackathon.",
     tech: ["Python", "GIS", "Machine Learning", "PostgreSQL", "React"],
     thumbnail: thumbnail("agriwise"),
     gallery: [
-      { src: "/assets/works/agriwise/mapping.png", width: 1897, height: 939 },
-      { src: "/assets/works/agriwise/dashboard.png", width: 1897, height: 943 },
-      { src: "/assets/works/agriwise/forecasting.png", width: 1900, height: 946 },
+      { src: "/assets/works/agriwise/mapping.png", alt: "AgriWise Mapping view: province heatmap of rice demand across CALABARZON with market markers", width: 1897, height: 939 },
+      { src: "/assets/works/agriwise/dashboard.png", alt: "AgriWise dashboard summarizing forecasts and opportunities", width: 1897, height: 943 },
+      { src: "/assets/works/agriwise/forecasting.png", alt: "AgriWise Forecasting view showing province-level price forecasts", width: 1900, height: 946 },
     ],
     github: "#",
     demo: "#",
@@ -50,10 +50,10 @@ export const projects = [
     tech: ["Python", "LLM Agents", "Evaluation Pipelines", "Prompt Engineering"],
     thumbnail: thumbnail("equiped_thumb_"),
     gallery: [
-      { src: "/assets/works/equipED/model-validation.png", width: 1908, height: 942 },
-      { src: "/assets/works/equipED/sign-in.png", width: 1917, height: 944 },
-      { src: "/assets/works/equipED/overview.png", width: 1910, height: 941 },
-      { src: "/assets/works/equipED/sme-workspace.png", width: 1910, height: 948 },
+      { src: "/assets/works/equipED/model-validation.png", alt: "EquipED model validation screen comparing base model and adapter results", width: 1908, height: 942 },
+      { src: "/assets/works/equipED/sign-in.png", alt: "EquipED sign-in screen", width: 1917, height: 944 },
+      { src: "/assets/works/equipED/overview.png", alt: "EquipED overview of module evaluations", width: 1910, height: 941 },
+      { src: "/assets/works/equipED/sme-workspace.png", alt: "EquipED subject-matter-expert review workspace", width: 1910, height: 948 },
     ],
     github: "#",
     demo: "#",
@@ -78,8 +78,8 @@ export const projects = [
     tech: ["Django", "Python", "PostgreSQL", "REST APIs", "pytest"],
     thumbnail: thumbnail("sbcc_thumb"),
     gallery: [
-      { src: "/assets/works/sbcc/sbcc.png", width: 1918, height: 866 },
-      { src: "/assets/works/sbcc/sbcc_2.png", width: 1892, height: 944 },
+      { src: "/assets/works/sbcc/sbcc.png", alt: "SBCC portal dashboard with member statistics, daily verse, and recent activities", width: 1918, height: 866 },
+      { src: "/assets/works/sbcc/sbcc_2.png", alt: "SBCC public landing page, \"Welcome Home\"", width: 1892, height: 944 },
     ],
     github: "#",
     demo: "#",
@@ -120,7 +120,7 @@ export const projects = [
   thumbnail: thumbnail("haul-thrift-shop"),
 
   gallery: [
-    { src: "/assets/thumbnails/haul-thrift-shop.png", width: 3600, height: 2025 },
+    { src: "/assets/thumbnails/haul-thrift-shop.png", alt: "Haul app screens: Discover swipe cards, home feed, and login", width: 3600, height: 2025 },
   ],
 
   github: "https://github.com/fyodorrrrr/haul-app",

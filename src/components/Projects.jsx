@@ -2,13 +2,13 @@
 
 import { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import CurtainLink from "./CurtainLink";
 import SectionHeading from "./SectionHeading";
 import { projects } from "@/data/projects";
 
 function ProjectPanel({ project, isClone }) {
   return (
-    <Link
+    <CurtainLink
       href={`/projects/${project.slug}`}
       className="project-panel"
       aria-hidden={isClone ? "true" : undefined}
@@ -34,7 +34,7 @@ function ProjectPanel({ project, isClone }) {
         <h3>{project.title}</h3>
         <p>{project.caption}</p>
       </div>
-    </Link>
+    </CurtainLink>
   );
 }
 

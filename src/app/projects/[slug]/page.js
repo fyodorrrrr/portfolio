@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import CurtainLink from "@/components/CurtainLink";
 import ScreensCarousel from "@/components/ScreensCarousel";
 import { projects } from "@/data/projects";
 
@@ -28,8 +28,9 @@ export default async function ProjectDetail({ params }) {
 
   return (
     <div className="project-detail">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="project-detail-bar case-links">
-        <Link href="/#projects">← Back</Link>
+        <CurtainLink href="/#projects">← Back</CurtainLink>
         {hasDemo && (
           <a href={project.demo} target="_blank" rel="noreferrer">
             Visit site ↗
@@ -37,6 +38,7 @@ export default async function ProjectDetail({ params }) {
         )}
       </div>
 
+      <main id="main-content" tabIndex={-1}>
       <div className="project-detail-header">
         <h1>{project.title}</h1>
         <p className="project-detail-desc">{project.description}</p>
@@ -46,8 +48,6 @@ export default async function ProjectDetail({ params }) {
             <span key={tech}>{tech}</span>
           ))}
         </div>
-
-        {project.role && <p className="project-detail-role">{project.role}</p>}
 
         {hasDemo && (
           <a href={project.demo} target="_blank" rel="noreferrer" className="form-submit project-detail-cta">
@@ -63,11 +63,11 @@ export default async function ProjectDetail({ params }) {
       {project.problem ? (
         <>
           <div className="project-detail-section">
-            <span className="eyebrow">The problem</span>
+            <h2 className="eyebrow">The problem</h2>
             <p>{project.problem}</p>
           </div>
           <div className="project-detail-section">
-            <span className="eyebrow">What I built</span>
+            <h2 className="eyebrow">What I built</h2>
             <ol className="project-built-list">
               {project.built.map((item, i) => (
                 <li key={i}>
@@ -78,13 +78,13 @@ export default async function ProjectDetail({ params }) {
             </ol>
           </div>
           <div className="project-detail-section">
-            <span className="eyebrow">Outcome</span>
+            <h2 className="eyebrow">Outcome</h2>
             <p>{project.outcome}</p>
           </div>
         </>
       ) : (
         <div className="project-detail-section">
-          <span className="eyebrow">What I did</span>
+          <h2 className="eyebrow">What I did</h2>
           <p>{project.whatIDid}</p>
         </div>
       )}
@@ -96,6 +96,7 @@ export default async function ProjectDetail({ params }) {
           </a>
         </div>
       )}
+      </main>
     </div>
   );
 }
