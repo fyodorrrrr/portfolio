@@ -6,8 +6,10 @@ export const credentials = [
     date: "2026",
     verifyUrl: "https://www.credly.com/badges/5a84ace0-79a5-4080-b3b8-ada4255e8400/public_url",
     logo: "/assets/logo/pearson-vue.svg",
-    // Set once the scanned certificate is added to public/assets/certificates/
-    image: "/assets/logo/pearson-vue.svg", // e.g. "/assets/certificates/pearson-vue-data-analytics.png"
+    image: "/assets/logo/pearson-vue.svg",
+    // No scanned certificate yet, so no `image` (the modal would present a logo as the certificate).
+    // `modal: true` still opens the compact details dialog; add an `image` once the scan exists.
+    modal: true,
     description:
       "Covers core data analytics skills — working with datasets, applying statistical reasoning, and turning raw data into decisions.",
     skills: ["Data Analytics", "Statistical Reasoning"],
@@ -19,7 +21,7 @@ export const credentials = [
     date: "2026",
     verifyUrl: "https://coursera.org/verify/ZHLETY91K1QT",
     logo: "/assets/logo/deeplearning-ai.png",
-    image: "/assets/certificates/ai-for-everyone.png",
+    image: "/assets/certificates/ai-for-everyone.webp",
     description:
       "A non-technical introduction to AI taught by Andrew Ng, covering what AI can and can't do, how machine learning and data science projects work, and how to apply AI thoughtfully in an organization.",
     skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
@@ -33,7 +35,7 @@ export const credentials = [
     date: "2026",
     verifyUrl: "https://coursera.org/share/d76aa4c843759d56ce2118dfaad8ccdd",
     logo: "/assets/logo/google.svg",
-    image: "/assets/certificates/coursera.png", // e.g. "/assets/certificates/intro-to-ai.png"
+    image: "/assets/certificates/coursera.webp",
     description:
       "An introduction to core AI and machine learning concepts, and how they're applied responsibly in practical, real-world tools.",
     skills: ["AI Fundamentals", "Machine Learning", "Responsible AI"],
@@ -45,7 +47,7 @@ export const credentials = [
     date: "2026",
     verifyUrl: null,
     logo: "/assets/logo/dostlogo.svg",
-    image: "/assets/certificates/hack4aprogress.png",
+    image: "/assets/certificates/hack4aprogress.webp",
     modal: true,
     description:
       "Placed Top 3 at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
@@ -60,7 +62,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: "https://lspu.codechum.com/certificates/20454",
     logo: "/assets/logo/java.svg",
-    image: "/assets/certificates/codechum-java.png",
+    image: "/assets/certificates/codechum-java.webp",
     description: "Completed Java Software Engineering 1, covering core software engineering concepts and Java programming with a final score of 408/431.",
     skills: ["Java", "Software Engineering"],
     fullDate: "Dec 15, 2025",
@@ -74,7 +76,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: null,
     logo: "/assets/logo/python.svg",
-    image: "/assets/certificates/python-fundamentals.png",
+    image: "/assets/certificates/python-fundamentals.webp",
     description: "Completed introductory training in Python programming, covering Python essentials, installation, scripts, and basic operations.",
     skills: ["Python", "Jupyter Notebooks", "Python Scripting"],
     fullDate: "Apr 5, 2025",
@@ -88,7 +90,7 @@ export const credentials = [
     date: "2026",
     verifyUrl: null,
     logo: "/assets/logo/n8n.svg",
-    image: "/assets/certificates/isite-ai-hackathon.png",
+    image: "/assets/certificates/isite-ai-hackathon.webp",
     description: "Participated in the ISITE AI Hackathon, an n8n competition focused on building AI-driven solutions to real-world challenges.",
     skills: ["n8n", "AI Solutions"],
     fullDate: "Apr 30, 2026",
@@ -100,7 +102,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: null,
     logo: "/assets/logo/ai-ready-asean.png",
-    image: "/assets/certificates/hour-of-code.png",
+    image: "/assets/certificates/hour-of-code.webp",
     description: "Participated in the Hour of Code Campaign under the AI Ready ASEAN Programme, supported by the ASEAN Foundation and Google.org.",
     skills: ["AI Literacy", "Coding"],
     fullDate: "Sep 4, 2025",
@@ -112,7 +114,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: null,
     logo: "/assets/logo/dict.png",
-    image: "/assets/certificates/prompt-engineering.png",
+    image: "/assets/certificates/prompt-engineering.webp",
     description: "Attended an information session on prompt engineering and the practical use of generative AI.",
     skills: ["Prompt Engineering", "Generative AI"],
     fullDate: "Sep 6, 2025",
@@ -125,7 +127,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: null,
     logo: "/assets/logo/dict.png",
-    image: "/assets/certificates/ai-powered-canva.png",
+    image: "/assets/certificates/ai-powered-canva.webp",
     description: "Attended a 4-hour online information session on graphics design with AI-powered Canva, hosted by the Department of Information and Communications Technology.",
     skills: ["Graphic Design", "Canva", "AI-Assisted Design"],
     fullDate: "Mar 20, 2025",
@@ -138,7 +140,7 @@ export const credentials = [
     date: "2025",
     verifyUrl: null,
     logo: "/assets/logo/seameo-stem-ed.png",
-    image: "/assets/certificates/steam-digital-age.png",
+    image: "/assets/certificates/steam-digital-age.webp",
     description: "Participated in a hybrid webinar exploring innovations in STEAM education and technology integration.",
     skills: ["STEAM Education", "Educational Technology"],
     fullDate: "Mar 19, 2025",
