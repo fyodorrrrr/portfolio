@@ -15,27 +15,48 @@ There is no test suite configured in this repo.
 
 ## Architecture
 
-Single-page personal portfolio built with **Next.js 15 (App Router)**, **React 19**, and **Tailwind CSS 4**. No backend, no data fetching, no routing beyond the one page — the entire site is `src/app/page.js` rendering a fixed stack of section components in order:
+Personal portfolio built with **Next.js 15 (App Router)**, **React 19**, and **Tailwind CSS 4**. No backend and no data fetching. The home page (`src/app/page.js`) renders a fixed stack of section components in order:
 
 ```
-Navbar → Hero → About → Skills → Projects → Contact → Footer
+Navbar → Hero → About → Projects → Credentials → Contact → Footer
 ```
 
-Each section component (`src/components/*.jsx`) is self-contained, sets its own `<section id="...">` anchor, and owns its own background color/spacing. Navigation works entirely by anchor scrolling — `Navbar.jsx` calls `scrollIntoView`/`scrollTo` against `document.getElementById(sectionId)` rather than using Next.js routing. `Navbar.jsx` also does scroll-spy (tracks scroll position to highlight the active nav item) and needs `"use client"`; most other section components are server components except where interactivity is required.
+Other routes: `/projects/[slug]` (case study), `/credentials` (all credentials, filterable grid), `/credentials/[slug]`. All are statically generated (`generateStaticParams`).
 
-Path alias `@/*` maps to `src/*` (see `jsconfig.json`); imports in the codebase are inconsistent between `@/components/...` and relative `../components/...` — both work.
+Each home section component (`src/components/*.jsx`) is self-contained, sets its own `<section id="...">` anchor, and uses the shared `.entry` class for vertical padding and the scroll-reveal fade (`data-reveal`, driven by `ScrollReveal.jsx`). Home-page navigation is anchor scrolling: `Navbar.jsx` calls `scrollIntoView` against `document.getElementById(sectionId)` and does its own scroll-spy (`offsetTop` against scroll position) to highlight the active item.
+
+Path alias `@/*` maps to `src/*` (see `jsconfig.json`); imports are a mix of `@/components/...` and relative paths. Both work.
+
+### Section layout patterns
+
+- **`SectionIntro`**: the shared section header (small note on the left, large light-weight heading on the right, with a tinted second line). Used by About, Projects, Credentials, and Contact. The Hero does *not* use it; it keeps its own bold masthead. `SectionHeading.jsx` is the older centered "dateline" header and is currently unused.
+- **Pinned index (`.split` + `.pin-col` + `.pin-index`)**: a sticky left column with a large index of items and a right column of content. Used by Projects (project names) and the home-page Credentials list (categories). Active-item tracking comes from `useScrollSpy.js` (IntersectionObserver on the middle band of the viewport, matching `data-spy` values); `scrollToTarget` handles index clicks. Below 900px the index is hidden and the layout collapses to one column. `.split--compact` is the smaller index size for long labels.
+- **Projects** shows each project as a dark gradient "stage" card (tech-tag pill + framed thumbnail) with title and caption underneath. `Projects.jsx` is a client component because of the scroll-spy.
+- **Credentials**: `CredentialsList.jsx` has two variants. `rows` is the home-page list (grouped by category, limited per category, optional pinned index) and `grid` is the `/credentials` page (cards with category filter chips). Rows or cards open `CredentialModal.jsx` when the item has an image, or link out/to a slug page otherwise.
+
+### Page transition (curtain)
+
+`PageCurtain.jsx` (mounted once in `layout.js`) is a fixed full-screen accent-colored overlay. `CurtainLink.jsx` is a drop-in `next/link` replacement that, on a plain left-click, wipes the curtain across (left to right), navigates behind it, waits for the new route, then wipes it off. It is skipped for modifier-clicks, reduced motion, or while a run is in progress. Used by project cards and the project page's Back link. It deliberately avoids the View Transitions API: the browser pauses rendering during a view transition's update callback, which broke an earlier attempt.
 
 ### Styling
 
-- Tailwind CSS 4 via `@import "tailwindcss"` in `src/app/globals.css` (no traditional `tailwind.config.js` content/theme wiring needed for v4, though one exists defining `sans`/`heading` font families that are largely superseded).
-- Actual body font is `Helixa` (custom `@font-face` in `globals.css`, files in `public/fonts/`), loaded ahead of the Tailwind config's `Inter`/`Sora` and the `next/font` Geist fonts wired up in `layout.js` — Helixa wins via the `body { font-family }` override. Be aware there are three font systems layered here; when touching typography, check which one is actually rendering.
-- Shared visual language across sections: warm neutral backgrounds alternating between `#f2f0ea` and `#ece9e2`, accent color `#cc5a1f`, text colors `#111111`/`#555555`. Section headers follow a repeated `/ heading` + horizontal divider pattern (see About/Skills/Projects/Contact for the pattern to copy when adding sections).
+- Tailwind CSS 4 via `@import "tailwindcss"` in `src/app/globals.css`. There is no `tailwind.config.js`; theme values live in `globals.css` (`@theme inline` and `:root`). Most styling is hand-written CSS classes in `globals.css`, with Tailwind utilities used sparingly (e.g. `Footer.jsx`).
+- The only typeface is `Helixa`, self-hosted from `public/fonts/` via `@font-face` in `globals.css` (weights 400, 450, 700). `layout.js` loads no other fonts. Functional text (labels, tags, buttons) is marked by uppercase + letter-spacing, not by a different font.
+- Core tokens in `:root`: `--paper` (`#f7f7f5`) page background, `--paper-deep` (`#ffffff`), `--ink` (`#171717`), `--ink-soft` (`#656565`), `--accent` (`#2c4a3e`, pine green), `--accent-soft` (`#3f7a5d`, tint for the second line of big headings), `--line` hairline borders.
+- **Page margins and widths come from three tokens**: `--gutter` (`clamp(1rem, 2.5vw, 2.5rem)`, left/right padding for sections, navbar, footer), `--content-max` (`100rem`, widest a section's content gets), `--prose-max` (`72rem`, reading width for case-study and `/credentials` pages). Change these instead of adding per-section padding.
+- Design intent and rules live in `DESIGN.md`; product context in `PRODUCT.md`.
 
 ### Content/data
 
-Content (bio text, skills list, project list, social links) is hardcoded directly inside each component — there is no CMS, JSON data file, or MDX source. Update copy by editing the relevant component in `src/components/`.
+There is no CMS. Content is edited in source:
 
-Images referenced by components live in `public/assets/` and are loaded via plain `<img>` tags (not `next/image`).
+- `src/data/projects.js`: projects (title, caption, case-study copy, tech, `thumbnail`, `gallery`, links). Home-page cards use the `thumbnail` (`public/assets/thumbnails/<slug>.png`, 3600×2025); the case-study page uses `gallery` screenshots. Links set to `"#"` are hidden on the detail page.
+- `src/data/credentials.js`: credentials (category, title, issuer, date, `verifyUrl`, `logo`, `image`, `description`, `skills`, optional `fullDate`/`credentialId`/`result`/`related`). **Array order is display order within a category, and Data Analytics Certification is kept first.** The category `"Participations & Events"` is hidden from the home page and shown only on `/credentials`.
+- Bio text (About), contact details, and the hero copy are hardcoded in their components.
+
+Images live in `public/assets/`. Project thumbnails and gallery screenshots use `next/image`; small logos and the credential watermark use plain `<img>`. Certificate images/PDFs are in `public/assets/certificates/` (kebab-case filenames), logos in `public/assets/logo/`.
+
+The contact form posts to FormSubmit.co (`Contact.jsx`); there is no server code.
 
 ## Git commits
 

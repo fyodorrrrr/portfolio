@@ -24,8 +24,8 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 
 ## Operating Context
 
-- Single scrollable page (`home → about → projects → contact`) with anchor-based nav; no multi-page routing except individual project case-study pages (`/projects/[slug]`).
-- Content (bio, skills, project list, links) is hardcoded directly in components — there is no CMS. Updates happen by editing source files directly (see CLAUDE.md).
+- Single scrollable home page (`home → about → projects → credentials → contact`) with anchor-based nav. Extra routes: project case studies (`/projects/[slug]`) and a credentials index plus detail pages (`/credentials`, `/credentials/[slug]`).
+- Content is edited in source — there is no CMS. Projects and credentials live in `src/data/projects.js` and `src/data/credentials.js`; bio, contact details, and hero copy are hardcoded in their components (see CLAUDE.md).
 - Contact form submits via FormSubmit.co's AJAX endpoint to `aquinojxse@gmail.com` — no backend of its own.
 - Deployment target: implied Vercel (Next.js default), exact production domain not yet finalized.
 
@@ -41,17 +41,18 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 
 - Name: Jose Aquino (email `aquinojxse@gmail.com`, GitHub `fyodorrrrr`, LinkedIn `jose-aquino-a16884382`).
 - Custom typeface: Helixa (self-hosted, not a public/licensed web font choice up for revisiting casually).
-- Paper/editorial visual identity (warm neutral backgrounds, `#cc5a1f`-family accent, dateline/masthead motifs) is an established incumbent system — see the CSS in `src/app/globals.css` as current authority; not re-litigated here (that's DESIGN.md/new-work territory, not product truth).
+- Warm-paper editorial visual identity with a single muted pine-green accent (`#2c4a3e`) is the established system — `DESIGN.md` describes it and `src/app/globals.css` is the final authority; not re-litigated here (that's DESIGN.md/new-work territory, not product truth).
 
 ## Evidence on Hand
 
-- Real projects with confirmed facts (`src/data/projects.js`):
-  - **AgriWise** — GIS + AI land-use decision support. No public repo/demo link yet; no screenshot.
-  - **EquipED** — multi-agent LLM evaluation pipeline for small language models. No public repo/demo link yet; no screenshot.
-  - **SBCC Management System** — Django/PostgreSQL church management system (academic project). No public repo/demo link yet; no screenshot.
-  - **Haul Thrift Shop** — Flutter/Firebase mobile thrift app. Has a real GitHub link and a real screenshot (`public/assets/HAUL.png`).
-- Do not fabricate repo links, demo URLs, screenshots, metrics, or testimonials for the three projects lacking them — the user has explicitly chosen to leave those as placeholders for now rather than invent evidence.
-- `public/assets/about-me.jpg` and `public/assets/port.png` exist but are currently unused in any component — not yet decided whether to use them (e.g., an About photo) or remove them.
+- Real projects with confirmed facts (`src/data/projects.js`), each with a home-page thumbnail and case-study screenshots in `public/assets/`:
+  - **AgriWise** — GIS + AI land-use decision support; Top 3 at DOST Hack4AProgress 2026. No public repo/demo link yet (links are `"#"` and hidden).
+  - **EquipED** — AI-assisted evaluation and continuous-learning pipeline for Self-Paced Learning Modules. No public repo/demo link yet.
+  - **SBCC Management System** — Django/PostgreSQL church management system (academic project). No public repo/demo link yet.
+  - **Haul Thrift Marketplace** — Flutter/Firebase mobile thrift app. Has a real GitHub link and a screenshot.
+- Real credentials (`src/data/credentials.js`): Pearson VUE Data Analytics certification (kept first), DeepLearning.AI "AI For Everyone", Coursera "Introduction to AI", CodeChum Java, DAPh Python fundamentals, hackathon placements/participation, and DICT/SEAMEO/AI Ready ASEAN events. Verify links exist only where the issuer provides one.
+- Do not fabricate repo links, demo URLs, screenshots, metrics, or testimonials for projects lacking them — the user has explicitly chosen to leave those as placeholders rather than invent evidence.
+- `public/assets/about-me.jpg`, `port.png`, and `port_jose.jpg` exist but are not used by the current components — not yet decided whether to use them or remove them.
 
 ## Product Principles
 

@@ -1,28 +1,36 @@
 ---
 name: Jose Aquino — Portfolio
-description: An engineer's editorial masthead — dateline headings, hairline rules, and one rare accent, in service of showing real work plainly.
+description: A quiet editorial portfolio with a product-site structure — big light-weight headings, a pinned index beside stacked project stages, hairline rules, and one muted green accent, in service of showing real work plainly.
 colors:
   pine-ink: "#2c4a3e"
+  pine-tint: "#3f7a5d"
   paper: "#f7f7f5"
   paper-deep: "#ffffff"
   near-black-ink: "#171717"
   soft-graphite: "#656565"
   faint-ink: "rgba(23, 23, 23, 0.62)"
+  pale-ink: "rgba(23, 23, 23, 0.5)"
   hairline-grey: "#e5e5e2"
   ghost-divider: "rgba(23, 23, 23, 0.06)"
 typography:
   display:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(2.25rem, 7.2vw, 5.5rem)"
+    fontSize: "clamp(2.5rem, 9.5vw, 8.5rem)"
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.015em"
-  headline:
+  section-title:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(1.6rem, 3.4vw, 2.35rem)"
-    fontWeight: 600
+    fontSize: "clamp(2.4rem, 5.2vw, 4.25rem)"
+    fontWeight: 400
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
+  index:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "clamp(2rem, 3.6vw, 3rem)"
+    fontWeight: 400
     lineHeight: 1.2
-    letterSpacing: "-0.01em"
+    letterSpacing: "-0.02em"
   title:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
     fontSize: "1.3rem"
@@ -43,6 +51,8 @@ typography:
     letterSpacing: "0.14em"
 rounded:
   none: "0px"
+  tag: "8px"
+  shot: "10px"
   plate: "12px"
   circle: "50%"
 spacing:
@@ -59,8 +69,6 @@ components:
     typography: "{typography.label}"
     rounded: "{rounded.none}"
     padding: "0.85rem 1.6rem"
-  button-primary-hover:
-    backgroundColor: "{colors.near-black-ink}"
   button-ghost:
     backgroundColor: "transparent"
     textColor: "{colors.near-black-ink}"
@@ -89,130 +97,151 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Engineer's Masthead"**
+**Creative North Star: "The Engineer's Masthead", grown into a showcase**
 
-This is a newspaper masthead's discipline applied to a practical-systems engineer's portfolio. The vocabulary is literally editorial — the codebase's own class names call section headers `.dateline` and the hero `.masthead` — but the discipline is what carries over, not the decoration. Dateline-style headings, small tracked-caps "eyebrow" labels, and hairline rules organize the page the way a broadsheet organizes a story: hierarchy through typography and rule-lines, not through color, shadow, or ornament.
+The system started as a newspaper masthead's discipline applied to an engineer's portfolio — hierarchy through typography and hairline rules, not ornament. It has since picked up the *structure* of a modern product site: every section opens with the same intro row, the work is presented as large stacked cards beside a pinned index, and the page runs wider with small side margins. The surface stays quiet (warm paper, near-black ink, one muted green); the layout logic is what changed.
 
-The mood is quiet and restrained by construction: flat surfaces, square corners everywhere except photographic frames, borders instead of shadows, and exactly one accent color used so rarely it functions as punctuation rather than decoration. Nothing about this system is loud. Confidence comes from the display type's scale and the mono labels' certainty, not from visual noise.
+Two moods coexist on purpose. The page is calm, light-weight and typographic. The one dramatic element is the dark gradient "stage" panel that frames each project screenshot — it is the deliberate contrast, and it should stay the only one.
 
-The system also enforces an honesty constraint that started as a product principle and became a visual one: when a project has no real screenshot, the design shows an explicit uppercase mono placeholder inside the plate frame rather than a stock image or gradient standing in for content that doesn't exist yet. The visual system refuses to fake evidence.
+The system also keeps its honesty constraint: when a project has no real screenshot, the design shows an explicit uppercase placeholder inside the frame rather than a stock image or gradient standing in for content that doesn't exist. The visual system refuses to fake evidence.
 
 **Key Characteristics:**
-- Editorial structure (dateline headings, eyebrow labels, hairline dividers) borrowed from print, not screen-native card/shadow conventions
-- Flat by construction — no shadows anywhere in the system; depth comes from tonal contrast (paper vs. paper-deep vs. ink) and hairline borders only
-- Square by default — 0px radius on every interactive element and every text container; radius is reserved for two narrow exceptions (photo frames, icon-only circular controls)
-- One accent, used as punctuation — Pine Ink appears only as emphasized text color, never as a background or a UI-state color
-- A single typeface (Helixa) for everything, with functional text (labels, tags, buttons, metadata) distinguished by case and tracking — uppercase, letter-spaced, smaller scale — rather than by a separate mono font
+- One section skeleton: a **section intro** (small gray note left, large light-weight heading right, second line tinted) followed by content. The hero is the exception and keeps its own bold masthead.
+- A **pinned index** pattern (sticky left column of large names, active one dark, content scrolling on the right) for Projects and the home Credentials list.
+- Wide layout, small margins: content up to 100rem with fluid `clamp(1rem, 2.5vw, 2.5rem)` side gutters; long-form pages cap at 72rem.
+- Light display weights for headings (400) against a bold hero (700); functional text distinguished by case and tracking, not a second typeface.
+- Mostly flat: hairline borders and tonal contrast carry hierarchy; shadows exist only on a few floating or framed objects (see Elevation).
+- One green accent, plus its lighter tint for heading emphasis.
 
 ## Colors
 
-The palette is almost entirely achromatic — warm paper neutrals and near-black ink — with a single desaturated accent held in reserve.
+The palette is warm paper neutrals and near-black ink with one desaturated green.
 
 ### Primary
-- **Pine Ink** (`#2c4a3e`): The only accent in the system. Used exclusively as a text color for a single emphasized word in the hero headline and for bolded terms in the About copy. Never used as a background, a border, a button color, or a state color (hover/focus/active). Its rarity is what gives it weight.
+- **Pine Ink** (`#2c4a3e`): The accent. Used as emphasized text color (About's bold terms), small dot markers on labels, the focus outline, hover color on links, and the full-screen page curtain. It is also the dark base of the project stage gradients.
+- **Pine Tint** (`#3f7a5d`, token `--accent-soft`): A lighter green used only for the tinted second line of large headings, so it reads as distinct from near-black (about 4.9:1 on paper). Don't use it for body text or small UI.
 
 ### Neutral
-- **Warm Paper** (`#f7f7f5`): The default page background everywhere except the footer.
-- **Pure White** (`#ffffff`): Slightly brighter than Warm Paper; used for surfaces that sit "above" the page — image/screenshot plates and the hover state of circular icon buttons.
-- **Near-Black Ink** (`#171717`): Primary text color, and the one place the palette inverts — the footer uses it as a background with Warm Paper text.
-- **Soft Graphite** (`#656565`): Secondary text — subheads, muted copy, nav links at rest, tag/chip text.
-- **Faint Ink** (`rgba(23, 23, 23, 0.62)`): Tertiary text — resting-state form labels and the "no image yet" placeholder caption inside empty project plates. Deliberately kept just above WCAG AA contrast on Warm Paper (~4.8:1); don't drop it further.
-- **Hairline Grey** (`#e5e5e2`): The system's only border color at full opacity — dividers, plate frames, chip/tag outlines, the sticky nav's bottom rule.
-- **Ghost Divider** (`rgba(23, 23, 23, 0.06)`): A barely-there divider used only inside dense stacked lists (the About marginalia rows, the mobile nav panel's link separators) where a full Hairline Grey rule would be too heavy.
+- **Warm Paper** (`#f7f7f5`): The page background and the background of every section; also the screenshot frame's fill.
+- **Pure White** (`#ffffff`): Surfaces that sit "above" the page — plates, the tag pill on stage cards.
+- **Near-Black Ink** (`#171717`): Primary text, active index entries, and the footer background (the system's one inversion).
+- **Soft Graphite** (`#656565`): Secondary text — notes, captions, nav links at rest, chip text.
+- **Faint Ink** (`rgba(23, 23, 23, 0.62)`): Tertiary text — resting form labels and empty-plate captions. Keep above WCAG AA on paper (~4.8:1).
+- **Pale Ink** (`rgba(23, 23, 23, 0.5)`): Inactive entries in the large pinned index only. Large text, ~3.2:1 on paper — don't use it for small text.
+- **Hairline Grey** (`#e5e5e2`): The standard border and divider color.
+- **Ghost Divider** (`rgba(23, 23, 23, 0.06)`): Barely-there separators in dense lists (About marginalia, mobile nav).
 
 ### Named Rules
-**The One Voice Rule.** Pine Ink is the system's only chromatic color. If a second accent color is ever needed, that is a deliberate system change, not a per-component decision — don't reach for an arbitrary hex to solve a one-off emphasis problem.
+**The One Voice Rule.** Green is the only chromatic color (Pine Ink and its tint are one family). Don't introduce a second accent for a one-off emphasis; that is a system change.
 
-**The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase mono placeholder treatment, never a substitute image, gradient, or icon standing in for content that doesn't exist. This is a visual expression of a product-level commitment: don't fabricate proof.
+**The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase placeholder treatment, never a substitute image, gradient, or icon.
 
 ## Typography
 
-**Display/Body/Label Font:** Helixa (self-hosted, with Arial/Helvetica/sans-serif fallback) — the system's only typeface.
+**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback) — the only typeface, weights 400, 450 (Book, body default) and 700.
 
-**Character:** Helixa carries every surface on the page, reading and functional alike, at a single family with three loaded weights (400 Regular, 450 Book as the body default, 700 Bold for display and emphasis). Functional text (labels, tags, buttons, metadata) doesn't switch typeface — it's marked instead by uppercase case, letter-spacing, and a smaller size. One voice, two postures.
-
-**Prior state (changed):** this system previously used a system monospace stack (`ui-monospace, 'SF Mono', 'Consolas', 'Menlo', monospace`) for all functional text, rendering as Consolas on most Windows/Chrome setups. That distinction was intentionally retired in favor of Helixa everywhere — noted here so a future pass doesn't "fix" the label font back to mono thinking it drifted.
+**Character:** One family for everything. Functional text (labels, tags, buttons, metadata) is marked by uppercase case, letter-spacing and smaller size, never by a different font. (An earlier monospace functional face was retired on purpose; don't bring it back.)
 
 ### Hierarchy
-- **Display** (700, `clamp(2.25rem, 7.2vw, 5.5rem)`, line-height 1.05): The hero `<h1>` only. Also reused at a smaller clamp (`clamp(2.25rem, 5vw, 3.5rem)`) for project case-study page titles.
-- **Headline** (600 requested / renders as the Bold 700 face — see note below, `clamp(1.6rem, 3.4vw, 2.35rem)`): Section dateline headings (About, Projects, Contact).
-- **Title** (500, 1.3rem, line-height 1.6): Lede paragraphs directly under a section heading (About's opening paragraph). Contact's lede uses a related but distinct treatment at 1.5rem/line-height 1.4.
-- **Body** (450, 1rem, line-height 1.5): Section descriptions, project captions, case-study body copy. Sizes flex slightly by context (0.92rem–1.15rem) but stay at the Book weight.
-- **Label** (400, 0.72rem, letter-spacing 0.14em, uppercase): Eyebrow labels above section headings. Sibling treatments at other sizes (0.68rem for tags, 0.76–0.95rem for buttons) share the same uppercase/tracked identity at different scale — all in Helixa, same as prose.
+- **Display** (700, `clamp(2.5rem, 9.5vw, 8.5rem)`, 1.05): the hero `<h1>` only. Sized to fill the wide layout; its lede is `clamp(1.25rem, 2.1vw, 1.75rem)`.
+- **Section title** (400, `clamp(2.4rem, 5.2vw, 4.25rem)`, 1.05, tracking −0.02em): the heading in every section intro. Light weight on purpose; the second line is Pine Tint.
+- **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index. The compact variant (`clamp(1.35rem, 2.1vw, 1.8rem)`) is for long labels such as credential categories.
+- **Title** (500, 1.3rem): lede paragraphs and card titles.
+- **Body** (450, 1rem, 1.5): descriptions, captions, case-study copy.
+- **Label** (400, 0.72rem, tracking 0.14em, uppercase): eyebrow labels and tags; siblings at other sizes share the same identity.
 
 ### Named Rules
-**The Case & Tracking Rule.** Functional text (buttons, tags, labels, nav metadata) is marked as functional by uppercase case and letter-spacing, not by a separate typeface — the whole system runs on Helixa. If a new functional element needs to read as "not prose," reach for `text-transform: uppercase` and tracked `letter-spacing`, not a font-family swap.
+**The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap.
 
-**Implementation note (not a design decision — a rendering fact to know):** only three Helixa weights are loaded (400, 700, 450 Book — declared as CSS weight 450, a keyword `font-weight: 450` won't match a named `600` request either). Any place calling for `font-weight: 600` (the section `<h2>` dateline headings) has no matching face; per the CSS font-matching algorithm, browsers resolve a requested weight above 500 to the *nearest heavier* available face first, which lands on the Bold (700) face here. Section headings therefore render visually identical in weight to Display text. If a true distinct semibold is ever wanted, a fourth weight must be loaded — don't try to fix it by changing the requested weight number alone.
+**Implementation note.** Only three Helixa weights are loaded. A requested weight of 600 resolves to the Bold (700) face, and anything between 450 and 700 you ask for will snap to one of the loaded faces. If a true semibold is wanted, load a fourth weight; changing the number alone won't do it.
 
 ## Layout
 
-The page is a single fluid column: `--content-max: 72rem` centered via `margin: 0 auto`, with fluid side gutters (`clamp(1.5rem, 6vw, 5rem)`) rather than fixed breakpoint padding. This same column governs the sticky nav's inner row, the hero, and every section body — chrome and content share one alignment grid rather than nav being full-bleed. The hero narrows further to a 56rem reading column (`--masthead-grid`) since its job is a single punchy statement, not a content-dense layout.
+Three tokens in `globals.css` own the page geometry; change them rather than adding per-section padding:
+- `--gutter`: `clamp(1rem, 2.5vw, 2.5rem)` — left/right padding for sections, nav, and footer.
+- `--content-max`: `100rem` — the widest any section's content, the nav row, or the footer gets.
+- `--prose-max`: `72rem` — reading width for case-study pages and the `/credentials` page.
 
-Vertical rhythm comes from a single reusable `.entry` unit: 5.5rem top/bottom padding on desktop, dropping to 3.25rem under 640px. Every major section is one `.entry`, so the page's vertical cadence is consistent by construction rather than tuned per-section.
+Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). Sections fade and rise in on first scroll (14px, 0.6s, IntersectionObserver, one-shot), skipped under `prefers-reduced-motion`.
 
-**Responsive tiers** (three independent breakpoints, not one universal one):
-- **640px** — section padding compresses, and the project carousel switches from a centered 78vw/60rem-max panel width to an 88vw edge-aligned one.
-- **720px** — the primary nav switches from a hamburger-triggered slide-down panel to the full inline nav + social icons. Chosen deliberately lower than the content-grid breakpoint below, since the nav needs less horizontal room than a two-column content grid does.
-- **900px** — two-column content grids (About's text/marginalia split, Contact's copy/form split) collapse to a single stacked column.
+**Section intro row.** A two-column grid (`minmax(14rem, 0.8fr)` / `minmax(0, 1.7fr)`): a gray note on the left and the large heading on the right. Used by About, Projects, Credentials, and Contact.
 
-Section entry uses a fade + rise-in reveal on scroll (14px translateY, 0.6s ease, IntersectionObserver-triggered, one-shot) — respected only when the visitor hasn't requested reduced motion; the reveal is skipped (elements simply appear in place) under `prefers-reduced-motion: reduce`.
+**Pinned index split.** The same column ratio, with a sticky left column (below the nav, `top: 6.5rem`) holding the index and the content stacked on the right. The active entry follows scroll position (the card crossing the middle of the viewport); clicking an entry smooth-scrolls to it. Used by Projects and the home Credentials list.
+
+**Responsive tiers:**
+- **640px** — section padding compresses.
+- **720px** — nav switches from hamburger panel to inline links.
+- **900px** — all two-column grids (intro row, pinned split, About, Contact) collapse to one column; the index is hidden and the heading leads.
+
+**Page transition.** Project cards and the project page's Back link play a full-screen Pine Ink curtain that wipes left-to-right, navigates behind it, then wipes off (about 0.45s each way). It's skipped for modifier-clicks and reduced motion.
 
 ## Elevation & Depth
 
-Flat, deliberately. There are no `box-shadow` declarations anywhere in the system. Depth and hierarchy come entirely from two devices: hairline borders (`--line` at full or low opacity) marking a surface's edge, and tonal contrast between three adjacent neutrals (Warm Paper, Pure White, Near-Black Ink). A "raised" surface — a photo plate, a hovered icon button — gets a slightly brighter background and/or a hairline border, never a shadow.
+Mostly flat. Hierarchy comes from hairline borders and tonal steps between paper, white and ink. Shadows are the exception, allowed only for objects that read as physical or floating:
+- the screenshot frame inside a project stage (a soft drop shadow on the dark panel),
+- the credential modal,
+- a 1px accent underline-shadow on a credential row's "view →" link on hover.
 
 ### Named Rules
-**The Flat-By-Construction Rule.** Do not introduce `box-shadow` to signal elevation or interactivity. If something needs to read as "above" the page, lighten its background (Pure White against Warm Paper) or give it a hairline border — that vocabulary is already established and a shadow would be a foreign material in this system.
+**The Earned-Shadow Rule.** Don't add a `box-shadow` to ordinary cards, buttons, or sections to signal elevation. If something sits above the page, lighten its background or give it a hairline border; reserve shadows for the framed-on-dark and modal cases above.
 
 ## Shapes
 
-Square by default, with exactly two named exceptions. Every button, chip, form field, and section container has 0px radius — sharp, printed-matter corners. The two departures are both deliberate and narrow: **plates** (image/screenshot frames) get a 12px radius, marking them as the system's one "photographic" material distinct from the flat typographic page around them; and **icon-only circular controls** (the project carousel's prev/next buttons) are fully round (50%), marking them as physical, tappable objects rather than text.
+Square by default (buttons, chips, inputs, section containers are 0px). Radius is reserved for imagery, floating objects, and round controls:
+- **Plates and stage cards:** 12px.
+- **Screenshot frame inside a stage:** 10px.
+- **Tag pill on a stage card:** 8px.
+- **Round controls** (carousel prev/next): 50%.
+- **Pills** (fully rounded): the credential filter chips, plus the credential modal's skill tags and its link button.
 
 ### Named Rules
-**The Two-Exception Rule.** Radius exists only on photographic containers (12px) and icon-only round controls (50%). A new component that isn't one of those two things gets 0px radius, full stop — don't introduce an in-between radius (8px, "rounded-md," etc.) as a default.
+**The Reserved-Radius Rule.** A new component that isn't an image container, a floating object, or a round control gets 0px radius. Don't invent an in-between radius as a default.
 
 ## Components
 
 ### Buttons
-Two variants, both uppercase/tracked Helixa — never a color-fill-on-hover pattern.
-- **Ghost / Link CTA** (hero's "let's talk," case-study "Visit live site"): No visible container at rest — just tracked uppercase text with a bottom hairline border and a trailing arrow glyph. **Hover:** the gap between text and arrow increases (0.65rem → 0.9rem) rather than any color change — motion communicates interactivity, not color.
-- **Primary / Solid** (contact form's submit button): Filled Near-Black Ink background, Warm Paper text, 0.85rem/1.6rem padding, 0px radius. **Hover:** same gap-widening animation as the ghost variant, not a background color shift. **Disabled:** opacity 0.6, `cursor: not-allowed` — no other visual treatment.
+- **Ghost / link CTA:** tracked uppercase text with a bottom hairline and a trailing arrow. Hover widens the text-to-arrow gap (and may shift to the accent color); no fill change.
+- **Primary / solid** (contact submit): Near-Black Ink fill, Warm Paper text, 0px radius. Hover widens the gap; disabled is 0.6 opacity.
+
+### Section intro
+Gray note (left) + large light heading (right) with an optional tinted second line (`SectionIntro`). Notes are `clamp(1.25rem, 2.1vw, 1.9rem)`, weight 450.
+
+### Pinned index
+Large light entries, Pale Ink at rest, Near-Black Ink when active or hovered, no markers or numbers. Keep inactive text no lighter than Pale Ink.
+
+### Project stage card
+A 12px dark gradient panel (Pine Ink-based, glossy radial highlights) containing a white pill of up to three tech tags at the top and the project thumbnail in a 10px frame with a soft shadow below it. Title and caption sit under the panel. The frame lifts 4px on hover (disabled under reduced motion). With no thumbnail, the frame shows the uppercase placeholder.
 
 ### Chips
-- **Style:** Transparent background, Hairline Grey border, Soft Graphite text, Helixa at 0.68rem, 0.3rem/0.55rem padding, 0px radius. Used for tech-stack tags (About) and case-study tech lists — always plain, informational metadata, never a filter/selectable state (no selected/unselected variants exist in the system yet).
+- **Tech tags** (About, case studies): transparent, Hairline Grey border, Soft Graphite label text, 0px radius; informational only.
+- **Credential filter chips** (`/credentials`): rounded pills with a pressed/unpressed state. The credential modal's skill tags are also pills.
 
 ### Cards / Plates
-- **Corner Style:** 12px radius (the system's one rounded container type).
-- **Background:** Pure White, with a Hairline Grey 1px border.
-- **Shadow Strategy:** None — see Elevation & Depth. Depth comes from the Pure White vs. Warm Paper tonal step plus the hairline border.
-- **Content:** A real image (subtle 1.02x scale-up on hover, disabled under reduced motion) or, when no image exists yet, an uppercase Helixa placeholder caption centered in the frame — never a substitute graphic. See The No Fake Evidence Rule.
+12px radius, Pure White, 1px Hairline Grey border, no shadow. Holds a real image (1.02× zoom on hover, off under reduced motion) or the placeholder.
 
 ### Inputs / Fields
-- **Style:** No visible container — transparent background, no side/top borders, a single Hairline Grey bottom border. Labels sit inline at rest (Faint Ink, 0.78rem) and float up on focus or once filled (shrinking to 0.66rem, tracked, uppercase, Near-Black Ink) — a floating-label pattern, not a placeholder-as-label pattern.
-- **Focus:** Border color shifts from Hairline Grey to Near-Black Ink; no glow, no shadow.
-- **Disabled (submitting state):** Not yet a distinct input treatment — currently only the submit button reflects in-flight state.
+Transparent, bottom-border only, floating labels (rest at Faint Ink, float up and tracked on focus/filled). Focus shifts the border to Near-Black Ink; no glow.
 
 ### Navigation
-- **Style:** Sticky top bar, Warm Paper background, single Hairline Grey bottom border, contents constrained to the shared `--content-max` column (not full-bleed).
-- **Desktop (≥720px):** Inline nav links (Soft Graphite at rest) with an animated underline that scales in from the left on hover/active (`scaleX(0) → scaleX(1)`, 0.2s ease); the active link is additionally bolded (700). Social icons sit right-aligned in the same row.
-- **Mobile (<720px):** A single hamburger toggle (44×44px minimum hit area, right-aligned) opens a slide-down panel with stacked nav links (Ghost Divider row separators) and the same social icons. The panel traps focus and closes on Escape or an outside click.
-- **Accessibility:** A visually-hidden "Skip to content" link is the first focusable element in the header, revealed on keyboard focus.
+Sticky top bar on Warm Paper with a hairline bottom rule, contents on the shared `--content-max` column. Desktop: inline links with a scale-in underline, active link bold. Mobile (<720px): 44px hamburger opening a focus-trapped slide-down panel closed by Escape or outside click. A "Skip to content" link is the first focusable element.
 
-### Footer (signature component)
-The system's one deliberate color inversion: Near-Black Ink background with Warm Paper text, where every other surface on the page is light-on-dark's opposite. It's the visual equivalent of a masthead's closing rule — a clear "this is the end of the page" signal that no other section provides.
+### Footer
+The system's one color inversion: Near-Black Ink background with Warm Paper text — the closing rule of the page.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep Pine Ink to text-only emphasis — never a background, border, or button fill (The One Voice Rule).
-- **Do** default every new interactive element to 0px radius; only photo plates (12px) and icon-only round controls (50%) get an exception (The Two-Exception Rule).
-- **Do** signal hover/interactivity on buttons and links through motion (gap widening, underline scale-in) rather than a background color swap — the system has no hover-fill button anywhere.
-- **Do** use the uppercase/tracked treatment for anything functional (labels, tags, buttons, nav metadata) — Helixa carries both registers now, so case and tracking (not font-family) are what mark something as functional rather than prose.
-- **Do** show the explicit placeholder treatment for a project without a real screenshot rather than any stand-in graphic (The No Fake Evidence Rule).
+- **Do** open every new section with the section intro and keep the second line to the soft green tint.
+- **Do** use the pinned-index split only when the right column is long enough to scroll past the index (projects, long lists); a short list gains nothing from pinning.
+- **Do** default new interactive elements to 0px radius (The Reserved-Radius Rule).
+- **Do** signal hover on links and buttons through motion (gap widening, underline scale-in) or a text/border color shift, not a background fill.
+- **Do** keep text over the large light headings and the pale index at the contrast documented above.
+- **Do** show the explicit placeholder for a project without a real screenshot (The No Fake Evidence Rule).
 
 ### Don't:
-- **Don't** add `box-shadow` anywhere to signal elevation — this system conveys depth through tonal contrast and hairline borders only (The Flat-By-Construction Rule).
-- **Don't** introduce a second accent color for a one-off emphasis need; that's a system-level decision, not a component-level one.
-- **Don't** let the nav's content go full-bleed — it shares the same `--content-max` column as every section below it.
-- **Don't** fabricate a project's evidence (screenshots, repo links, metrics) to fill a visual gap; an honest placeholder is the correct component state, not a temporary embarrassment to hide.
+- **Don't** add a `box-shadow` to ordinary surfaces (The Earned-Shadow Rule).
+- **Don't** introduce a second accent color; extend the green family or ask first.
+- **Don't** lighten the pinned index's inactive color below Pale Ink, or use gradient text for headings (the second line is a solid tint).
+- **Don't** let the nav go full-bleed or hard-code section padding; use `--gutter` and `--content-max`.
+- **Don't** apply the wide `--content-max` to long-form reading pages; use `--prose-max`.
+- **Don't** fabricate a project's evidence (screenshots, links, metrics) to fill a visual gap.
