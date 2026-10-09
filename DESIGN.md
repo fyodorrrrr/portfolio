@@ -14,79 +14,79 @@ colors:
   ghost-divider: "rgba(23, 23, 23, 0.06)"
 typography:
   display:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
-    fontSize: "19.7cqw"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
+    fontSize: "min(19.7cqw, 30svh)"
     fontWeight: 400
     lineHeight: 0.9
     letterSpacing: "-0.03em"
   section-title:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "clamp(2.4rem, 5.2vw, 4.25rem)"
     fontWeight: 400
     lineHeight: 1.05
     letterSpacing: "-0.02em"
   index:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "clamp(2rem, 3.6vw, 3rem)"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.02em"
   group-heading:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)"
     fontWeight: 400
     lineHeight: 1.15
     letterSpacing: "-0.02em"
   note:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "clamp(1.25rem, 2.1vw, 1.9rem)"
     fontWeight: 450
     lineHeight: 1.3
     letterSpacing: "-0.01em"
   hero-lede:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "clamp(1.25rem, 2.1vw, 1.75rem)"
     fontWeight: 500
     lineHeight: 1.5
     letterSpacing: "normal"
   modal-title:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "1.45rem"
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: "-0.01em"
   title:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "1.3rem"
     fontWeight: 500
     lineHeight: 1.6
     letterSpacing: "-0.005em"
   row-title:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "1.05rem"
     fontWeight: 600
     lineHeight: 1.35
     letterSpacing: "-0.005em"
   body:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "1rem"
     fontWeight: 450
     lineHeight: 1.5
     letterSpacing: "normal"
   meta:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "0.82rem"
     fontWeight: 400
     lineHeight: 1.4
     letterSpacing: "0.06em"
   small-ui:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "0.78rem"
     fontWeight: 400
     lineHeight: 1.4
     letterSpacing: "0.04em"
   label:
-    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "0.72rem"
     fontWeight: 400
     lineHeight: 1.4
@@ -182,12 +182,12 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 
 ## Typography
 
-**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback), weights 400, 450 (Book, body default) and 700. One deliberate exception: the hero's hand-lettered margin notes use Gaegu 700 (`--font-hand`, via `next/font/google`).
+**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback), weights 400, 450 (Book, body default) and 700. One deliberate exception: the hero's hand-lettered margin notes use Gaegu 700 (`--font-hand`, via `next/font/google`, loaded by the hero component only so other routes don't download it).
 
 **Character:** One family for everything. Functional text (labels, tags, buttons, metadata) is marked by uppercase case, letter-spacing and smaller size, never by a different font. (An earlier monospace functional face was retired on purpose; don't bring it back.)
 
 ### Hierarchy
-- **Display** (400, `19.7cqw`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, the name set edge to edge. It's a share of its container's width ("Jose Aquino" in Helixa Regular measures 4.978em at that tracking, so 19.7cqw leaves about 1% spare); change the name and the ratio must be re-measured. The tagline above it is `clamp(1.35rem, 2.3vw, 2.1rem)`, weight 400, Soft Graphite, up to 54rem wide; the name itself is Near-Black Ink.
+- **Display** (400, `min(19.7cqw, 30svh)`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, the name set edge to edge. The `30svh` cap means that on short screens (a name taller than 30% of the viewport height) it shrinks and no longer spans the full width, instead of dominating the first screen. It's a share of its container's width ("Jose Aquino" in Helixa Regular measures 4.978em at that tracking, so 19.7cqw leaves about 1% spare); change the name and the ratio must be re-measured. The tagline above it is `clamp(1.35rem, 2.3vw, 2.1rem)`, weight 400, Soft Graphite, up to 54rem wide; the name itself is Near-Black Ink.
 - **Section title** (400, `clamp(2.4rem, 5.2vw, 4.25rem)`, 1.05, tracking −0.02em): the heading in every section intro. Light weight on purpose; the second line is Pine Tint.
 - **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index.
 - **Group heading** (400, `clamp(1.5rem, 2.6vw, 2.25rem)`, tracking −0.02em): the category names above each group of credential rows (Certifications & Training, and so on), followed by a hairline rule.
@@ -201,6 +201,8 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 ### Named Rules
 **The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap. The single exception is the handwriting face on the hero margin notes; it stays limited to those notes.
 
+**Fallback.** `Helixa Fallback` (`@font-face` over local Arial / Arial Bold, with `size-adjust` 96.63% / 92.75% and matching ascent/descent overrides, measured from the font files) sits in every font stack so text doesn't reflow or overflow before Helixa arrives; the two weights used on first paint (Regular, Book) are preloaded. Re-measure if the font changes.
+
 **Implementation note.** Only three Helixa weights are loaded. A requested weight of 600 resolves to the Bold (700) face, and anything between 450 and 700 you ask for will snap to one of the loaded faces. If a true semibold is wanted, load a fourth weight; changing the number alone won't do it.
 
 ## Layout
@@ -209,8 +211,9 @@ Three tokens in `globals.css` own the page geometry; change them rather than add
 - `--gutter`: `clamp(1rem, 2.5vw, 2.5rem)` — left/right padding for sections, nav, and footer.
 - `--content-max`: `100rem` — the widest any section's content, the nav row, or the footer gets.
 - `--prose-max`: `72rem` — reading width for case-study pages and the `/credentials` page.
+- `--topbar-h`: `4.5rem` (`5rem` below 720px) — the sticky nav's minimum height. The nav is given exactly this height, and the hero (`min-height: calc(100svh - var(--topbar-h))`) and anchor scroll offsets are built on it.
 
-**Hero.** Empty space above, then a short tagline, then the name filling the full content width, anchored to the bottom of the first screen (`min-height: calc(100svh - 4.5rem)`).
+**Hero.** Empty space above, then a short tagline, then the name filling the full content width, anchored to the bottom of the first screen (`min-height: calc(100svh - var(--topbar-h))`).
 
 Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). Sections fade and rise in on first scroll (14px, 0.6s, IntersectionObserver, one-shot), skipped under `prefers-reduced-motion`.
 
@@ -264,7 +267,12 @@ Large light entries, Pale Ink at rest, Near-Black Ink when active or hovered, no
 A 12px dark gradient panel (Pine Ink-based, glossy radial highlights) containing a white pill of up to three tech tags at the top and the project thumbnail in a 10px frame with a soft shadow below it. Title and caption sit under the panel. The frame lifts 4px on hover (disabled under reduced motion). With no thumbnail, the frame shows the uppercase placeholder.
 
 ### Margin notes (hero)
-A light-gray sticker (`--surface-muted`, 8px radius) with a hand-drawn arrow and a few words in the handwriting face, rotated about 2.5°. They are real links ("hey! see my work" to projects, "say hi" to contact): one sits at the end of the tagline row, one floats in the top whitespace. Hover straightens and lifts the note and turns the text to Pine Ink; under reduced motion only the color changes. The floating note is hidden below 900px. Keep to two or three notes.
+Hand-lettered marks in the hero's whitespace, in the one handwriting face (Gaegu, `--font-hand`). Three notes and two drawn strokes, no more:
+- **"hey! see my work"** (sticker, links to projects) at the end of the tagline row and **"say hi"** (sticker, links to contact) floating in the top whitespace, with a longer looping Pine Ink arrow doodled beneath it pointing toward the name. Stickers are light gray (`--surface-muted`, 8px radius), rotated about 2–3°; hover straightens and lifts them and turns the text Pine Ink.
+- **"open to roles"**, a static sticker with a small Pine Tint status dot, floating top-left. It's the one note that isn't a link.
+- **A hand-drawn underline** in Pine Tint under "Software engineer" in the tagline.
+
+Entrance is one authored moment, pure CSS and independent of JavaScript: the hero is visible from first paint (it opts out of the scroll-reveal fade), and at load the notes pop in (about 0.45s, staggered) and the strokes draw on (about 0.8s). Under reduced motion everything is simply present and hover only changes color. Notes are at least 44px tall. To keep the absolutely placed notes off the tagline and name: below 900px wide or under 760px tall "open to roles" drops into the flow above the tagline, and below 1100px wide or under 760px tall the floating "say hi" and its doodle are hidden. The hero clips horizontal overflow so the giant name can never create a horizontal scrollbar.
 
 ### Chips
 - **Tech tags** (About, case studies): transparent, Hairline Grey border, Soft Graphite label text, 0px radius; informational only.
