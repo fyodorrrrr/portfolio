@@ -15,10 +15,10 @@ colors:
 typography:
   display:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(2.5rem, 9.5vw, 8.5rem)"
-    fontWeight: 700
-    lineHeight: 1.05
-    letterSpacing: "-0.015em"
+    fontSize: "19.7cqw"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "-0.03em"
   section-title:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
     fontSize: "clamp(2.4rem, 5.2vw, 4.25rem)"
@@ -31,11 +31,41 @@ typography:
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: "-0.02em"
+  group-heading:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)"
+    fontWeight: 400
+    lineHeight: 1.15
+    letterSpacing: "-0.02em"
+  note:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "clamp(1.25rem, 2.1vw, 1.9rem)"
+    fontWeight: 450
+    lineHeight: 1.3
+    letterSpacing: "-0.01em"
+  hero-lede:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "clamp(1.25rem, 2.1vw, 1.75rem)"
+    fontWeight: 500
+    lineHeight: 1.5
+    letterSpacing: "normal"
+  modal-title:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "1.45rem"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "-0.01em"
   title:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
     fontSize: "1.3rem"
     fontWeight: 500
     lineHeight: 1.6
+    letterSpacing: "-0.005em"
+  row-title:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "1.05rem"
+    fontWeight: 600
+    lineHeight: 1.35
     letterSpacing: "-0.005em"
   body:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
@@ -43,6 +73,18 @@ typography:
     fontWeight: 450
     lineHeight: 1.5
     letterSpacing: "normal"
+  meta:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "0.82rem"
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: "0.06em"
+  small-ui:
+    fontFamily: "Helixa, Arial, Helvetica, sans-serif"
+    fontSize: "0.78rem"
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: "0.04em"
   label:
     fontFamily: "Helixa, Arial, Helvetica, sans-serif"
     fontSize: "0.72rem"
@@ -51,9 +93,11 @@ typography:
     letterSpacing: "0.14em"
 rounded:
   none: "0px"
+  hairline: "4px"
   tag: "8px"
   shot: "10px"
   plate: "12px"
+  pill: "999px"
   circle: "50%"
 spacing:
   xs: "0.5rem"
@@ -106,10 +150,10 @@ Two moods coexist on purpose. The page is calm, light-weight and typographic. Th
 The system also keeps its honesty constraint: when a project has no real screenshot, the design shows an explicit uppercase placeholder inside the frame rather than a stock image or gradient standing in for content that doesn't exist. The visual system refuses to fake evidence.
 
 **Key Characteristics:**
-- One section skeleton: a **section intro** (small gray note left, large light-weight heading right, second line tinted) followed by content. The hero is the exception and keeps its own bold masthead.
-- A **pinned index** pattern (sticky left column of large names, active one dark, content scrolling on the right) for Projects and the home Credentials list.
+- One section skeleton: a **section intro** (small gray note left, large light-weight heading right, second line tinted) followed by content. The hero is the exception: its own composition (see Layout).
+- A **pinned index** pattern (sticky left column of large names, active one dark, content scrolling on the right) for Projects.
 - Wide layout, small margins: content up to 100rem with fluid `clamp(1rem, 2.5vw, 2.5rem)` side gutters; long-form pages cap at 72rem.
-- Light display weights for headings (400) against a bold hero (700); functional text distinguished by case and tracking, not a second typeface.
+- Light weights throughout (400 for the hero name and every section heading); functional text distinguished by case and tracking, not a second typeface.
 - Mostly flat: hairline borders and tonal contrast carry hierarchy; shadows exist only on a few floating or framed objects (see Elevation).
 - One green accent, plus its lighter tint for heading emphasis.
 
@@ -134,24 +178,28 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 ### Named Rules
 **The One Voice Rule.** Green is the only chromatic color (Pine Ink and its tint are one family). Don't introduce a second accent for a one-off emphasis; that is a system change.
 
-**The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase placeholder treatment, never a substitute image, gradient, or icon.
+**The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase placeholder treatment, and a credential without a real scan shows no certificate image. Never a substitute image, gradient, icon, or logo standing in for evidence that doesn't exist.
 
 ## Typography
 
-**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback) — the only typeface, weights 400, 450 (Book, body default) and 700.
+**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback), weights 400, 450 (Book, body default) and 700. One deliberate exception: the hero's hand-lettered margin notes use Gaegu 700 (`--font-hand`, via `next/font/google`).
 
 **Character:** One family for everything. Functional text (labels, tags, buttons, metadata) is marked by uppercase case, letter-spacing and smaller size, never by a different font. (An earlier monospace functional face was retired on purpose; don't bring it back.)
 
 ### Hierarchy
-- **Display** (700, `clamp(2.5rem, 9.5vw, 8.5rem)`, 1.05): the hero `<h1>` only. Sized to fill the wide layout; its lede is `clamp(1.25rem, 2.1vw, 1.75rem)`.
+- **Display** (400, `19.7cqw`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, the name set edge to edge. It's a share of its container's width ("Jose Aquino" in Helixa Regular measures 4.978em at that tracking, so 19.7cqw leaves about 1% spare); change the name and the ratio must be re-measured. The tagline above it is `clamp(1.35rem, 2.3vw, 2.1rem)`, weight 400, Soft Graphite, up to 54rem wide; the name itself is Near-Black Ink.
 - **Section title** (400, `clamp(2.4rem, 5.2vw, 4.25rem)`, 1.05, tracking −0.02em): the heading in every section intro. Light weight on purpose; the second line is Pine Tint.
-- **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index. The compact variant (`clamp(1.35rem, 2.1vw, 1.8rem)`) is for long labels such as credential categories.
+- **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index.
+- **Group heading** (400, `clamp(1.5rem, 2.6vw, 2.25rem)`, tracking −0.02em): the category names above each group of credential rows (Certifications & Training, and so on), followed by a hairline rule.
+- **Note** (450, `clamp(1.25rem, 2.1vw, 1.9rem)`): the gray note beside a section title. The hero's lede is the same idea at weight 500 (`clamp(1.25rem, 2.1vw, 1.75rem)`).
 - **Title** (500, 1.3rem): lede paragraphs and card titles.
+- **Row title** (600, 1.05rem): credential row and card titles. **Modal title** (700, 1.45rem): the credential dialog heading.
+- **Meta / small UI** (0.82rem / 0.78rem, tracked 0.06em / 0.04em): years, "view →" links, filter chips and other secondary functional text.
 - **Body** (450, 1rem, 1.5): descriptions, captions, case-study copy.
 - **Label** (400, 0.72rem, tracking 0.14em, uppercase): eyebrow labels and tags; siblings at other sizes share the same identity.
 
 ### Named Rules
-**The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap.
+**The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap. The single exception is the handwriting face on the hero margin notes; it stays limited to those notes.
 
 **Implementation note.** Only three Helixa weights are loaded. A requested weight of 600 resolves to the Bold (700) face, and anything between 450 and 700 you ask for will snap to one of the loaded faces. If a true semibold is wanted, load a fourth weight; changing the number alone won't do it.
 
@@ -162,14 +210,16 @@ Three tokens in `globals.css` own the page geometry; change them rather than add
 - `--content-max`: `100rem` — the widest any section's content, the nav row, or the footer gets.
 - `--prose-max`: `72rem` — reading width for case-study pages and the `/credentials` page.
 
+**Hero.** Empty space above, then a short tagline, then the name filling the full content width, anchored to the bottom of the first screen (`min-height: calc(100svh - 4.5rem)`).
+
 Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). Sections fade and rise in on first scroll (14px, 0.6s, IntersectionObserver, one-shot), skipped under `prefers-reduced-motion`.
 
-**Section intro row.** A two-column grid (`minmax(14rem, 0.8fr)` / `minmax(0, 1.7fr)`): a gray note on the left and the large heading on the right. Used by About, Projects, Credentials, and Contact.
+**Section intro row.** A two-column grid (`minmax(14rem, 0.8fr)` / `minmax(0, 1.7fr)`): a gray note on the left and the large heading on the right. Used by About, Projects, and Contact. Credentials instead uses just the heading style, left-aligned above full-width rows, with no note and no pinning.
 
-**Pinned index split.** The same column ratio, with a sticky left column (below the nav, `top: 6.5rem`) holding the index and the content stacked on the right. The active entry follows scroll position (the card crossing the middle of the viewport); clicking an entry smooth-scrolls to it. Used by Projects and the home Credentials list.
+**Pinned index split.** The same column ratio, with a sticky left column (below the nav, `top: 6.5rem`) holding the index and the content stacked on the right. The active entry follows scroll position (the card crossing the middle of the viewport); clicking an entry smooth-scrolls to it. Used by Projects.
 
 **Responsive tiers:**
-- **640px** — section padding compresses.
+- **640px** — section padding compresses, and credential rows stack: year and "view →" share a top line and the title gets the full width below.
 - **720px** — nav switches from hamburger panel to inline links.
 - **900px** — all two-column grids (intro row, pinned split, About, Contact) collapse to one column; the index is hidden and the heading leads.
 
@@ -179,7 +229,7 @@ Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (
 
 Mostly flat. Hierarchy comes from hairline borders and tonal steps between paper, white and ink. Shadows are the exception, allowed only for objects that read as physical or floating:
 - the screenshot frame inside a project stage (a soft drop shadow on the dark panel),
-- the credential modal,
+- the certificate image inside the credential dialog (a soft drop shadow),
 - a 1px accent underline-shadow on a credential row's "view →" link on hover.
 
 ### Named Rules
@@ -192,7 +242,8 @@ Square by default (buttons, chips, inputs, section containers are 0px). Radius i
 - **Screenshot frame inside a stage:** 10px.
 - **Tag pill on a stage card:** 8px.
 - **Round controls** (carousel prev/next): 50%.
-- **Pills** (fully rounded): the credential filter chips, plus the credential modal's skill tags and its link button.
+- **Pills** (fully rounded, 999px): the credential filter chips, plus the credential modal's skill tags and its link button.
+- **Hairline radius** (4px): the certificate image inside the credential dialog only.
 
 ### Named Rules
 **The Reserved-Radius Rule.** A new component that isn't an image container, a floating object, or a round control gets 0px radius. Don't invent an in-between radius as a default.
@@ -212,9 +263,15 @@ Large light entries, Pale Ink at rest, Near-Black Ink when active or hovered, no
 ### Project stage card
 A 12px dark gradient panel (Pine Ink-based, glossy radial highlights) containing a white pill of up to three tech tags at the top and the project thumbnail in a 10px frame with a soft shadow below it. Title and caption sit under the panel. The frame lifts 4px on hover (disabled under reduced motion). With no thumbnail, the frame shows the uppercase placeholder.
 
+### Margin notes (hero)
+A light-gray sticker (`--surface-muted`, 8px radius) with a hand-drawn arrow and a few words in the handwriting face, rotated about 2.5°. They are real links ("hey! see my work" to projects, "say hi" to contact): one sits at the end of the tagline row, one floats in the top whitespace. Hover straightens and lifts the note and turns the text to Pine Ink; under reduced motion only the color changes. The floating note is hidden below 900px. Keep to two or three notes.
+
 ### Chips
 - **Tech tags** (About, case studies): transparent, Hairline Grey border, Soft Graphite label text, 0px radius; informational only.
 - **Credential filter chips** (`/credentials`): rounded pills with a pressed/unpressed state. The credential modal's skill tags are also pills.
+
+### Credential row and dialog
+Rows (home page) are full-width hairline-separated lines: year, issuer and title, with a tracked "view →" link and a faint logo watermark. Hover tints the row, nudges the text, turns the title green and gently dims sibling rows (to 0.7 opacity, never lower). Rows with a certificate image open a native `<dialog>` (`showModal()`): the browser traps focus, makes the rest of the page inert, closes on Escape and restores focus, and we add a page scroll lock, click-outside-to-close and a 44px close button. Links that open a new tab announce it to screen readers. A credential with no real scan has no `image`, so it gets the compact dialog (or a plain verify link), never a logo posing as the certificate.
 
 ### Cards / Plates
 12px radius, Pure White, 1px Hairline Grey border, no shadow. Holds a real image (1.02× zoom on hover, off under reduced motion) or the placeholder.
@@ -244,4 +301,4 @@ The system's one color inversion: Near-Black Ink background with Warm Paper text
 - **Don't** lighten the pinned index's inactive color below Pale Ink, or use gradient text for headings (the second line is a solid tint).
 - **Don't** let the nav go full-bleed or hard-code section padding; use `--gutter` and `--content-max`.
 - **Don't** apply the wide `--content-max` to long-form reading pages; use `--prose-max`.
-- **Don't** fabricate a project's evidence (screenshots, links, metrics) to fill a visual gap.
+- **Don't** fabricate evidence (screenshots, links, metrics, certificate images) to fill a visual gap; and don't hand-roll a modal when a native `<dialog>` does the focus and inert work.

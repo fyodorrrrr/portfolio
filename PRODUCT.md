@@ -24,7 +24,7 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 
 ## Operating Context
 
-- Single scrollable home page (`home → about → projects → credentials → contact`) with anchor-based nav. Extra routes: project case studies (`/projects/[slug]`) and a credentials index plus detail pages (`/credentials`, `/credentials/[slug]`).
+- Single scrollable home page (`home → about → projects → credentials → contact`) with anchor-based nav. Extra routes: project case studies (`/projects/[slug]`) and a credentials index (`/credentials`); credential details open in an on-page dialog.
 - Content is edited in source — there is no CMS. Projects and credentials live in `src/data/projects.js` and `src/data/credentials.js`; bio, contact details, and hero copy are hardcoded in their components (see CLAUDE.md).
 - Contact form submits via FormSubmit.co's AJAX endpoint to `aquinojxse@gmail.com` — no backend of its own.
 - Deployment target: implied Vercel (Next.js default), exact production domain not yet finalized.

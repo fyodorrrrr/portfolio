@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-28T16:30:00Z",
+  "generatedAt": "2026-10-09T06:54:38Z",
   "title": "Design System: Jose Aquino — Portfolio",
   "extensions": {
     "colorMeta": {
@@ -123,24 +123,153 @@
           "oklch(86% 0 0 / 6%)",
           "oklch(96% 0 0 / 6%)"
         ]
+      },
+      "pine-tint": {
+        "role": "primary",
+        "displayName": "Pine Tint",
+        "canonical": "oklch(52% 0.08 160)",
+        "tonalRamp": [
+          "oklch(15% 0.03 160)",
+          "oklch(25% 0.05 160)",
+          "oklch(35% 0.065 160)",
+          "oklch(45% 0.075 160)",
+          "oklch(55% 0.08 160)",
+          "oklch(67% 0.07 160)",
+          "oklch(84% 0.04 160)",
+          "oklch(95% 0.015 160)"
+        ]
+      },
+      "pale-ink": {
+        "role": "neutral",
+        "displayName": "Pale Ink",
+        "canonical": "rgba(23, 23, 23, 0.5)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(67% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Hero headline only, and the smaller case-study page title clamp." },
-      "headline": { "displayName": "Headline / Dateline", "purpose": "Section headings (About, Projects, Contact). Requests weight 600 but has no matching face, so it renders as the Bold 700 face — visually identical in weight to Display." },
-      "title": { "displayName": "Title / Lede", "purpose": "The opening lede paragraph directly under a section heading." },
-      "body": { "displayName": "Body", "purpose": "Section descriptions, project captions, case-study copy. Book weight (450) throughout." },
-      "label": { "displayName": "Label", "purpose": "Eyebrow labels, tags, buttons, nav metadata — anything functional rather than prose. Uses the same Helixa family as prose; marked as functional by uppercase case and letter-spacing, not a separate mono font (retired from the prior ui-monospace stack)." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "The hero name only, set edge to edge as a share of its container width (19.7cqw)."
+      },
+      "section-title": {
+        "displayName": "Section Title",
+        "purpose": "The large light-weight heading in every section intro (and left-aligned above the Credentials rows); its second line is Pine Tint."
+      },
+      "index": {
+        "displayName": "Pinned Index",
+        "purpose": "Project names in the pinned left column. Inactive entries use Pale Ink."
+      },
+      "group-heading": {
+        "displayName": "Group Heading",
+        "purpose": "Category names above each group of credential rows, followed by a hairline rule."
+      },
+      "note": {
+        "displayName": "Section Note",
+        "purpose": "The gray note beside a section title."
+      },
+      "hero-lede": {
+        "displayName": "Hero Lede",
+        "purpose": "The paragraph under the hero heading."
+      },
+      "modal-title": {
+        "displayName": "Modal Title",
+        "purpose": "Credential dialog heading."
+      },
+      "title": {
+        "displayName": "Title / Lede",
+        "purpose": "Lede paragraphs and card titles."
+      },
+      "row-title": {
+        "displayName": "Row Title",
+        "purpose": "Credential row and card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Descriptions, captions, case-study copy. Book weight (450)."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Years and small tracked links such as \"view →\"."
+      },
+      "small-ui": {
+        "displayName": "Small UI",
+        "purpose": "Filter chips, card years, and other secondary functional text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrow labels, tags, buttons, nav metadata: functional text marked by uppercase case and tracking, not a second typeface."
+      }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "stage-shot",
+        "value": "0 24px 50px -22px rgba(0, 0, 0, 0.65)",
+        "purpose": "Soft drop under the screenshot frame inside a dark project stage."
+      },
+      {
+        "name": "certificate",
+        "value": "0 6px 24px rgba(23, 23, 23, 0.14)",
+        "purpose": "Lifts the certificate image inside the credential dialog."
+      },
+      {
+        "name": "view-underline",
+        "value": "0 1px 0 var(--accent)",
+        "purpose": "1px accent underline-shadow on a credential row's \"view →\" link on hover."
+      }
+    ],
     "motion": [
-      { "name": "ease-standard", "value": "ease .2s", "purpose": "Default transition for hover/focus color, border, and gap changes." },
-      { "name": "reveal-rise", "value": "translateY(14px) → translateY(0), opacity 0 → 1, ease .6s", "purpose": "One-shot scroll-triggered section entrance; skipped entirely under prefers-reduced-motion." }
+      {
+        "name": "ease-standard",
+        "value": "ease .2s",
+        "purpose": "Default transition for hover/focus color, border, and gap changes."
+      },
+      {
+        "name": "reveal-rise",
+        "value": "translateY(14px) → translateY(0), opacity 0 → 1, ease .6s",
+        "purpose": "One-shot scroll-triggered section entrance; skipped under prefers-reduced-motion."
+      },
+      {
+        "name": "page-curtain",
+        "value": "translateX(-100%) → 0 → 100%, cubic-bezier(.7, 0, .2, 1) .45s each way",
+        "purpose": "Full-screen Pine Ink wipe between home and case-study pages; skipped for modifier-clicks and reduced motion."
+      },
+      {
+        "name": "stage-lift",
+        "value": "translateY(-4px), ease .35s",
+        "purpose": "The screenshot frame lifts when its project card is hovered."
+      },
+      {
+        "name": "dialog-pop",
+        "value": "opacity 0 → 1, scale(.97) translateY(8px) → none, ease .25s",
+        "purpose": "Credential dialog entrance; the backdrop fades in over .2s; both are off under reduced motion."
+      }
     ],
     "breakpoints": [
-      { "name": "carousel-mobile", "value": "640px" },
-      { "name": "nav-inline", "value": "720px" },
-      { "name": "content-grid-stack", "value": "900px" }
+      {
+        "name": "section-padding",
+        "value": "640px"
+      },
+      {
+        "name": "nav-inline",
+        "value": "720px"
+      },
+      {
+        "name": "credential-dialog-stack",
+        "value": "860px"
+      },
+      {
+        "name": "content-grid-stack",
+        "value": "900px"
+      }
     ]
   },
   "components": [
@@ -193,43 +322,87 @@
       "css": ".ds-plate { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:var(--paper-deep); aspect-ratio:16/10; } .ds-plate-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:1rem; font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); }"
     },
     {
-      "name": "Footer",
+      "name": "Section Intro",
       "kind": "custom",
-      "refersTo": null,
-      "description": "Signature component: the system's one deliberate color inversion, marking the end of the page.",
-      "html": "<footer class=\"ds-footer\"><div class=\"ds-footer-brand\"><span>Jose</span><span class=\"ds-footer-sep\">|</span><span>© 2026</span></div></footer>",
-      "css": ".ds-footer { background:var(--ink); color:var(--paper); padding:2rem; display:flex; align-items:center; justify-content:space-between; font-weight:700; } .ds-footer-sep { opacity:.6; font-weight:400; margin:0 .5rem; }"
+      "description": "Gray note on the left, large light-weight heading on the right with a tinted second line. Opens About, Projects and Contact.",
+      "html": "<div class=\"ds-intro\"><p class=\"ds-intro-note\">A few things I've built across software, AI, and data.</p><h2 class=\"ds-intro-title\">selected work,<span>software, AI &amp; data</span></h2></div>",
+      "css": ".ds-intro{display:grid;grid-template-columns:minmax(10rem,.8fr) minmax(0,1.7fr);gap:2rem;align-items:start;width:100%} .ds-intro-note{margin:.35rem 0 0;max-width:24rem;font-size:1.3rem;line-height:1.3;letter-spacing:-.01em;font-weight:450} .ds-intro-title{margin:0;font-size:clamp(2.4rem,5.2vw,4.25rem);line-height:1.05;letter-spacing:-.02em;font-weight:400} .ds-intro-title span{display:block;color:#3f7a5d}"
+    },
+    {
+      "name": "Pinned Index",
+      "kind": "nav",
+      "description": "Large light project names in a sticky left column; the entry for the card on screen is near-black, the rest Pale Ink.",
+      "html": "<nav class=\"ds-index\"><ol><li><a class=\"active\" href=\"#\">AgriWise</a></li><li><a href=\"#\">EquipED</a></li><li><a href=\"#\">SBCC Management System</a></li></ol></nav>",
+      "css": ".ds-index ol{list-style:none;margin:0;padding:0} .ds-index a{display:block;font-size:clamp(2rem,3.6vw,3rem);line-height:1.2;font-weight:400;letter-spacing:-.02em;color:rgba(23,23,23,.5);text-decoration:none;transition:color .25s ease} .ds-index a:hover,.ds-index a.active{color:#171717} .ds-index a:focus-visible{outline:2px solid #2c4a3e;outline-offset:4px}"
+    },
+    {
+      "name": "Project Stage Card",
+      "kind": "card",
+      "description": "Dark glossy panel with a white tag pill on top and the screenshot in a framed, softly shadowed window; title and caption sit below.",
+      "html": "<a class=\"ds-stage-card\" href=\"#\"><div class=\"ds-stage\"><div class=\"ds-pills\"><span>Python</span><span>GIS</span><span>React</span></div><div class=\"ds-shot\"></div></div><h3>AgriWise</h3><p>GIS + AI decision support for land-use planning.</p></a>",
+      "css": ".ds-stage-card{display:block;color:inherit;text-decoration:none} .ds-stage{border-radius:12px;padding:1.25rem 1.25rem 1.75rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;background:radial-gradient(ellipse at 82% 18%,rgba(110,175,140,.42),transparent 55%),radial-gradient(ellipse at 12% 95%,rgba(255,255,255,.1),transparent 50%),linear-gradient(160deg,#1d3a2e,#0b1612)} .ds-pills{display:inline-flex;gap:.25rem;padding:.25rem;border-radius:8px;background:rgba(255,255,255,.92);font-size:.85rem} .ds-pills span{padding:.45rem .9rem;color:#171717} .ds-shot{width:100%;aspect-ratio:16/9;border-radius:10px;background:#f7f7f5;box-shadow:0 24px 50px -22px rgba(0,0,0,.65);transition:transform .35s ease} .ds-stage-card:hover .ds-shot{transform:translateY(-4px)} .ds-stage-card h3{margin:1.2rem 0 .3rem;font-size:1.3rem;font-weight:600;letter-spacing:-.01em} .ds-stage-card p{margin:0;color:#656565;font-size:.92rem}"
+    },
+    {
+      "name": "Credential Row",
+      "kind": "custom",
+      "description": "Hairline-separated row: year, issuer, title and a tracked \"view →\" link. Hover tints the row and turns the title green; below 640px the year and link share a top line.",
+      "html": "<a class=\"ds-cred-row\" href=\"#\"><span class=\"ds-cred-year\">2026</span><div class=\"ds-cred-info\"><span class=\"ds-cred-issuer\">Pearson VUE</span><h4>Data Analytics Certification</h4></div><span class=\"ds-cred-view\">view →</span></a>",
+      "css": ".ds-cred-row{position:relative;display:flex;align-items:center;gap:1.5rem;padding:1.75rem .75rem;border-top:1px solid #e5e5e2;border-bottom:1px solid #e5e5e2;color:inherit;text-decoration:none;transition:background .25s ease} .ds-cred-row:hover,.ds-cred-row:focus-visible{background:rgba(23,23,23,.05)} .ds-cred-year{flex-shrink:0;width:5.5rem;font-size:.82rem;color:#656565} .ds-cred-info{flex:1;min-width:0} .ds-cred-issuer{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#656565} .ds-cred-info h4{margin:.3rem 0 0;font-size:1.05rem;font-weight:600;letter-spacing:-.005em} .ds-cred-row:hover h4{color:#2c4a3e} .ds-cred-view{flex-shrink:0;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#656565;border-bottom:1px solid rgba(23,23,23,.62);padding-bottom:.2rem} .ds-cred-row:hover .ds-cred-view{color:#2c4a3e;border-color:#2c4a3e}"
     }
   ],
   "narrative": {
     "northStar": "The Engineer's Masthead",
-    "overview": "This is a newspaper masthead's discipline applied to a practical-systems engineer's portfolio. The vocabulary is literally editorial — the codebase's own class names call section headers `.dateline` and the hero `.masthead` — but the discipline is what carries over, not the decoration. Dateline-style headings, small tracked-caps \"eyebrow\" labels, and hairline rules organize the page the way a broadsheet organizes a story: hierarchy through typography and rule-lines, not through color, shadow, or ornament.\n\nThe mood is quiet and restrained by construction: flat surfaces, square corners everywhere except photographic frames, borders instead of shadows, and exactly one accent color used so rarely it functions as punctuation rather than decoration. Nothing about this system is loud. Confidence comes from the display type's scale and the mono labels' certainty, not from visual noise.\n\nThe system also enforces an honesty constraint that started as a product principle and became a visual one: when a project has no real screenshot, the design shows an explicit uppercase mono placeholder inside the plate frame rather than a stock image or gradient standing in for content that doesn't exist yet. The visual system refuses to fake evidence.",
+    "overview": "The system started as a newspaper masthead's discipline applied to an engineer's portfolio — hierarchy through typography and hairline rules, not ornament. It has since picked up the *structure* of a modern product site: every section opens with the same intro row, the work is presented as large stacked cards beside a pinned index, and the page runs wider with small side margins. The surface stays quiet (warm paper, near-black ink, one muted green); the layout logic is what changed.\n\nTwo moods coexist on purpose. The page is calm, light-weight and typographic. The one dramatic element is the dark gradient \"stage\" panel that frames each project screenshot — it is the deliberate contrast, and it should stay the only one.\n\nThe system also keeps its honesty constraint: when a project has no real screenshot, the design shows an explicit uppercase placeholder inside the frame rather than a stock image or gradient standing in for content that doesn't exist. The visual system refuses to fake evidence.",
     "keyCharacteristics": [
-      "Editorial structure (dateline headings, eyebrow labels, hairline dividers) borrowed from print, not screen-native card/shadow conventions",
-      "Flat by construction — no shadows anywhere in the system; depth comes from tonal contrast and hairline borders only",
-      "Square by default — 0px radius everywhere except two narrow exceptions (photo frames, icon-only circular controls)",
-      "One accent, used as punctuation — Pine Ink appears only as emphasized text, never as a background or state color",
-      "A single typeface (Helixa) throughout — functional text is marked by case and tracking, not by a separate mono font"
+      "One section skeleton: a **section intro** (small gray note left, large light-weight heading right, second line tinted) followed by content. The hero is the exception: its own composition (see Layout).",
+      "A **pinned index** pattern (sticky left column of large names, active one dark, content scrolling on the right) for Projects.",
+      "Wide layout, small margins: content up to 100rem with fluid `clamp(1rem, 2.5vw, 2.5rem)` side gutters; long-form pages cap at 72rem.",
+      "Light weights throughout (400 for the hero name and every section heading); functional text distinguished by case and tracking, not a second typeface.",
+      "Mostly flat: hairline borders and tonal contrast carry hierarchy; shadows exist only on a few floating or framed objects (see Elevation).",
+      "One green accent, plus its lighter tint for heading emphasis."
     ],
     "rules": [
-      { "name": "The One Voice Rule", "body": "Pine Ink is the system's only chromatic color. If a second accent color is ever needed, that is a deliberate system change, not a per-component decision.", "section": "colors" },
-      { "name": "The No Fake Evidence Rule", "body": "A project plate without a real screenshot shows the uppercase mono placeholder treatment, never a substitute image, gradient, or icon.", "section": "colors" },
-      { "name": "The Case & Tracking Rule", "body": "Functional text (buttons, tags, labels, nav metadata) is marked as functional by uppercase case and letter-spacing, not by a separate typeface — the whole system runs on Helixa. This replaced a prior system-monospace stack that rendered as Consolas on most Windows/Chrome setups.", "section": "typography" },
-      { "name": "The Flat-By-Construction Rule", "body": "Do not introduce box-shadow to signal elevation or interactivity. A 'raised' surface gets a lighter background and/or a hairline border instead.", "section": "elevation" },
-      { "name": "The Two-Exception Rule", "body": "Radius exists only on photographic containers (12px) and icon-only round controls (50%). Every other component gets 0px radius.", "section": "shapes" }
+      {
+        "name": "The One Voice Rule",
+        "body": "Green is the only chromatic color (Pine Ink and its tint are one family). Don't introduce a second accent for a one-off emphasis; that is a system change.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Fake Evidence Rule",
+        "body": "A project plate without a real screenshot shows the uppercase placeholder treatment, and a credential without a real scan shows no certificate image. Never a substitute image, gradient, icon, or logo standing in for evidence that doesn't exist.",
+        "section": "colors"
+      },
+      {
+        "name": "The Case & Tracking Rule",
+        "body": "If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap.",
+        "section": "typography"
+      },
+      {
+        "name": "The Earned-Shadow Rule",
+        "body": "Don't add a `box-shadow` to ordinary cards, buttons, or sections to signal elevation. If something sits above the page, lighten its background or give it a hairline border; reserve shadows for the framed-on-dark and modal cases above.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Reserved-Radius Rule",
+        "body": "A new component that isn't an image container, a floating object, or a round control gets 0px radius. Don't invent an in-between radius as a default.",
+        "section": "shapes"
+      }
     ],
     "dos": [
-      "Do keep Pine Ink to text-only emphasis — never a background, border, or button fill.",
-      "Do default every new interactive element to 0px radius; only photo plates and icon-only round controls get an exception.",
-      "Do signal hover/interactivity through motion (gap widening, underline scale-in) rather than a background color swap.",
-      "Do use the uppercase/tracked treatment for anything functional — Helixa carries both prose and functional text now, so case and tracking are what mark the difference.",
-      "Do show the explicit placeholder treatment for a project without a real screenshot."
+      "**Do** open every new section with the section intro and keep the second line to the soft green tint.",
+      "**Do** use the pinned-index split only when the right column is long enough to scroll past the index (projects, long lists); a short list gains nothing from pinning.",
+      "**Do** default new interactive elements to 0px radius (The Reserved-Radius Rule).",
+      "**Do** signal hover on links and buttons through motion (gap widening, underline scale-in) or a text/border color shift, not a background fill.",
+      "**Do** keep text over the large light headings and the pale index at the contrast documented above.",
+      "**Do** show the explicit placeholder for a project without a real screenshot (The No Fake Evidence Rule)."
     ],
     "donts": [
-      "Don't add box-shadow anywhere to signal elevation.",
-      "Don't introduce a second accent color for a one-off emphasis need.",
-      "Don't let the nav's content go full-bleed — it shares the same content-max column as every section.",
-      "Don't fabricate a project's evidence (screenshots, repo links, metrics) to fill a visual gap."
+      "**Don't** add a `box-shadow` to ordinary surfaces (The Earned-Shadow Rule).",
+      "**Don't** introduce a second accent color; extend the green family or ask first.",
+      "**Don't** lighten the pinned index's inactive color below Pale Ink, or use gradient text for headings (the second line is a solid tint).",
+      "**Don't** let the nav go full-bleed or hard-code section padding; use `--gutter` and `--content-max`.",
+      "**Don't** apply the wide `--content-max` to long-form reading pages; use `--prose-max`.",
+      "**Don't** fabricate evidence (screenshots, links, metrics, certificate images) to fill a visual gap; and don't hand-roll a modal when a native `<dialog>` does the focus and inert work."
     ]
   }
 }
