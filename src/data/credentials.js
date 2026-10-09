@@ -14,6 +14,20 @@ export const credentials = [
   },
   {
     category: "Certifications & Training",
+    title: "AI For Everyone",
+    issuer: "DeepLearning.AI · Coursera",
+    date: "2026",
+    verifyUrl: "https://coursera.org/verify/ZHLETY91K1QT",
+    logo: "/assets/logo/deeplearning-ai.png",
+    image: "/assets/certificates/ai-for-everyone.png",
+    description:
+      "A non-technical introduction to AI taught by Andrew Ng, covering what AI can and can't do, how machine learning and data science projects work, and how to apply AI thoughtfully in an organization.",
+    skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
+    fullDate: "Oct 7, 2026",
+    credentialId: "ZHLETY91K1QT",
+  },
+  {
+    category: "Certifications & Training",
     title: "Introduction to AI",
     issuer: "Coursera · Google",
     date: "2026",
@@ -34,7 +48,7 @@ export const credentials = [
     image: "/assets/certificates/hack4aprogress.png",
     modal: true,
     description:
-      "Placed Top 3 at the DOST Hack4AProgress regional ahackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
+      "Placed Top 3 at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
     skills: ["Machine Learning", "RAG", "FastAPI", "Next.js"],
     result: "Top 3 — Regional",
     related: { label: "See the AgriWise project", href: "/projects/agriwise" },
@@ -80,7 +94,7 @@ export const credentials = [
     fullDate: "Apr 30, 2026",
   },
   {
-    category: "Paticipations & Events",
+    category: "Participations & Events",
     title: "Hour of Code Campaign",
     issuer: "AI Ready ASEAN · Break The Fake Movement",
     date: "2025",
@@ -92,7 +106,7 @@ export const credentials = [
     fullDate: "Sep 4, 2025",
   },
   {
-    category: "Paticipations & Events",
+    category: "Participations & Events",
     title: "AI-Powered Future: Mastering Prompt Engineering in Generative AI",
     issuer: "DICT Region V",
     date: "2025",
@@ -105,7 +119,7 @@ export const credentials = [
     credentialId: "2025-IBWEB357",
   },
   {
-    category: "Paticipations & Events",
+    category: "Participations & Events",
     title: "Graphics Design with AI-Powered Canva",
     issuer: "DICT Davao del Norte",
     date: "2025",
@@ -118,7 +132,7 @@ export const credentials = [
     result: "4-hour session",
   },
   {
-    category: "Paticipations & Events",
+    category: "Participations & Events",
     title: "STEAM in the Digital Age",
     issuer: "SEAMEO STEM-ED · Johannes Kepler University",
     date: "2025",

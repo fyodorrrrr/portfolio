@@ -1,9 +1,11 @@
-import SectionHeading from "./SectionHeading";
+import SectionIntro from "./SectionIntro";
 
 export default function AboutMe() {
   return (
     <section id="about" className="entry" data-reveal>
-      <SectionHeading description="A quick introduction before the specifics.">about me</SectionHeading>
+      <SectionIntro note="A quick introduction before the specifics." accent="before the specifics">
+        about me,
+      </SectionIntro>
 
       <div className="about-grid">
         <div>

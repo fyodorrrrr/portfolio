@@ -1,33 +1,42 @@
 "use client";
 
-import { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import CurtainLink from "./CurtainLink";
-import SectionHeading from "./SectionHeading";
+import SectionIntro from "./SectionIntro";
+import { useScrollSpy, scrollToTarget } from "./useScrollSpy";
 import { projects } from "@/data/projects";
 
-function ProjectPanel({ project, isClone }) {
+const cardId = (slug) => `project-${slug}`;
+
+function ProjectCard({ project }) {
   return (
     <CurtainLink
       href={`/projects/${project.slug}`}
-      className="project-panel"
-      aria-hidden={isClone ? "true" : undefined}
-      tabIndex={isClone ? -1 : undefined}
+      id={cardId(project.slug)}
+      data-spy={project.slug}
+      className="project-card"
     >
-      <div className="plate project-plate aspect-[16/9]">
-        {project.thumbnail ? (
-          <Image
-            src={project.thumbnail.src}
-            alt={project.title}
-            width={project.thumbnail.width}
-            height={project.thumbnail.height}
-            sizes="(max-width: 900px) 88vw, 60rem"
-            quality={95}
-            className="rounded-lg"
-          />
-        ) : (
-          <div className="plate-placeholder mono">{project.title}</div>
-        )}
+      <div className="project-stage">
+        <div className="project-stage-tags">
+          {project.tech.slice(0, 3).map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
+
+        <div className="project-shot">
+          {project.thumbnail ? (
+            <Image
+              src={project.thumbnail.src}
+              alt={project.title}
+              width={project.thumbnail.width}
+              height={project.thumbnail.height}
+              sizes="(max-width: 900px) 92vw, 62vw"
+              quality={95}
+            />
+          ) : (
+            <div className="plate-placeholder mono">{project.title}</div>
+          )}
+        </div>
       </div>
 
       <div className="project-caption">
@@ -38,89 +47,43 @@ function ProjectPanel({ project, isClone }) {
   );
 }
 
-function findCenteredIndex(track, panels) {
-  const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
-  let closestIndex = 0;
-  let closestDistance = Infinity;
-  panels.forEach((panel, i) => {
-    const rect = panel.getBoundingClientRect();
-    const distance = Math.abs(rect.left + rect.width / 2 - trackCenter);
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = i;
-    }
-  });
-  return closestIndex;
-}
-
 export default function Projects() {
-  const trackRef = useRef(null);
-  const n = projects.length;
-
-  useLayoutEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    // Center the first real panel on load (index 1: index 0 is the cloned last panel).
-    const initialPanels = Array.from(track.querySelectorAll(".project-panel"));
-    initialPanels[1]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
-
-    let settleTimeout;
-    const handleScroll = () => {
-      clearTimeout(settleTimeout);
-      settleTimeout = setTimeout(() => {
-        const panels = Array.from(track.querySelectorAll(".project-panel"));
-        const centeredIndex = findCenteredIndex(track, panels);
-        if (centeredIndex === 0) {
-          // Landed on the cloned last panel — silently re-center the real last panel.
-          panels[panels.length - 2]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
-        } else if (centeredIndex === panels.length - 1) {
-          // Landed on the cloned first panel — silently re-center the real first panel.
-          panels[1]?.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
-        }
-      }, 120);
-    };
-
-    track.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      clearTimeout(settleTimeout);
-      track.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollByPanel = (direction) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const panels = Array.from(track.querySelectorAll(".project-panel"));
-    if (panels.length === 0) return;
-
-    const currentIndex = findCenteredIndex(track, panels);
-    const targetIndex = currentIndex + direction;
-    if (targetIndex < 0 || targetIndex >= panels.length) return;
-    panels[targetIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  };
+  const [activeSlug, setActiveSlug] = useScrollSpy(".project-card", projects[0].slug);
 
   return (
     <section id="projects" className="entry projects-entry" data-reveal>
-      <SectionHeading description="A few things I've built across software, AI, and data.">selected work</SectionHeading>
+      <SectionIntro
+        note="A few things I've built across software, AI, and data."
+        accent="software, AI & data"
+      >
+        selected work,
+      </SectionIntro>
 
-      <div className="project-carousel">
-        <div className="project-track" ref={trackRef}>
-          <ProjectPanel project={projects[n - 1]} isClone />
-          {projects.map((project) => (
-            <ProjectPanel project={project} key={project.slug} />
-          ))}
-          <ProjectPanel project={projects[0]} isClone />
+      <div className="split">
+        <div className="pin-col">
+          <nav aria-label="Selected work" className="pin-index">
+            <ol>
+              {projects.map((project) => (
+                <li key={project.slug}>
+                  <a
+                    href={`#${cardId(project.slug)}`}
+                    onClick={(event) => scrollToTarget(event, cardId(project.slug), setActiveSlug, project.slug)}
+                    aria-current={activeSlug === project.slug ? "true" : undefined}
+                    className={activeSlug === project.slug ? "active" : undefined}
+                  >
+                    {project.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
-      </div>
 
-      <div className="project-nav">
-        <button onClick={() => scrollByPanel(-1)} aria-label="Previous project">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
-        </button>
-        <button onClick={() => scrollByPanel(1)} aria-label="Next project">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
-        </button>
+        <div className="projects-cards">
+          {projects.map((project) => (
+            <ProjectCard project={project} key={project.slug} />
+          ))}
+        </div>
       </div>
     </section>
   );

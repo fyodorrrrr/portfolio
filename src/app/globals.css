@@ -41,8 +41,10 @@
   --text-detail: 1.0625rem;
   --background: var(--paper);
   --foreground: var(--ink);
-  --gutter: clamp(1.5rem, 6vw, 5rem);
-  --content-max: 72rem;
+  --gutter: clamp(1rem, 2.5vw, 2.5rem); /* main left/right page margin */
+  --content-max: 100rem; /* widest a section's content gets */
+  --accent-soft: #3f7a5d; /* tinted second line of big headings (~4.9:1 on paper) */
+  --prose-max: 72rem; /* reading width for long-form pages (case studies, credentials page) */
 }
 
 @theme inline {
@@ -269,7 +271,7 @@ body {
 
 /* ---------- masthead ---------- */
 .masthead {
-  min-height: 75vh;
+  min-height: 88vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -277,8 +279,7 @@ body {
   padding-top: 3.5rem;
 }
 .masthead h1 {
-  max-width: 56rem;
-  font-size: clamp(2.25rem, 7.2vw, 5.5rem);
+  font-size: clamp(2.5rem, 9.5vw, 8.5rem);
   line-height: 1.05;
   letter-spacing: -.015em;
   font-weight: 700;
@@ -289,15 +290,15 @@ body {
   .masthead h1 { line-height: 1.1; }
 }
 .masthead-lede {
-  margin-top: 3.5rem;
+  margin-top: 4.5rem;
   margin-left: auto;
-  width: 38rem;
+  width: 46rem;
   max-width: 100%;
 }
 @media (max-width: 640px) {
   .masthead-lede { margin-top: 2rem; margin-left: 0; width: 100%; }
 }
-.masthead-role { max-width: 50rem; font-size: 1.4rem; line-height: 1.55; color: var(--ink-soft); font-weight: 500;}
+.masthead-role { max-width: 50rem; font-size: clamp(1.25rem, 2.1vw, 1.75rem); line-height: 1.5; color: var(--ink-soft); font-weight: 500;}
 .masthead-cta-row {
   margin-top: 2.4rem;
   display: flex;
@@ -348,57 +349,123 @@ body {
 .marginalia .row .k { color: var(--ink-soft); }
 .marginalia .row .v { text-align: right; }
 
-/* ---------- projects: carousel ---------- */
-.projects-entry { overflow-x: hidden; }
-
-.project-carousel {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  margin-top: 3rem;
+/* ---------- shared section intro + pinned index split; projects stage cards ---------- */
+.section-intro,
+.split {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.8fr) minmax(0, 1.7fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
 }
-.project-track {
-  display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-left: calc((100vw - min(78vw, 60rem)) / 2);
-  padding-right: calc((100vw - min(78vw, 60rem)) / 2);
-  padding-bottom: 0.5rem;
-  scrollbar-width: none;
+.section-intro { margin-bottom: clamp(3.5rem, 8vw, 6.5rem); }
+.section-intro-note {
+  margin: .35rem 0 0;
+  max-width: 24rem;
+  font-size: clamp(1.25rem, 2.1vw, 1.9rem);
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  font-weight: 450;
 }
-.project-track::-webkit-scrollbar { display: none; }
-
-.project-panel {
-  flex: 0 0 auto;
-  width: min(78vw, 60rem);
-  scroll-snap-align: center;
-  text-decoration: none;
-  color: inherit;
+.section-intro-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.2vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  font-weight: 400;
+}
+.section-intro-title span {
   display: block;
+  color: var(--accent-soft);
 }
-.project-plate { width: 100%; background: transparent; border: 0; padding: 0; }
-.project-plate img { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+
+/* Pinned while the cards scroll past; sits below the sticky topbar. */
+.pin-col { position: sticky; top: 6.5rem; }
+
+.pin-index ol { list-style: none; margin: 0; padding: 0; }
+.pin-index a {
+  display: block;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  color: rgba(23, 23, 23, .5); /* ~3.2:1 on paper: pale, but still readable large text */
+  text-decoration: none;
+  transition: color .25s ease;
+}
+.pin-index a:hover,
+.pin-index a.active { color: var(--ink); }
+/* Long labels (credential categories) get a smaller index than project names. */
+.split--compact .pin-index a { font-size: clamp(1.35rem, 2.1vw, 1.8rem); line-height: 1.25; padding: .35rem 0; }
+.pin-index a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.projects-cards { display: grid; gap: clamp(3rem, 7vw, 5rem); }
+.project-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  scroll-margin-top: 6.5rem;
+}
+
+/* The dark "stage" panel: glossy gradient, tag pill on top, screenshot in a frame below. */
+.project-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  background:
+    radial-gradient(ellipse at 82% 18%, rgba(110, 175, 140, .42), transparent 55%),
+    radial-gradient(ellipse at 12% 95%, rgba(255, 255, 255, .1), transparent 50%),
+    linear-gradient(160deg, #1d3a2e, #0b1612);
+}
+.project-stage-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+  padding: .25rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .92);
+  font-size: .85rem;
+}
+.project-stage-tags span { padding: .45rem .9rem; color: var(--ink); }
+.project-shot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--paper);
+  box-shadow: 0 24px 50px -22px rgba(0, 0, 0, .65);
+  transition: transform .35s ease;
+}
+.project-shot img { width: 100%; height: 100%; object-fit: cover; }
+.project-card:hover .project-shot { transform: translateY(-4px); }
 
 .project-caption { margin-top: 1.2rem; }
 .project-caption h3 { margin: .4rem 0 .3rem; font-size: 1.3rem; letter-spacing: -.01em; font-weight: 600; }
 .project-caption p { margin: 0; color: var(--ink-soft); font-size: .92rem; max-width: 32rem; }
 
-@media (max-width: 640px) {
-  .project-panel { width: 88vw; }
-  .project-track {
-    gap: 1.25rem;
-    padding-left: 6vw;
-    padding-right: 6vw;
-  }
+/* Narrow screens: no pin, no index; the title leads and the cards stack. */
+@media (max-width: 900px) {
+  .section-intro, .split { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .section-intro-title { order: -1; }
+  .section-intro-note { max-width: 30rem; }
+  .pin-col { position: static; }
+  .pin-index { display: none; }
+  .split { gap: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pin-index a, .project-shot { transition: none; }
+  .project-card:hover .project-shot { transform: none; }
 }
 
-.project-nav {
-  display: flex;
-  gap: .75rem;
-  margin-top: 1.5rem;
-}
-.project-nav button,
 .screens-nav button {
   display: inline-flex;
   align-items: center;
@@ -412,15 +479,10 @@ body {
   cursor: pointer;
   transition: background .15s ease, border-color .15s ease, transform .15s ease;
 }
-.project-nav button svg,
 .screens-nav button svg { width: 1.25rem; height: 1.25rem; }
-.project-nav button:hover:not(:disabled),
 .screens-nav button:hover:not(:disabled) { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.project-nav button:active:not(:disabled),
 .screens-nav button:active:not(:disabled) { transform: scale(.94); }
-.project-nav button:focus-visible,
 .screens-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.project-nav button:disabled,
 .screens-nav button:disabled { background: transparent; color: var(--ink-faint); border-color: var(--line-strong); opacity: .5; cursor: default; }
 
 /* ---------- project detail page ---------- */
@@ -433,7 +495,7 @@ body {
 }
 .project-detail-header {
   width: 100%;
-  max-width: var(--content-max);
+  max-width: var(--prose-max);
   margin: 2rem auto 0;
 }
 .project-detail-header h1 {
@@ -447,12 +509,12 @@ body {
 .project-detail-cta { margin-top: 1.8rem; text-decoration: none; }
 .project-detail-plate {
   width: 100%;
-  max-width: var(--content-max);
+  max-width: var(--prose-max);
   margin: 3rem auto 0;
 }
 .project-detail-section {
   width: 100%;
-  max-width: var(--content-max);
+  max-width: var(--prose-max);
   margin: 3rem auto 0;
   padding: 2.5rem 0 4rem;
   border-top: 1px solid var(--line);
@@ -690,7 +752,7 @@ button.credential-row:focus-visible .credential-title { color: var(--accent); }
 
 .credentials-page-list {
   width: 100%;
-  max-width: var(--content-max);
+  max-width: var(--prose-max);
   margin: 3rem auto 0;
   padding-bottom: 5rem;
 }

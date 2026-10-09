@@ -1,10 +1,10 @@
 import Link from "next/link";
-import SectionHeading from "./SectionHeading";
+import SectionIntro from "./SectionIntro";
 import CredentialsList from "./CredentialsList";
 import { credentials } from "@/data/credentials";
 
 const LIMIT_PER_CATEGORY = 2;
-const HIDDEN_ON_HOME = ["Paticipations & Events"];
+const HIDDEN_ON_HOME = ["Participations & Events"];
 
 export default function Credentials() {
   const homeItems = credentials.filter((c) => !HIDDEN_ON_HOME.includes(c.category));
@@ -16,17 +16,22 @@ export default function Credentials() {
 
   return (
     <section id="credentials" className="entry" data-reveal>
-      <SectionHeading description="Certifications, training, and recognition I've earned.">credentials</SectionHeading>
+      <SectionIntro
+        note="Certifications, training, and recognition I've earned."
+        accent="training & recognition"
+      >
+        credentials,
+      </SectionIntro>
 
-      <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY} />
-
-      {hasMore && (
-        <div className="credentials-more-wrap">
-          <Link href="/credentials" className="credentials-more">
-            View all credentials <span className="credentials-more-arrow" aria-hidden="true">→</span>
-          </Link>
-        </div>
-      )}
+      <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY} pinnedIndex>
+        {hasMore && (
+          <div className="credentials-more-wrap">
+            <Link href="/credentials" className="credentials-more">
+              View all credentials <span className="credentials-more-arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        )}
+      </CredentialsList>
     </section>
   );
 }

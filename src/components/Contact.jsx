@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SectionHeading from "./SectionHeading";
+import SectionIntro from "./SectionIntro";
 
 const FORM_ENDPOINT = "https://formsubmit.co/ajax/aquinojxse@gmail.com";
 
@@ -37,7 +37,12 @@ export default function Contact() {
 
   return (
     <section id="contact" className="entry" data-reveal>
-      <SectionHeading description="Open to opportunities, collaborations, and the occasional good conversation.">contact me</SectionHeading>
+      <SectionIntro
+        note="Open to opportunities, collaborations, and the occasional good conversation."
+        accent="open to opportunities"
+      >
+        contact me,
+      </SectionIntro>
 
       <div className="contact-grid">
         <div>
