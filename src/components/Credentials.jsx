@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SectionIntro from "./SectionIntro";
 import CredentialsList from "./CredentialsList";
 import { credentials } from "@/data/credentials";
 
@@ -16,14 +15,14 @@ export default function Credentials() {
 
   return (
     <section id="credentials" className="entry" data-reveal>
-      <SectionIntro
-        note="Certifications, training, and recognition I've earned."
-        accent="training & recognition"
-      >
-        credentials,
-      </SectionIntro>
+      <div className="credentials-head">
+        <h2 className="section-intro-title">
+          credentials,
+          <span>training &amp; recognition</span>
+        </h2>
+      </div>
 
-      <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY} pinnedIndex>
+      <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY}>
         {hasMore && (
           <div className="credentials-more-wrap">
             <Link href="/credentials" className="credentials-more">

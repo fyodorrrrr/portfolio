@@ -1,42 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef } from "react";
 
+// Native <dialog> opened with showModal(): the browser traps focus, makes everything
+// outside it inert (the Navbar included), closes on Escape, and returns focus to the
+// opener. We add the page scroll lock and click-outside-to-close.
 export default function CredentialModal({ credential, onClose, triggerRef }) {
-  const closeRef = useRef(null);
   const dialogRef = useRef(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
 
-  useEffect(() => {
-    const mainEl = document.querySelector("main");
-    mainEl?.setAttribute("inert", "");
-    closeRef.current?.focus();
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+    root.style.overflow = "hidden";
 
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    const handleClickOutside = (e) => {
-      if (dialogRef.current && !dialogRef.current.contains(e.target)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("mousedown", handleClickOutside);
-      mainEl?.removeAttribute("inert");
+      root.style.overflow = previousOverflow;
       triggerRef?.current?.focus();
     };
-  }, [onClose, triggerRef]);
+  }, [triggerRef]);
 
-  if (!mounted) return null;
+  // Clicks on the backdrop land on the <dialog> itself; clicks inside land on its children.
+  const handleClick = (event) => {
+    if (event.target === event.currentTarget) event.currentTarget.close();
+  };
 
   const hasVerify = credential.verifyUrl && credential.verifyUrl !== "#";
   const canOpenFull = credential.image && !credential.image.endsWith(".svg");
@@ -46,16 +35,22 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
     ["Credential ID", credential.credentialId],
   ].filter(([, value]) => value);
 
-  return createPortal(
-    <div className="credential-modal-backdrop">
-      <div
-        className={credential.image ? "credential-modal" : "credential-modal credential-modal--compact"}
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="credential-modal-title"
-      >
-        <button ref={closeRef} type="button" onClick={onClose} className="credential-modal-close" aria-label="Close">
+  return (
+    <dialog
+      ref={dialogRef}
+      className="credential-dialog"
+      aria-labelledby="credential-modal-title"
+      onClose={onClose}
+      onClick={handleClick}
+    >
+      <div className={credential.image ? "credential-modal" : "credential-modal credential-modal--compact"}>
+        <button
+          type="button"
+          autoFocus
+          onClick={() => dialogRef.current?.close()}
+          className="credential-modal-close"
+          aria-label="Close"
+        >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
@@ -64,11 +59,11 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
         {credential.image && (
           <div className="credential-modal-media">
             <div className="credential-modal-plate">
-              <img src={credential.image} alt={`${credential.title} certificate`} />
+              <img src={credential.image} alt={`${credential.title} certificate`} decoding="async" />
             </div>
             {canOpenFull && (
               <a href={credential.image} target="_blank" rel="noreferrer" className="credential-modal-full">
-                Open full size ↗
+                Open full size ↗<span className="sr-only"> (opens in a new tab)</span>
               </a>
             )}
           </div>
@@ -105,7 +100,7 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
           <div className="credential-modal-actions">
             {hasVerify ? (
               <a href={credential.verifyUrl} target="_blank" rel="noreferrer" className="credential-modal-verify">
-                Verify credential ↗
+                Verify credential ↗<span className="sr-only"> (opens in a new tab)</span>
               </a>
             ) : credential.image ? (
               <span className="credential-modal-note">Certificate on file</span>
@@ -118,7 +113,6 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
           </div>
         </div>
       </div>
-    </div>,
-    document.body
+    </dialog>
   );
 }

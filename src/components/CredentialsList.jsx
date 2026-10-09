@@ -1,9 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import CredentialModal from "./CredentialModal";
-import { useScrollSpy, scrollToTarget } from "./useScrollSpy";
 
 function groupByCategory(items) {
   const groups = [];
@@ -18,28 +16,19 @@ function groupByCategory(items) {
   return groups;
 }
 
-const groupId = (category) => `credentials-group-${category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-
 function hasView(credential) {
-  return Boolean(credential.slug || credential.image || credential.modal || credential.verifyUrl);
+  return Boolean(credential.image || credential.modal || credential.verifyUrl);
 }
 
 function CredentialTrigger({ credential, onOpenModal, className, children }) {
   const triggerRef = useRef(null);
-
-  if (credential.slug) {
-    return (
-      <Link href={`/credentials/${credential.slug}`} className={className}>
-        {children}
-      </Link>
-    );
-  }
 
   if (credential.image || credential.modal) {
     return (
       <button
         ref={triggerRef}
         type="button"
+        aria-haspopup="dialog"
         onClick={() => onOpenModal(credential, triggerRef)}
         className={className}
       >
@@ -52,6 +41,7 @@ function CredentialTrigger({ credential, onOpenModal, className, children }) {
     return (
       <a href={credential.verifyUrl} target="_blank" rel="noreferrer" className={className}>
         {children}
+        <span className="sr-only"> (opens in a new tab)</span>
       </a>
     );
   }
@@ -70,7 +60,7 @@ function CredentialRow({ credential, onOpenModal }) {
 
       <div className="credential-info">
         <span className="credential-issuer eyebrow">{credential.issuer}</span>
-        <h3 className="credential-title">{credential.title}</h3>
+        <h4 className="credential-title">{credential.title}</h4>
       </div>
 
       {hasView(credential) && (
@@ -95,7 +85,7 @@ function CredentialCard({ credential, onOpenModal }) {
       </div>
 
       <span className="credential-issuer eyebrow">{credential.issuer}</span>
-      <h3 className="credential-card-title">{credential.title}</h3>
+      <h2 className="credential-card-title">{credential.title}</h2>
 
       {hasView(credential) && (
         <span className="credential-card-view">
@@ -106,9 +96,8 @@ function CredentialCard({ credential, onOpenModal }) {
   );
 }
 
-export default function CredentialsList({ items, limitPerCategory, variant = "rows", pinnedIndex = false, children }) {
+export default function CredentialsList({ items, limitPerCategory, variant = "rows", children }) {
   const groups = groupByCategory(items);
-  const [activeCategory, setActiveCategory] = useScrollSpy(".credentials-group", groups[0]?.category);
   const [openCredential, setOpenCredential] = useState(null);
   const [filter, setFilter] = useState("all");
   const activeTriggerRef = useRef(null);
@@ -156,60 +145,25 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
     );
   }
 
-  const showIndex = pinnedIndex && groups.length > 1;
-  const list = (
-    <>
-      <div className="credentials-list">
-        {groups.map((group) => (
-          <div
-            className="credentials-group"
-            key={group.category}
-            id={groupId(group.category)}
-            data-spy={group.category}
-          >
-            <div className="credentials-group-heading">
-              <span className="eyebrow">{group.category}</span>
-              <span className="rule" aria-hidden="true" />
-            </div>
-            {(limitPerCategory ? group.items.slice(0, limitPerCategory) : group.items).map((credential, i) => (
-              <CredentialRow credential={credential} key={`${credential.title}-${i}`} onOpenModal={handleOpenModal} />
-            ))}
-          </div>
-        ))}
-      </div>
-      {children}
-    </>
-  );
-
   return (
     <>
-      {showIndex ? (
-        <div className="split split--compact">
-          <div className="pin-col">
-            <nav aria-label="Credential categories" className="pin-index">
-              <ol>
-                {groups.map((group) => (
-                  <li key={group.category}>
-                    <a
-                      href={`#${groupId(group.category)}`}
-                      onClick={(event) =>
-                        scrollToTarget(event, groupId(group.category), setActiveCategory, group.category)
-                      }
-                      aria-current={activeCategory === group.category ? "true" : undefined}
-                      className={activeCategory === group.category ? "active" : undefined}
-                    >
-                      {group.category}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </div>
-          <div>{list}</div>
+      <div className="credentials-main">
+        <div className="credentials-list">
+          {groups.map((group) => (
+            <div className="credentials-group" key={group.category}>
+              <div className="credentials-group-heading">
+                <h3 className="credentials-group-title">{group.category}</h3>
+                <span className="rule" aria-hidden="true" />
+              </div>
+              {(limitPerCategory ? group.items.slice(0, limitPerCategory) : group.items).map((credential, i) => (
+                <CredentialRow credential={credential} key={`${credential.title}-${i}`} onOpenModal={handleOpenModal} />
+              ))}
+            </div>
+          ))}
         </div>
-      ) : (
-        list
-      )}
+
+        {children}
+      </div>
 
       {modal}
     </>

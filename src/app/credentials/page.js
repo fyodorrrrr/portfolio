@@ -10,19 +10,22 @@ export const metadata = {
 export default function CredentialsPage() {
   return (
     <div className="project-detail">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="project-detail-bar case-links">
         <Link href="/#credentials">← Back</Link>
       </div>
 
-      <div className="project-detail-header">
-        <span className="eyebrow">All credentials</span>
-        <h1>Credentials</h1>
-        <p className="project-detail-desc">Certifications, training, and recognition I&apos;ve earned.</p>
-      </div>
+      <main id="main-content" tabIndex={-1}>
+        <div className="project-detail-header">
+          <span className="eyebrow">All credentials</span>
+          <h1>Credentials</h1>
+          <p className="project-detail-desc">Certifications, training, and recognition I&apos;ve earned.</p>
+        </div>
 
-      <div className="credentials-page-list">
-        <CredentialsList items={credentials} variant="grid" />
-      </div>
+        <div className="credentials-page-list">
+          <CredentialsList items={credentials} variant="grid" />
+        </div>
+      </main>
     </div>
   );
 }

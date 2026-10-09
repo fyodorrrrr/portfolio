@@ -58,7 +58,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
@@ -270,35 +270,88 @@ body {
 }
 
 /* ---------- masthead ---------- */
+/* Hero: empty space above, a short tagline, then the name set edge to edge at the bottom. */
 .masthead {
-  min-height: 88vh;
+  position: relative;
+  min-height: calc(100svh - 4.5rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: 3.5rem;
+  justify-content: flex-end;
+  padding-top: 3rem;
+  padding-bottom: clamp(1rem, 2vw, 2rem);
 }
-.masthead h1 {
-  font-size: clamp(2.5rem, 9.5vw, 8.5rem);
-  line-height: 1.05;
-  letter-spacing: -.015em;
-  font-weight: 700;
-  text-wrap: balance;
+.masthead-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(1.5rem, 3.5vw, 3rem);
+}
+.masthead-role {
   margin: 0;
+  max-width: 54rem;
+  font-size: clamp(1.35rem, 2.3vw, 2.1rem);
+  line-height: 1.22;
+  letter-spacing: -.01em;
+  font-weight: 400;
+  color: var(--ink-soft);
+  text-wrap: balance;
 }
-@media (max-width: 479px) {
-  .masthead h1 { line-height: 1.1; }
+/* Hand-lettered margin notes: a light-gray sticker with a doodled arrow, set slightly askew.
+   They are real links, so the whitespace points somewhere. Handwriting face is notes-only. */
+.masthead-note {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem 1rem .55rem;
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--ink-soft);
+  font-family: var(--font-hand), 'Helixa', Arial, sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  text-decoration: none;
+  transform: rotate(-2.5deg);
+  transition: transform .25s ease, color .2s ease;
 }
-.masthead-lede {
-  margin-top: 4.5rem;
-  margin-left: auto;
-  width: 46rem;
-  max-width: 100%;
+.masthead-note:hover,
+.masthead-note:focus-visible { color: var(--accent); transform: rotate(-1deg) translateY(-3px); }
+.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.masthead-note-arrow { width: 1.3rem; height: 1.3rem; }
+.masthead-note-arrow--down { transform: rotate(90deg); } /* the base arrow points up-right; this one points down-right */
+.masthead-note--float {
+  position: absolute;
+  top: clamp(4rem, 16vh, 9rem);
+  right: calc(var(--gutter) + 6vw);
+  transform: rotate(3deg);
 }
-@media (max-width: 640px) {
-  .masthead-lede { margin-top: 2rem; margin-left: 0; width: 100%; }
+.masthead-note--float:hover,
+.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px); }
+@media (max-width: 900px) {
+  .masthead-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .masthead-note--float { display: none; }
 }
-.masthead-role { max-width: 50rem; font-size: clamp(1.25rem, 2.1vw, 1.75rem); line-height: 1.5; color: var(--ink-soft); font-weight: 500;}
+@media (prefers-reduced-motion: reduce) {
+  .masthead-note { transition: color .2s ease; }
+  .masthead-note:hover, .masthead-note:focus-visible { transform: rotate(-2.5deg); }
+  .masthead-note--float:hover, .masthead-note--float:focus-visible { transform: rotate(3deg); }
+}
+
+/* The name fills its container exactly: "Jose Aquino" in Helixa Regular is 4.978em wide at
+   -0.03em tracking (measured), so the size is a share of the container width. 19.7cqw leaves
+   ~1% spare so kerning can't push it past the edge. */
+.masthead-name { container-type: inline-size; }
+.masthead h1 {
+  margin: 0;
+  font-size: 19.7cqw;
+  line-height: .9;
+  letter-spacing: -.03em;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--ink);
+}
 .masthead-cta-row {
   margin-top: 2.4rem;
   display: flex;
@@ -376,6 +429,12 @@ body {
   letter-spacing: -.02em;
   font-weight: 400;
 }
+/* Credentials: the heading sits left-aligned above the rows, on the same content width. */
+.credentials-head {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto clamp(3rem, 6vw, 4.5rem);
+}
 .section-intro-title span {
   display: block;
   color: var(--accent-soft);
@@ -397,8 +456,6 @@ body {
 }
 .pin-index a:hover,
 .pin-index a.active { color: var(--ink); }
-/* Long labels (credential categories) get a smaller index than project names. */
-.split--compact .pin-index a { font-size: clamp(1.35rem, 2.1vw, 1.8rem); line-height: 1.25; padding: .35rem 0; }
 .pin-index a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .projects-cards { display: grid; gap: clamp(3rem, 7vw, 5rem); }
@@ -584,15 +641,21 @@ body {
 .credentials-list {
   margin-top: 2rem;
 }
-.credentials-group { margin-top: 2.5rem; }
+.credentials-group { margin-top: 3.5rem; }
 .credentials-group:first-child { margin-top: 0; }
 .credentials-group-heading {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: .25rem;
+  gap: 1.25rem;
+  margin-bottom: .75rem;
 }
-.credentials-group-heading .eyebrow { white-space: nowrap; }
+.credentials-group-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
 .credentials-group-heading .rule { flex: 1; height: 1px; background: var(--line); }
 
 .credential-row {
@@ -672,7 +735,7 @@ a.credential-row:focus-visible .credential-info,
 button.credential-row:focus-visible .credential-info { transform: translateX(.4rem); }
 
 .credentials-list:has(a.credential-row:hover, button.credential-row:hover) .credential-row:not(:hover) {
-  opacity: .45;
+  opacity: .7;
 }
 .credential-row { transition: opacity .25s ease; }
 
@@ -705,6 +768,21 @@ button.credential-row:focus-visible .credential-info { transform: translateX(.4r
   transition: color .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 .credential-view { margin-right: .5rem; }
+
+/* Narrow screens: year and "view" share a top line; the title gets the full width below. */
+@media (max-width: 640px) {
+  .credential-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "year view" "info info";
+    align-items: center;
+    gap: .6rem 1rem;
+    padding: 1.25rem .75rem;
+  }
+  .credential-year { grid-area: year; width: auto; }
+  .credential-info { grid-area: info; }
+  .credential-view { grid-area: view; margin-right: 0; }
+}
 .credential-view-arrow { display: inline-block; transition: transform .2s ease; }
 a.credential-row:hover .credential-view-arrow,
 button.credential-row:hover .credential-view-arrow,
@@ -762,7 +840,8 @@ button.credential-row:focus-visible .credential-title { color: var(--accent); }
   font-family: inherit;
   font-size: .78rem;
   letter-spacing: .04em;
-  padding: .5rem .9rem;
+  min-height: 2.75rem;
+  padding: .5rem 1rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: none;
@@ -849,17 +928,22 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 }
 
 /* ---------- credential modal ---------- */
-.credential-modal-backdrop {
-  position: fixed;
+/* Native <dialog> (showModal): the top layer handles stacking and the inert background. */
+.credential-dialog {
+  /* Tailwind's reset zeroes margins, which removes the UA's margin:auto that centers a modal dialog. */
+  margin: auto;
   inset: 0;
-  z-index: 80;
-  background: rgba(23, 23, 23, .55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+  width: min(66rem, calc(100% - 3rem));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+}
+.credential-dialog::backdrop {
+  background: rgba(23, 23, 23, .6);
   animation: credential-fade .2s ease both;
 }
 .credential-modal {
@@ -880,7 +964,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 @keyframes credential-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes credential-pop { from { opacity: 0; transform: scale(.97) translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .credential-modal-backdrop, .credential-modal { animation: none; }
+  .credential-dialog::backdrop, .credential-modal { animation: none; }
 }
 @media (max-width: 860px) {
   .credential-modal { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding: 1.25rem; }
@@ -891,8 +975,8 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
   top: .9rem;
   right: .9rem;
   z-index: 2;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
