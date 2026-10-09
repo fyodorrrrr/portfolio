@@ -27,6 +27,27 @@
   font-display: swap;
 }
 
+/* Size-matched stand-ins so text doesn't reflow or overflow while Helixa loads (or if it fails).
+   Metrics measured from the Helixa and Arial font files. */
+@font-face {
+  font-family: 'Helixa Fallback';
+  src: local('Arial');
+  font-weight: 400 600;
+  size-adjust: 96.63%;
+  ascent-override: 102.77%;
+  descent-override: 21.63%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Helixa Fallback';
+  src: local('Arial Bold');
+  font-weight: 700;
+  size-adjust: 92.75%;
+  ascent-override: 107.06%;
+  descent-override: 22.53%;
+  line-gap-override: 0%;
+}
+
 :root {
   --paper: #f7f7f5;
   --paper-deep: #ffffff;
@@ -44,14 +65,16 @@
   --gutter: clamp(1rem, 2.5vw, 2.5rem); /* main left/right page margin */
   --content-max: 100rem; /* widest a section's content gets */
   --accent-soft: #3f7a5d; /* tinted second line of big headings (~4.9:1 on paper) */
+  --topbar-h: 4.5rem; /* the sticky nav's height; the hero and anchor offsets are built on it */
   --prose-max: 72rem; /* reading width for long-form pages (case studies, credentials page) */
 }
+@media (max-width: 719px) { :root { --topbar-h: 5rem; } }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Helixa', Arial, Helvetica, sans-serif;
-  --font-heading: 'Helixa', Arial, Helvetica, sans-serif;
+  --font-sans: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
+  --font-heading: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
 }
 
 @layer components {
@@ -67,7 +90,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-weight: 450;
   -webkit-font-smoothing: antialiased;
 }
@@ -75,11 +98,11 @@ body {
 ::selection { background: var(--ink); color: var(--paper); }
 
 .mono {
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   letter-spacing: .06em;
 }
 .eyebrow {
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
@@ -92,6 +115,10 @@ body {
   top: 0;
   z-index: 40;
   padding: 1.1rem var(--gutter);
+  min-height: var(--topbar-h);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
@@ -116,7 +143,7 @@ body {
   color: var(--paper);
   padding: .6rem 1rem;
   font-size: .8rem;
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   text-decoration: none;
   transition: top .2s ease;
 }
@@ -194,7 +221,7 @@ body {
 .entry {
   box-sizing: border-box;
   padding: 5.5rem var(--gutter);
-  scroll-margin-top: 4.5rem;
+  scroll-margin-top: var(--topbar-h);
   opacity: 0;
   transform: translateY(14px);
   transition: opacity .6s ease, transform .6s ease;
@@ -273,7 +300,12 @@ body {
 /* Hero: empty space above, a short tagline, then the name set edge to edge at the bottom. */
 .masthead {
   position: relative;
-  min-height: calc(100svh - 4.5rem);
+  overflow-x: clip; /* never let the giant name create a horizontal scrollbar */
+  /* The hero is the first screen: it must not wait for the JS scroll-reveal. */
+  opacity: 1;
+  transform: none;
+  transition: none;
+  min-height: calc(100svh - var(--topbar-h));
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -299,12 +331,15 @@ body {
   text-wrap: balance;
 }
 /* Hand-lettered margin notes: a light-gray sticker with a doodled arrow, set slightly askew.
-   They are real links, so the whitespace points somewhere. Handwriting face is notes-only. */
+   The two with arrows are real links, so the whitespace points somewhere. The handwriting
+   face is for these notes only. */
 .masthead-note {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
+  margin: 0;
+  min-height: 2.75rem;
   padding: .45rem 1rem .55rem;
   border-radius: 8px;
   background: var(--surface-muted);
@@ -316,62 +351,102 @@ body {
   transform: rotate(-2.5deg);
   transition: transform .25s ease, color .2s ease;
 }
-.masthead-note:hover,
-.masthead-note:focus-visible { color: var(--accent); transform: rotate(-1deg) translateY(-3px); }
-.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a.masthead-note:hover,
+a.masthead-note:focus-visible { color: var(--accent); transform: rotate(-1deg) translateY(-3px); }
+a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .masthead-note-arrow { width: 1.3rem; height: 1.3rem; }
 .masthead-note-arrow--down { transform: rotate(90deg); } /* the base arrow points up-right; this one points down-right */
-.masthead-note--float {
+
+/* "open to roles": a static note with a status dot, floating top-left of the whitespace. */
+.masthead-note--status {
   position: absolute;
-  top: clamp(4rem, 16vh, 9rem);
-  right: calc(var(--gutter) + 6vw);
-  transform: rotate(3deg);
+  top: clamp(5rem, 20vh, 11rem);
+  left: calc(var(--gutter) + 4vw);
+  transform: rotate(-1.5deg);
 }
-.masthead-note--float:hover,
-.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px); }
+.masthead-note-dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--accent-soft); }
+
+/* "say hi" with a longer doodled arrow looping down toward the name. */
+.masthead-float {
+  position: absolute;
+  top: clamp(4rem, 14vh, 8rem);
+  right: calc(var(--gutter) + 28vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.masthead-note--float { transform: rotate(3deg); }
+a.masthead-note--float:hover,
+a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px); }
+.masthead-doodle {
+  width: clamp(4.5rem, 7vw, 6.5rem);
+  height: auto;
+  margin-top: .5rem;
+  color: var(--accent);
+  overflow: visible;
+}
+
+/* The underline drawn under "Software engineer" in the tagline. */
+.masthead-mark { position: relative; display: inline-block; }
+.masthead-mark-stroke {
+  position: absolute;
+  left: -2%;
+  bottom: -.3em;
+  width: 104%;
+  height: .5em;
+  color: var(--accent-soft);
+  overflow: visible;
+  pointer-events: none;
+}
+.masthead-mark-stroke path { vector-effect: non-scaling-stroke; }
+
+/* Guards against the absolutely placed notes colliding with the tagline and name. Narrow or
+   short screens: "open to roles" drops into the flow above the tagline. Below 1100px wide or
+   760px tall the floating "say hi" and its doodle go away entirely. */
 @media (max-width: 900px) {
   .masthead-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-  .masthead-note--float { display: none; }
 }
+@media (max-width: 900px), (max-height: 760px) {
+  .masthead-note--status { position: static; align-self: flex-start; margin-bottom: 1.25rem; }
+}
+@media (max-width: 1100px), (max-height: 760px) {
+  .masthead-float { display: none; }
+}
+
+/* Entrance: notes pop in and strokes draw on at page load (CSS only, no JS needed). Without
+   motion everything is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .masthead .masthead-note { animation: note-pop .45s cubic-bezier(.2, .7, .2, 1) var(--delay, 0s) both; }
+  .masthead .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: stroke-draw .8s cubic-bezier(.4, 0, .2, 1) calc(var(--delay, 0s)) forwards;
+  }
+  .masthead .draw--head { animation-delay: calc(var(--delay, 0s) + .7s); animation-duration: .3s; }
+}
+@keyframes note-pop { from { opacity: 0; scale: .85; } to { opacity: 1; scale: 1; } }
+@keyframes stroke-draw { to { stroke-dashoffset: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .masthead-note { transition: color .2s ease; }
-  .masthead-note:hover, .masthead-note:focus-visible { transform: rotate(-2.5deg); }
-  .masthead-note--float:hover, .masthead-note--float:focus-visible { transform: rotate(3deg); }
+  a.masthead-note:hover, a.masthead-note:focus-visible { transform: rotate(-2.5deg); }
+  a.masthead-note--float:hover, a.masthead-note--float:focus-visible { transform: rotate(3deg); }
 }
 
 /* The name fills its container exactly: "Jose Aquino" in Helixa Regular is 4.978em wide at
    -0.03em tracking (measured), so the size is a share of the container width. 19.7cqw leaves
-   ~1% spare so kerning can't push it past the edge. */
+   ~1% spare so kerning can't push it past the edge. On short screens the viewport-height cap
+   (30svh) wins, so the name shrinks instead of eating the first screen and crowding the notes. */
 .masthead-name { container-type: inline-size; }
 .masthead h1 {
   margin: 0;
-  font-size: 19.7cqw;
+  font-size: 14vw; /* fallback for browsers without container or small-viewport units */
+  font-size: min(19.7cqw, 30svh);
   line-height: .9;
   letter-spacing: -.03em;
   font-weight: 400;
   white-space: nowrap;
   color: var(--ink);
 }
-.masthead-cta-row {
-  margin-top: 2.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.75rem;
-}
-.masthead-cta {
-  margin-top: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: .65rem;
-  font-size: .95rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
-  padding-bottom: .4rem;
-  border-bottom: 1px solid var(--ink);
-  transition: gap .2s ease, color .2s ease, border-color .2s ease;
-}
-.masthead-cta:hover { gap: .9rem; }
 
 /* ---------- about ---------- */
 .about-grid { display: grid; grid-template-columns: minmax(0,44rem) 1fr; gap: 4rem; }
@@ -383,7 +458,7 @@ body {
 .about-stack .eyebrow { display: block; margin-bottom: .8rem; }
 .about-stack-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
 .about-stack-tags span {
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-size: .75rem;
   letter-spacing: .02em;
   padding: .3rem .55rem;
@@ -607,7 +682,7 @@ body {
 .project-built-list li { display: flex; gap: 1.5rem; align-items: flex-start; }
 .project-built-index {
   flex: none;
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -.01em;
@@ -616,7 +691,7 @@ body {
 .project-built-list p { margin: 0; max-width: 44rem; font-size: var(--text-detail); line-height: 1.65; color: var(--ink-soft); }
 .case-tech { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem; }
 .case-tech span {
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-size: .75rem;
   letter-spacing: .02em;
   padding: .3rem .55rem;
@@ -1092,7 +1167,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
   transition: color .2s ease;
 }
 .contact-channels a:last-child { border-bottom: 1px solid var(--line); }
-.contact-channels a .arrow { transition: transform .2s ease; color: var(--ink-soft); font-family: 'Helixa', Arial, Helvetica, sans-serif; }
+.contact-channels a .arrow { transition: transform .2s ease; color: var(--ink-soft); font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif; }
 .contact-channels a:hover { color: var(--ink); }
 .contact-channels a:hover .arrow { color: var(--ink); transform: translateX(4px); }
 
@@ -1138,7 +1213,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
   color: var(--paper);
   border: none;
   padding: .85rem 1.6rem;
-  font-family: 'Helixa', Arial, Helvetica, sans-serif;
+  font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-size: .76rem;
   letter-spacing: .1em;
   text-transform: uppercase;

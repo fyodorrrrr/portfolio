@@ -1,3 +1,14 @@
+import { Gaegu } from "next/font/google";
+
+// Handwriting face for the hero's margin notes only. Loaded here (not in layout.js) so the
+// other routes don't download it.
+const hand = Gaegu({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-hand",
+});
+
 // Hand-drawn arrow for the margin notes (decorative; the link text carries the meaning).
 function Arrow({ flip = false }) {
   return (
@@ -17,21 +28,63 @@ function Arrow({ flip = false }) {
   );
 }
 
+// pathLength="1" lets the CSS draw-on animation work for any path length (see .draw).
 export default function Hero() {
   return (
-    <section id="home" className="entry masthead" data-reveal>
-      <a href="#contact" className="masthead-note masthead-note--float">
-        say hi
-        <Arrow flip />
-      </a>
+    <section id="home" className={`entry masthead ${hand.variable}`}>
+      <p className="masthead-note masthead-note--status" style={{ "--delay": "0.9s" }}>
+        <span className="masthead-note-dot" aria-hidden="true" />
+        open to roles
+      </p>
+
+      <div className="masthead-float">
+        <a href="#contact" className="masthead-note masthead-note--float" style={{ "--delay": "0.6s" }}>
+          say hi<span className="sr-only">, contact me</span>
+          <Arrow flip />
+        </a>
+        <svg
+          className="masthead-doodle"
+          viewBox="0 0 120 200"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          style={{ "--delay": "1.1s" }}
+        >
+          <path
+            className="draw"
+            pathLength="1"
+            d="M34 6C92 18 108 68 64 86C20 104 16 60 52 68C92 78 74 138 58 176"
+          />
+          <path className="draw draw--head" pathLength="1" d="M40 156L58 180L78 160" />
+        </svg>
+      </div>
 
       <div className="masthead-grid">
         <div className="masthead-top">
           <p className="masthead-role">
-            Software engineer and computer science student building at the intersection of software, AI, and data.
+            <span className="masthead-mark">
+              Software engineer
+              <svg
+                className="masthead-mark-stroke"
+                viewBox="0 0 200 14"
+                preserveAspectRatio="none"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                aria-hidden="true"
+                style={{ "--delay": "0.4s" }}
+              >
+                <path className="draw" pathLength="1" d="M2 9C30 3 62 12 100 6S164 10 198 4" />
+              </svg>
+            </span>{" "}
+            and computer science student building at the intersection of software, AI, and data. Based in Laguna, Philippines
           </p>
 
-          <a href="#projects" className="masthead-note">
+          <a href="#projects" className="masthead-note" style={{ "--delay": "0.75s" }}>
             <Arrow />
             hey! see my work
           </a>

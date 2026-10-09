@@ -1,14 +1,5 @@
-import { Gaegu } from "next/font/google";
 import "./globals.css";
 import PageCurtain from "@/components/PageCurtain";
-
-// Handwriting face for the hero's margin notes only; everything else is Helixa.
-const hand = Gaegu({
-  subsets: ["latin"],
-  weight: "700",
-  display: "swap",
-  variable: "--font-hand",
-});
 
 export const metadata = {
   metadataBase: new URL("https://example.com"),
@@ -25,7 +16,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={hand.variable}>
+    <html lang="en">
+      <head>
+        {/* The two Helixa weights used on first paint (body 450, headings 400). */}
+        <link rel="preload" href="/fonts/Helixa-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Helixa-Book.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="antialiased">
         {children}
         <PageCurtain />
