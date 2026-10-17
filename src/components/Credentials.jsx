@@ -1,4 +1,4 @@
-import Link from "next/link";
+import CurtainLink from "./CurtainLink";
 import CredentialsList from "./CredentialsList";
 import { credentials } from "@/data/credentials";
 
@@ -25,9 +25,9 @@ export default function Credentials() {
       <CredentialsList items={homeItems} limitPerCategory={LIMIT_PER_CATEGORY}>
         {hasMore && (
           <div className="credentials-more-wrap">
-            <Link href="/credentials" className="credentials-more">
+            <CurtainLink href="/credentials" className="credentials-more">
               View all credentials <span className="credentials-more-arrow" aria-hidden="true">→</span>
-            </Link>
+            </CurtainLink>
           </div>
         )}
       </CredentialsList>

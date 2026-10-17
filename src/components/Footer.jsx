@@ -1,19 +1,45 @@
-import SocialLinks from "./SocialLinks";
+import CurtainLink from "./CurtainLink";
+
+function ExternalArrow() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <path d="M4 12 12 4M4 4h8v8" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--ink)] text-[var(--paper)] py-8 px-[var(--gutter)]">
-      <div className="max-w-[var(--content-max)] mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-base font-medium tracking-wide flex items-center gap-2 font-sans">
-            <span className="font-bold">Jose</span>
-            <span className="opacity-60">|</span>
-            <span>© {new Date().getFullYear()}</span>
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-top">
+          <div className="footer-identity">
+            <a href="#home" className="footer-name">Jose Aquino</a>
           </div>
-          <SocialLinks />
-        </div>
-        <div className="mono mt-8 text-center text-xs opacity-60">
-          Set in Helixa
+          <nav className="footer-nav" aria-labelledby="footer-explore">
+            <h2 id="footer-explore">Explore</h2>
+            <ul>
+              <li><a href="#projects">Work</a></li>
+              <li><a href="#about">About</a></li>
+              <li><CurtainLink href="/credentials">Credentials</CurtainLink></li>
+            </ul>
+          </nav>
+          <nav className="footer-nav" aria-labelledby="footer-contact">
+            <h2 id="footer-contact">Get in touch</h2>
+            <ul>
+              <li><a href="mailto:aquinojxse@gmail.com">Email</a></li>
+              <li>
+                <a href="https://www.linkedin.com/in/jose-aquino-a16884382/" target="_blank" rel="noreferrer">
+                  LinkedIn <ExternalArrow /><span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/fyodorrrrr" target="_blank" rel="noreferrer">
+                  GitHub <ExternalArrow /><span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>

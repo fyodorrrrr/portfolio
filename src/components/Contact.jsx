@@ -82,8 +82,11 @@ export default function Contact() {
             <label htmlFor="contact-message">What are you building?</label>
           </div>
 
-          <button type="submit" className="form-submit" disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Send note →"}
+          <button type="submit" className="form-submit contact-submit" disabled={status === "sending"}>
+            <span>{status === "sending" ? "Sending…" : "Send note"}</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M3 10h14M11 4l6 6-6 6" />
+            </svg>
           </button>
 
           <p className="form-status" role="status" aria-live="polite">

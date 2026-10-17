@@ -1,35 +1,32 @@
-import SectionIntro from "./SectionIntro";
-
 export default function AboutMe() {
   return (
-    <section id="about" className="entry" data-reveal>
-      <SectionIntro note="A quick introduction before the specifics." accent="before the specifics">
-        about me,
-      </SectionIntro>
-
-      <div className="about-grid">
-        <div>
-          <p className="about-lede">
-            I'm a computer science student and <strong>DOST scholar</strong> at Laguna State Polytechnic University, building systems that combine <strong>practical engineering</strong> with applied AI and data.
-            <br />
-            <br />
-            Recent work spans a GIS-based agricultural decision-support platform, a multi-agent evaluation pipeline for small language models, and REST APIs and data models for a church management system built in Django and PostgreSQL.
+    <section id="about" className="entry about-section" aria-labelledby="about-title">
+      <div className="about-layout">
+        <h2 id="about-title" className="section-intro-title">
+          about me,
+          <span>a little context</span>
+        </h2>
+        <div className="about-content">
+          <p className="about-intro">
+            I enjoy working on projects that turn complex problems into practical solutions. Recently, I worked with a team on an AI-powered agricultural decision-support platform that placed in the Top 3 at a regional hackathon.
           </p>
-
-          <div className="about-stack">
-            <span className="eyebrow">Working with</span>
-            <div className="about-stack-tags">
-              {["React", "Next.js", "Node.js", "Python", "PostgreSQL", "Firebase", "Git"].map((tech) => (
-                <span key={tech}>{tech}</span>
-              ))}
+          <p className="about-body">
+            These days, I&apos;m exploring how multiple AI agents can work together to evaluate educational materials as part of my academic research. I&apos;m especially interested in figuring out how to build intelligent systems that don&apos;t just work, but are reliable and genuinely useful.
+          </p>
+          <dl className="about-facts">
+            <div className="about-fact">
+              <dt>Education</dt>
+              <dd>
+                computer science
+                <span>Laguna State Polytechnic University</span>
+                <span>DOST scholar</span>
+              </dd>
             </div>
-          </div>
-        </div>
-
-        <div className="marginalia">
-          <div className="row"><span className="k">Currently</span><span className="v">Thesis on multi-agent LLM evaluation</span></div>
-          <div className="row"><span className="k">Location</span><span className="v">Laguna, Philippines</span></div>
-          <div className="row"><span className="k">Looking for</span><span className="v">Software engineering roles</span></div>
+            <div className="about-fact">
+              <dt>Currently</dt>
+              <dd>Working on multi-agent LLM evaluation</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>

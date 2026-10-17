@@ -1,5 +1,6 @@
 import "./globals.css";
 import PageCurtain from "@/components/PageCurtain";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata = {
   metadataBase: new URL("https://example.com"),
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="antialiased">
         {children}
+        <SmoothScroll />
         <PageCurtain />
       </body>
     </html>

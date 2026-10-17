@@ -86,7 +86,8 @@ export default function Navbar() {
 
     setActiveSection(sectionId);
     scrollingRef.current = true;
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    element.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
     setTimeout(() => {
       scrollingRef.current = false;
     }, 1000);

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import CurtainLink from "@/components/CurtainLink";
 import CredentialsList from "@/components/CredentialsList";
 import { credentials } from "@/data/credentials";
 
@@ -12,7 +12,7 @@ export default function CredentialsPage() {
     <div className="project-detail">
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="project-detail-bar case-links">
-        <Link href="/#credentials">← Back</Link>
+        <CurtainLink href="/#credentials">← Back</CurtainLink>
       </div>
 
       <main id="main-content" tabIndex={-1}>

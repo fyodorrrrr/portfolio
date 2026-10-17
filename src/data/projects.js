@@ -3,110 +3,225 @@
 const thumbnail = (slug) => ({ src: `/assets/thumbnails/${slug}.png`, width: 3600, height: 2025 });
 
 export const projects = [
-  {
-    slug: "agriwise",
-    title: "AgriWise",
-    caption: "GIS + AI decision support for land-use planning.",
-    description:
-      "A GIS and AI-driven decision-support platform helping farmers assess land suitability and plan crop decisions from geospatial and climate data.",
-    role: "Team of 3 · owned backend, RAG chatbot, and mobile UX",
-    problem:
-      "Agricultural data for CALABARZON is scattered across spreadsheets, PDFs, and other public sources, making it difficult to turn into localized crop and market insights for farmers and agricultural stakeholders.",
-    built: [
-      "Built the RAG chatbot with separate trusted channels for forecast data and agricultural guidance. Forecast numbers are injected from server-side context, while manuals provide page-level citations, with deterministic guards preventing unsupported figures and citations from reaching users.",
-      "Built the core forecast service and artifact registry to load and validate versioned model bundles at startup, serve typed province-level forecasts, and explicitly handle insufficient data. Also fixed a configuration issue that silently dropped demand models.",
-      "Built a config-driven opportunity scorer that compares demand, supply, and price across provinces using normalized peer-relative scores, dynamically adjusting weights when data is missing and blocking scoring when the peer set is incomplete.",
-      "Built an explainable market recommendation engine that ranks markets using farmer-relative distance, market size, coordinate confidence, and analytics support, with per-market score breakdowns instead of a black-box ranking.",
-    ],
-    outcome:
-      "Placed among the Top 3 at DOST Hack4AProgress 2026. Built feature-complete within a 2-day hackathon.",
-    tech: ["Python", "GIS", "Machine Learning", "PostgreSQL", "React"],
-    thumbnail: thumbnail("agriwise"),
-    gallery: [
-      { src: "/assets/works/agriwise/mapping.png", alt: "AgriWise Mapping view: province heatmap of rice demand across CALABARZON with market markers", width: 1897, height: 939 },
-      { src: "/assets/works/agriwise/dashboard.png", alt: "AgriWise dashboard summarizing forecasts and opportunities", width: 1897, height: 943 },
-      { src: "/assets/works/agriwise/forecasting.png", alt: "AgriWise Forecasting view showing province-level price forecasts", width: 1900, height: 946 },
-    ],
-    github: "#",
-    demo: "#",
-    featured: true,
-  },
-  {
-    slug: "equiped",
-    title: "EquipED",
-    caption: "AI-assisted review and continuous learning for Self-Paced Learning Modules.",
-    description:
-      "An AI-assisted evaluation system helping LSPU's curriculum office review Self-Paced Learning Modules (SLMs) for content accuracy, curriculum alignment, gender sensitivity, and IP compliance — with a feedback loop that learns from reviewer corrections.",
-    role: "Team project · owned the fine-tuning feedback loop, model validation, and rubric-based scoring architecture",
-    problem:
-      "LSPU's curriculum office reviews Self-Paced Learning Modules (SLMs) against institutional criteria covering content accuracy, curriculum alignment, gender sensitivity, and intellectual property compliance. EquipED assists reviewers through domain-specific AI evaluators, but the AI outputs remain advisory — reviewers can accept, edit, or reject the results. The challenge was to turn these human corrections into a reliable learning loop without replacing human judgment or training on outputs that reviewers never corrected.",
-    built: [
-      "Engineered a feedback pipeline that converts reviewer corrections into DPO preference pairs for continuous learning, ensuring training data reflects actual reviewer decisions rather than synthetic or untouched evaluations.",
-      "Implemented a Base-vs-Adapter validation workflow to determine whether fine-tuning actually improves evaluation quality. The system evaluates adapters on held-out reviewer corrections and classifies results as better, worse, or inconclusive.",
-      "Architected Coordinator scoring around editable institutional rubrics and source-grounded evidence, allowing evaluation criteria to evolve without changing the underlying application logic.",
-    ],
-    outcome:
-      "Delivered a feature-complete workflow for evaluating SLMs, learning from reviewer corrections, and validating model improvements without removing human oversight.",
-    tech: ["Python", "LLM Agents", "Evaluation Pipelines", "Prompt Engineering"],
-    thumbnail: thumbnail("equiped_thumb_"),
-    gallery: [
-      { src: "/assets/works/equipED/model-validation.png", alt: "EquipED model validation screen comparing base model and adapter results", width: 1908, height: 942 },
-      { src: "/assets/works/equipED/sign-in.png", alt: "EquipED sign-in screen", width: 1917, height: 944 },
-      { src: "/assets/works/equipED/overview.png", alt: "EquipED overview of module evaluations", width: 1910, height: 941 },
-      { src: "/assets/works/equipED/sme-workspace.png", alt: "EquipED subject-matter-expert review workspace", width: 1910, height: 948 },
-    ],
-    github: "#",
-    demo: "#",
-    featured: true,
-  },
-  {
-    slug: "sbcc-management-system",
-    title: "SBCC Management System",
-    caption: "Member records, announcements, and reminders for a church community.",
-    description:
-      "A web-based management system for a church community, handling member records, targeted announcements and email, and birthday and anniversary reminders, built with Django and PostgreSQL.",
-    role: "Team project · owned backend features for member archiving, announcements and email delivery, and reminders",
-    problem:
-      "The church needed a centralized system for managing member records and community communication. Staff needed to manage member lifecycles, identify upcoming birthdays and anniversaries, and send targeted announcements without relying on manual processes.",
-    built: [
-      "Designed a soft-archive workflow that preserves member history instead of permanently deleting records. Added archive, restore, and bulk-archive operations with transactional writes and staff-only status changes.",
-      "Delivered the announcements and email workflow with scheduled publishing, expiration, ministry-based audience targeting, public feeds, and recipient previews. Separated email delivery from the API layer and covered the service with a 31-test pytest suite for recipient resolution, inactive-member filtering, delivery results, and failure handling.",
-      "Implemented birthday and anniversary reminders that calculate upcoming occurrences within a configurable window, including year rollover and leap-day handling.",
-    ],
-    outcome:
-      "Shipped backend features used by the client's staff for member management and community communication. The team's subsequent work extended these backend foundations into the public API and announcement UI.",
-    tech: ["Django", "Python", "PostgreSQL", "REST APIs", "pytest"],
-    thumbnail: thumbnail("sbcc_thumb"),
-    gallery: [
-      { src: "/assets/works/sbcc/sbcc.png", alt: "SBCC portal dashboard with member statistics, daily verse, and recent activities", width: 1918, height: 866 },
-      { src: "/assets/works/sbcc/sbcc_2.png", alt: "SBCC public landing page, \"Welcome Home\"", width: 1892, height: 944 },
-    ],
-    github: "#",
-    demo: "#",
-    featured: false,
-  },
-  {
-  slug: "haul-thrift-marketplace",
-  title: "Haul",
-  caption: "A cross-platform thrift marketplace for buying and selling preloved items.",
+
+{
+  slug: "agriwise",
+  title: "AgriWise",
+  caption:
+    "GIS and AI-powered decision support for smarter agricultural planning.",
+
   description:
-    "A cross-platform marketplace application for buying and selling secondhand items, built with Flutter and Firebase, with separate buyer and seller workflows for discovery, listings, orders, and inventory management.",
+    "AgriWise combines geospatial data, agricultural forecasts, and AI-powered guidance to help farmers and agricultural stakeholders explore crop opportunities, compare markets, and make more informed planning decisions.",
+
   role:
-    "Team project · built the Flutter application architecture, Firebase integration, marketplace workflows, and access controls",
+    "Team of 3 · Responsible for backend development, RAG chatbot, and mobile UX",
 
   problem:
-    "Secondhand marketplaces need to support two distinct workflows: buyers need a simple way to discover and purchase items, while sellers need tools to manage listings, inventory, and orders. The challenge was to bring both workflows into a single cross-platform application backed by a cloud data layer.",
+    "Agricultural information across CALABARZON is scattered across spreadsheets, reports, and public datasets, making it difficult for farmers and stakeholders to access localized insights. The challenge was bringing these sources together into a platform that makes forecasts, market opportunities, and agricultural guidance easier to understand and act on.",
 
   built: [
-    "Built the cross-platform Flutter application with separate buyer and seller workflows, using Provider for state management and a structured architecture for models, screens, and reusable widgets.",
+    "Developed a RAG-powered agricultural assistant that combines trusted forecast data with cited agricultural references. Added safeguards against unsupported figures and citations to make AI-generated guidance more reliable.",
 
-    "Integrated Firebase Authentication, Cloud Firestore, and Firebase Storage to manage user accounts, product data, orders, profiles, and product images, including user-specific order queries and persistent marketplace data.",
+    "Built the forecasting backend to load and validate versioned machine learning models, deliver province-level predictions, and handle missing data explicitly. Also resolved a configuration issue that prevented demand models from loading correctly.",
 
-    "Implemented role-aware marketplace workflows and Firebase security rules covering product listings, seller inventory, and order management, restricting sensitive operations and order access to the users involved."
+    "Developed an opportunity scoring system that compares demand, supply, and prices across provinces, adjusting weights when data is missing and withholding scores when comparisons would be unreliable.",
+
+    "Built an explainable market recommendation engine that considers distance, market size, and data confidence, giving farmers ranked market options with transparent scoring breakdowns.",
   ],
 
   outcome:
-    "Delivered a cross-platform marketplace application for Android, iOS, and Web, with Firebase-backed authentication, persistent data, product management, and end-to-end buyer and seller workflows.",
+    "Placed among the Top 3 at DOST Hack4AProgress 2026, delivering a working GIS and AI-powered agricultural decision-support platform within a 2-day hackathon.",
+
+  tech: [
+    "Python",
+    "GIS",
+    "Machine Learning",
+    "RAG",
+    "React",
+  ],
+
+  thumbnail: {
+    ...thumbnail("agriwise"),
+    src: "/assets/thumbnails/agriwise.png?v=badge-free",
+  },
+
+  gallery: [
+    {
+      src: "/assets/works/agriwise/mapping.png?v=badge-free",
+      alt: "AgriWise mapping view showing province-level rice demand across CALABARZON and nearby markets",
+      width: 1897,
+      height: 939,
+    },
+    {
+      src: "/assets/works/agriwise/dashboard.png?v=badge-free",
+      alt: "AgriWise dashboard summarizing agricultural forecasts and opportunities",
+      width: 1897,
+      height: 943,
+    },
+    {
+      src: "/assets/works/agriwise/forecasting.png?v=badge-free",
+      alt: "AgriWise forecasting view displaying province-level price predictions",
+      width: 1900,
+      height: 946,
+    },
+  ],
+
+  github: "#",
+  demo: "#",
+  featured: true,
+}
+,
+
+{
+  slug: "equiped",
+  title: "EquipED",
+  caption: "AI-assisted evaluation of learning materials with human feedback.",
+  description:
+    "EquipED helps academic reviewers evaluate learning materials against institutional standards. It combines specialized AI agents with human feedback, allowing reviewers to refine evaluations and contribute to future model improvements.",
+
+  role:
+    "Team project · Responsible for the feedback pipeline, model validation, and rubric-based scoring architecture",
+
+  problem:
+    "Reviewing Self-Paced Learning Modules (SLMs) involves checking content accuracy, curriculum alignment, gender sensitivity, and intellectual property compliance. EquipED uses specialized AI agents to assist with these evaluations while keeping reviewers in control of final decisions. The challenge was turning reviewer corrections into meaningful training data without treating unreviewed AI outputs as reliable feedback.",
+
+  built: [
+    "Built a reviewer feedback pipeline that converts corrections into DPO preference pairs, using explicit human feedback for training instead of treating untouched AI evaluations as reviewer preferences.",
+
+    "Developed a Base-vs-Adapter validation workflow using held-out reviewer corrections, enabling model comparisons that distinguish improvements, regressions, and inconclusive results.",
+
+    "Designed configurable rubric-based scoring with source-grounded evidence, allowing institutional evaluation criteria to change without rewriting the underlying scoring logic.",
+  ],
+
+  outcome:
+    "Built a workflow connecting AI-assisted evaluation, reviewer feedback, DPO training-data preparation, and model validation while keeping human reviewers responsible for final decisions.",
+
+  tech: [
+    "Python",
+    "LLM Agents",
+    "DPO",
+    "Evaluation Pipelines",
+    "Prompt Engineering",
+  ],
+
+  thumbnail: thumbnail("equiped_thumb_"),
+
+  gallery: [
+    {
+      src: "/assets/works/equipED/overview.png",
+      alt: "EquipED overview of module evaluations",
+      width: 1910,
+      height: 941,
+    },
+    {
+      src: "/assets/works/equipED/sme-workspace.png",
+      alt: "EquipED subject-matter-expert review workspace",
+      width: 1910,
+      height: 948,
+    },
+    {
+      src: "/assets/works/equipED/model-validation.png",
+      alt: "EquipED model validation screen comparing base model and adapter results",
+      width: 1908,
+      height: 942,
+    },
+    {
+      src: "/assets/works/equipED/sign-in.png",
+      alt: "EquipED sign-in screen",
+      width: 1917,
+      height: 944,
+    },
+  ],
+
+  github: "#",
+  demo: "#",
+  featured: true,
+}
+
+,
+
+{
+  slug: "sbcc-management-system",
+  title: "SBCC Management System",
+  caption:
+    "Member management and community communication in one platform.",
+
+  description:
+    "A centralized web-based management system that helps church staff manage member information, coordinate church activities, streamline administrative tasks, and improve communication across the congregation.",
+
+  role:
+    "Team project · Responsible for backend development of member archiving, announcements, email delivery, and reminders",
+
+  problem:
+    "Managing member records, important dates, and community announcements through separate manual processes made day-to-day administration more difficult. The challenge was creating a centralized system where staff could maintain member information, communicate with specific groups, and keep track of upcoming events.",
+
+
+built: [
+  "Developed a soft-archive system with staff-only access, bulk operations, and transactional safeguards, preserving member history while allowing staff to manage inactive records without permanent data loss.",
+
+  "Built an announcement and email delivery workflow with scheduled publishing, ministry-based targeting, and recipient previews, helping staff communicate with the right members more efficiently. Separated email delivery from the API layer and validated the workflow through 31 automated tests.",
+
+  "Implemented birthday and anniversary reminders with configurable date ranges, year-rollover handling, and leap-day support, helping staff identify upcoming occasions without manually checking member records.",
+],
+
+
+  outcome:
+    "Delivered backend features used by church staff for member management and community communication, supported by 31 automated tests covering announcement delivery and failure handling.",
+
+  tech: [
+    "Django",
+    "Python",
+    "PostgreSQL",
+    "REST APIs",
+    "pytest",
+  ],
+
+  thumbnail: thumbnail("sbcc_thumb"),
+
+  gallery: [
+    {
+      src: "/assets/works/sbcc/sbcc.png",
+      alt: "SBCC portal dashboard showing member statistics, daily verse, and recent activities",
+      width: 1918,
+      height: 866,
+    },
+    {
+      src: "/assets/works/sbcc/sbcc_2.png",
+      alt: "SBCC public landing page",
+      width: 1892,
+      height: 944,
+    },
+  ],
+
+  github: "#",
+  demo: "#",
+  featured: false,
+}
+,
+
+{
+  slug: "haul-thrift-marketplace",
+  title: "Haul",
+  caption: "A cross-platform marketplace for preloved items.",
+  description:
+    "A cross-platform thrift marketplace that connects buyers and sellers through a single application, making it easier to discover secondhand items, manage listings, and complete purchases.",
+
+  role:
+    "Team project · Responsible for Flutter application architecture, Firebase integration, marketplace workflows, and access controls",
+
+  problem:
+    "Buyers and sellers have different needs in a secondhand marketplace. Buyers need an easy way to discover and purchase items, while sellers need tools to manage listings, inventory, and orders. The challenge was building a unified application that supports both experiences with consistent, secure data management.",
+
+  built: [
+    "Developed the cross-platform Flutter application with separate buyer and seller experiences, using Provider for state management and a modular structure for screens, models, and reusable widgets to keep the application maintainable as features expanded.",
+
+    "Integrated Firebase Authentication, Cloud Firestore, and Firebase Storage to support user accounts, product listings, orders, and images, keeping marketplace data persistent and accessible across sessions and devices.",
+
+    "Implemented role-based marketplace workflows and Firebase security rules to protect product management and order operations, ensuring users can only access or modify data they are authorized to manage."
+  ],
+
+  outcome:
+    "Delivered a Flutter marketplace with Firebase-backed authentication, persistent product and order data, and integrated buyer and seller workflows across Android, iOS, and Web.",
 
   tech: [
     "Flutter",
@@ -120,11 +235,16 @@ export const projects = [
   thumbnail: thumbnail("haul-thrift-shop"),
 
   gallery: [
-    { src: "/assets/thumbnails/haul-thrift-shop.png", alt: "Haul app screens: Discover swipe cards, home feed, and login", width: 3600, height: 2025 },
+    {
+      src: "/assets/thumbnails/haul-thrift-shop.png",
+      alt: "Haul marketplace screens showing product discovery, home feed, and login",
+      width: 3600,
+      height: 2025
+    }
   ],
 
   github: "https://github.com/fyodorrrrr/haul-app",
   demo: "#",
-  featured: false,
-},
+  featured: false
+}
 ];

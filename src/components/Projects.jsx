@@ -3,7 +3,7 @@
 import Image from "next/image";
 import CurtainLink from "./CurtainLink";
 import SectionIntro from "./SectionIntro";
-import { useScrollSpy, scrollToTarget } from "./useScrollSpy";
+import { useScrollSpy } from "./useScrollSpy";
 import { projects } from "@/data/projects";
 
 const cardId = (slug) => `project-${slug}`;
@@ -15,6 +15,7 @@ function ProjectCard({ project }) {
       id={cardId(project.slug)}
       data-spy={project.slug}
       className="project-card"
+      aria-label={`View ${project.title} project details`}
     >
       <div className="project-stage">
         <div className="project-stage-tags">
@@ -40,7 +41,15 @@ function ProjectCard({ project }) {
       </div>
 
       <div className="project-caption">
-        <h3>{project.title}</h3>
+        <div className="project-caption-top">
+          <h3>{project.title}</h3>
+          <span className="project-view" aria-hidden="true">
+            View project
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M3 8h10M8 3l5 5-5 5" />
+            </svg>
+          </span>
+        </div>
         <p>{project.caption}</p>
       </div>
     </CurtainLink>
@@ -48,7 +57,7 @@ function ProjectCard({ project }) {
 }
 
 export default function Projects() {
-  const [activeSlug, setActiveSlug] = useScrollSpy(".project-card", projects[0].slug);
+  const [activeSlug] = useScrollSpy(".project-card", projects[0].slug);
 
   return (
     <section id="projects" className="entry projects-entry" data-reveal>
@@ -65,14 +74,13 @@ export default function Projects() {
             <ol>
               {projects.map((project) => (
                 <li key={project.slug}>
-                  <a
-                    href={`#${cardId(project.slug)}`}
-                    onClick={(event) => scrollToTarget(event, cardId(project.slug), setActiveSlug, project.slug)}
+                  <CurtainLink
+                    href={`/projects/${project.slug}`}
                     aria-current={activeSlug === project.slug ? "true" : undefined}
                     className={activeSlug === project.slug ? "active" : undefined}
                   >
                     {project.title}
-                  </a>
+                  </CurtainLink>
                 </li>
               ))}
             </ol>

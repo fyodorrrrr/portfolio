@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import CurtainLink from "./CurtainLink";
 
 // Native <dialog> opened with showModal(): the browser traps focus, makes everything
 // outside it inert (the Navbar included), closes on Escape, and returns focus to the
@@ -106,9 +107,17 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
               <span className="credential-modal-note">Certificate on file</span>
             ) : null}
             {credential.related && (
-              <a href={credential.related.href} className="credential-modal-related">
+              <CurtainLink
+                href={credential.related.href}
+                className="credential-modal-related"
+                onClick={(event) => {
+                  if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                    dialogRef.current?.close();
+                  }
+                }}
+              >
                 {credential.related.label} →
-              </a>
+              </CurtainLink>
             )}
           </div>
         </div>
