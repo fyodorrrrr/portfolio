@@ -9,16 +9,22 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "15.5.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
     "react-icons": "^5.5.0"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.30",
+      "sharp": "0.35.5"
+    }
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.5.0",
+    "eslint-config-next": "15.5.28",
     "tailwindcss": "^4"
   }
 }
