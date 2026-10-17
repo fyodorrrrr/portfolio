@@ -1,22 +1,25 @@
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Navbar from "../components/Navbar";
-import About from "../components/About";
-import Skills from "../components/Skills";
-import Projects from "../components/Projects";
-import Footer from "../components/Footer";
-import Contact from "@/components/Contact"; 
-
+import About from "@/components/About";
+import Projects from "@/components/Projects";
+import Credentials from "@/components/Credentials";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar />
-      <Hero/>
-      <About/>
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <About />
+        <Projects />
+        <Credentials />
+        <Contact />
+        <Footer />
+      </main>
+      <ScrollReveal />
     </div>
   );
 }

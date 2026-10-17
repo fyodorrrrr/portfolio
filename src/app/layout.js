@@ -1,35 +1,32 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import PageCurtain from "@/components/PageCurtain";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata = {
-  title: "Portfolio",
-  description: "Showcasing my work and projects",
+  metadataBase: new URL("https://example.com"),
+  title: "Jose Aquino",
+  description:
+    "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
+  openGraph: {
+    title: "Jose Aquino",
+    description:
+      "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
+    images: ["/assets/port_jose.jpg"],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        {/* The two Helixa weights used on first paint (body 450, headings 400). */}
+        <link rel="preload" href="/fonts/Helixa-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Helixa-Book.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
+      <body className="antialiased">
         {children}
+        <SmoothScroll />
+        <PageCurtain />
       </body>
     </html>
   );
