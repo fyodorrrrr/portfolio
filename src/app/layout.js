@@ -4,11 +4,11 @@ import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata = {
   metadataBase: new URL("https://example.com"),
-  title: "Jose Aquino — Software Engineer",
+  title: "Jose Aquino",
   description:
     "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
   openGraph: {
-    title: "Jose Aquino — Software Engineer",
+    title: "Jose Aquino",
     description:
       "Portfolio of Jose Aquino, a software engineer building practical systems with AI, data, and modern web technologies.",
     images: ["/assets/port_jose.jpg"],
