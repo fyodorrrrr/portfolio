@@ -1,13 +1,13 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T07:28:36Z",
+  "generatedAt": "2026-10-26T15:57:47.843024+00:00",
   "title": "Design System: Jose Aquino — Portfolio",
   "extensions": {
     "colorMeta": {
       "pine-ink": {
         "role": "primary",
         "displayName": "Pine Ink",
-        "canonical": "oklch(35% 0.05 155)",
+        "canonical": "#2c4a3e",
         "tonalRamp": [
           "oklch(15% 0.025 155)",
           "oklch(25% 0.04 155)",
@@ -22,7 +22,7 @@
       "paper": {
         "role": "neutral",
         "displayName": "Warm Paper",
-        "canonical": "oklch(97% 0.003 90)",
+        "canonical": "#f7f7f5",
         "tonalRamp": [
           "oklch(15% 0.002 90)",
           "oklch(28% 0.002 90)",
@@ -37,7 +37,7 @@
       "paper-deep": {
         "role": "neutral",
         "displayName": "Pure White",
-        "canonical": "oklch(100% 0 0)",
+        "canonical": "#ffffff",
         "tonalRamp": [
           "oklch(15% 0 0)",
           "oklch(30% 0 0)",
@@ -52,7 +52,7 @@
       "near-black-ink": {
         "role": "neutral",
         "displayName": "Near-Black Ink",
-        "canonical": "oklch(20% 0 0)",
+        "canonical": "#171717",
         "tonalRamp": [
           "oklch(10% 0 0)",
           "oklch(20% 0 0)",
@@ -67,7 +67,7 @@
       "soft-graphite": {
         "role": "neutral",
         "displayName": "Soft Graphite",
-        "canonical": "oklch(48% 0 0)",
+        "canonical": "#656565",
         "tonalRamp": [
           "oklch(15% 0 0)",
           "oklch(28% 0 0)",
@@ -82,7 +82,7 @@
       "faint-ink": {
         "role": "neutral",
         "displayName": "Faint Ink",
-        "canonical": "oklch(45% 0 0 / 62%)",
+        "canonical": "rgba(23, 23, 23, 0.62)",
         "tonalRamp": [
           "oklch(15% 0 0 / 62%)",
           "oklch(28% 0 0 / 62%)",
@@ -97,7 +97,7 @@
       "hairline-grey": {
         "role": "neutral",
         "displayName": "Hairline Grey",
-        "canonical": "oklch(91% 0.002 90)",
+        "canonical": "#e5e5e2",
         "tonalRamp": [
           "oklch(20% 0.002 90)",
           "oklch(35% 0.002 90)",
@@ -112,7 +112,7 @@
       "ghost-divider": {
         "role": "neutral",
         "displayName": "Ghost Divider",
-        "canonical": "oklch(20% 0 0 / 6%)",
+        "canonical": "rgba(23, 23, 23, 0.06)",
         "tonalRamp": [
           "oklch(10% 0 0 / 6%)",
           "oklch(20% 0 0 / 6%)",
@@ -127,7 +127,7 @@
       "pine-tint": {
         "role": "primary",
         "displayName": "Pine Tint",
-        "canonical": "oklch(52% 0.08 160)",
+        "canonical": "#3f7a5d",
         "tonalRamp": [
           "oklch(15% 0.03 160)",
           "oklch(25% 0.05 160)",
@@ -158,7 +158,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The hero name only, set edge to edge as a share of its container width, capped at 30svh on short screens."
+        "purpose": "The hero name only, set edge to edge as a share of its container width, capped at 25.5svh on short screens."
       },
       "section-title": {
         "displayName": "Section Title",
@@ -269,7 +269,7 @@
         "value": "640px"
       },
       {
-        "name": "hero-float-hidden",
+        "name": "hero-notes-in-flow",
         "value": "1100px wide or 760px tall"
       },
       {
@@ -292,8 +292,8 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "Solid filled submit button — the contact form's only primary action.",
-      "html": "<button class=\"ds-btn-primary\">Send note →</button>",
-      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:.6rem; background:var(--ink); color:var(--paper); border:none; padding:.85rem 1.6rem; font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:background .2s ease, gap .2s ease; } .ds-btn-primary:hover { gap:.95rem; } .ds-btn-primary:focus-visible { outline:2px solid var(--ink); outline-offset:3px; } .ds-btn-primary:disabled { opacity:.6; cursor:not-allowed; }"
+      "html": "<button class=\"ds-btn-primary\"><span>Send note</span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:48px;background:var(--ink);color:var(--paper);border:0;border-radius:0;padding:.85rem 1.5rem;font-family:Helixa,Arial,sans-serif;font-size:1rem;line-height:1.2;cursor:pointer}.ds-btn-primary svg{width:1.25em;height:1.25em;transition:transform .2s ease}.ds-btn-primary:hover:not(:disabled) svg{transform:translateX(.25rem)}.ds-btn-primary:focus-visible{outline:2px solid var(--ink);outline-offset:3px}.ds-btn-primary:disabled{opacity:.6;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-btn-primary svg{transition:none}.ds-btn-primary:hover:not(:disabled) svg{transform:none}}"
     },
     {
       "name": "Ghost Button",
@@ -325,22 +325,22 @@
       "refersTo": "nav",
       "description": "Desktop nav item with an animated underline that scales in on hover/active.",
       "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link ds-nav-link--active\">projects</a><a href=\"#\" class=\"ds-nav-link\">contact</a></nav>",
-      "css": ".ds-nav { display:flex; align-items:center; gap:1.9rem; } .ds-nav-link { position:relative; padding:.3rem 0; font-size:.82rem; color:var(--ink-soft); text-decoration:none; transition:color .2s ease; } .ds-nav-link::after { content:''; position:absolute; left:0; bottom:-2px; width:100%; height:2px; background:var(--ink); transform:scaleX(0); transform-origin:left; transition:transform .2s ease; } .ds-nav-link:hover { color:var(--ink); } .ds-nav-link:hover::after { transform:scaleX(1); } .ds-nav-link--active { color:var(--ink); font-weight:700; } .ds-nav-link--active::after { transform:scaleX(1); }"
+      "css": ".ds-nav { display:flex; align-items:center; gap:1.9rem; } .ds-nav-link { position:relative; padding:.3rem 0; font-size:.82rem; color:var(--ink-soft); text-decoration:none; transition:color .2s ease; } .ds-nav-link::after { content:''; position:absolute; left:0; bottom:-2px; width:100%; height:2px; background:var(--ink); transform:scaleX(0); transform-origin:left; transition:transform .2s ease; } .ds-nav-link:hover { color:var(--ink); } .ds-nav-link:hover::after { transform:scaleX(1); } .ds-nav-link--active { color:var(--ink); font-weight:700; } .ds-nav-link--active::after { transform:scaleX(1); }.ds-nav-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-nav-link,.ds-nav-link::after{transition:none}}"
     },
     {
       "name": "Plate (Card)",
       "kind": "card",
       "refersTo": "card",
-      "description": "Photo/screenshot frame — the system's only rounded, shadow-free \"raised\" surface. Shows an explicit uppercase Helixa placeholder when no real image exists.",
-      "html": "<div class=\"ds-plate\"><div class=\"ds-plate-placeholder\">Project Title</div></div>",
-      "css": ".ds-plate { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:var(--paper-deep); aspect-ratio:16/10; } .ds-plate-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:1rem; font-family:'Helixa',Arial,Helvetica,sans-serif; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); }"
+      "description": "Project screenshot fills a rounded, shadow-free frame at its original aspect ratio. Full-size inspection opens the source image in a new tab.",
+      "html": "<div class=\"ds-screen\"><div class=\"ds-screen-frame\"><div class=\"ds-screen-placeholder\">Project screenshot</div></div><a class=\"ds-screen-full\" href=\"#\" target=\"_blank\" rel=\"noreferrer\">Open full size ↗<span class=\"ds-sr-only\"> (opens in a new tab)</span></a></div>",
+      "css": ".ds-screen-frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--paper-deep);aspect-ratio:2;padding:0}.ds-screen-frame img{display:block;width:100%;height:auto}.ds-screen-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Helixa,Arial,sans-serif;font-size:.78rem;color:var(--ink-faint)}.ds-screen-full{display:flex;align-items:center;justify-content:flex-end;min-height:44px;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);text-underline-offset:.3em}.ds-screen-full:hover{color:var(--accent)}.ds-screen-full:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.ds-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}"
     },
     {
       "name": "Section Intro",
       "kind": "custom",
-      "description": "Gray note on the left, large light-weight heading on the right with a tinted second line. Opens About, Projects and Contact.",
+      "description": "Gray note beside a large light-weight heading in Projects and Contact; stacks below 900px. About has its own heading and prose layout.",
       "html": "<div class=\"ds-intro\"><p class=\"ds-intro-note\">A few things I've built across software, AI, and data.</p><h2 class=\"ds-intro-title\">selected work,<span>software, AI &amp; data</span></h2></div>",
-      "css": ".ds-intro{display:grid;grid-template-columns:minmax(10rem,.8fr) minmax(0,1.7fr);gap:2rem;align-items:start;width:100%} .ds-intro-note{margin:.35rem 0 0;max-width:24rem;font-size:1.3rem;line-height:1.3;letter-spacing:-.01em;font-weight:450} .ds-intro-title{margin:0;font-size:clamp(2.4rem,5.2vw,4.25rem);line-height:1.05;letter-spacing:-.02em;font-weight:400} .ds-intro-title span{display:block;color:#3f7a5d}"
+      "css": ".ds-intro{display:grid;grid-template-columns:minmax(14rem,.8fr) minmax(0,1.7fr);gap:2rem;align-items:start;width:100%} .ds-intro-note{margin:.35rem 0 0;max-width:24rem;font-size:clamp(1.25rem,2.1vw,1.9rem);line-height:1.3;letter-spacing:-.01em;font-weight:450} .ds-intro-title{margin:0;font-size:clamp(2.4rem,5.2vw,4.25rem);line-height:1.05;letter-spacing:-.02em;font-weight:400} .ds-intro-title span{display:block;color:var(--accent-soft)}@media(max-width:900px){.ds-intro{grid-template-columns:minmax(0,1fr);gap:1.5rem}.ds-intro-title{order:-1}}"
     },
     {
       "name": "Pinned Index",
@@ -354,14 +354,14 @@
       "kind": "card",
       "description": "Dark glossy panel with a white tag pill on top and the screenshot in a framed, softly shadowed window; title and caption sit below.",
       "html": "<a class=\"ds-stage-card\" href=\"#\"><div class=\"ds-stage\"><div class=\"ds-pills\"><span>Python</span><span>GIS</span><span>React</span></div><div class=\"ds-shot\"></div></div><h3>AgriWise</h3><p>GIS + AI decision support for land-use planning.</p></a>",
-      "css": ".ds-stage-card{display:block;color:inherit;text-decoration:none} .ds-stage{border-radius:12px;padding:1.25rem 1.25rem 1.75rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;background:radial-gradient(ellipse at 82% 18%,rgba(110,175,140,.42),transparent 55%),radial-gradient(ellipse at 12% 95%,rgba(255,255,255,.1),transparent 50%),linear-gradient(160deg,#1d3a2e,#0b1612)} .ds-pills{display:inline-flex;gap:.25rem;padding:.25rem;border-radius:8px;background:rgba(255,255,255,.92);font-size:.85rem} .ds-pills span{padding:.45rem .9rem;color:#171717} .ds-shot{width:100%;aspect-ratio:16/9;border-radius:10px;background:#f7f7f5;box-shadow:0 24px 50px -22px rgba(0,0,0,.65);transition:transform .35s ease} .ds-stage-card:hover .ds-shot{transform:translateY(-4px)} .ds-stage-card h3{margin:1.2rem 0 .3rem;font-size:1.3rem;font-weight:600;letter-spacing:-.01em} .ds-stage-card p{margin:0;color:#656565;font-size:.92rem}"
+      "css": ".ds-stage-card{display:block;color:inherit;text-decoration:none} .ds-stage{border-radius:12px;padding:1.25rem 1.25rem 1.75rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;background:radial-gradient(ellipse at 82% 18%,rgba(110,175,140,.42),transparent 55%),radial-gradient(ellipse at 12% 95%,rgba(255,255,255,.1),transparent 50%),linear-gradient(160deg,#1d3a2e,#0b1612)} .ds-pills{display:inline-flex;gap:.25rem;padding:.25rem;border-radius:8px;background:rgba(255,255,255,.92);font-size:.85rem} .ds-pills span{padding:.45rem .9rem;color:#171717} .ds-shot{width:100%;aspect-ratio:16/9;border-radius:10px;background:#f7f7f5;box-shadow:0 24px 50px -22px rgba(0,0,0,.65);transition:transform .35s ease} .ds-stage-card:hover .ds-shot{transform:translateY(-4px)} .ds-stage-card h3{margin:1.2rem 0 .3rem;font-size:1.3rem;font-weight:600;letter-spacing:-.01em} .ds-stage-card p{margin:0;color:#656565;font-size:.92rem}@media(prefers-reduced-motion:reduce){.ds-shot{transition:none}.ds-stage-card:hover .ds-shot{transform:none}}.ds-stage-card:focus-visible{outline:2px solid var(--accent);outline-offset:6px}"
     },
     {
       "name": "Margin Note",
       "kind": "custom",
       "description": "Hand-lettered sticker with a doodled arrow, rotated about 2.5 degrees. Hero only; links to projects or contact.",
       "html": "<a class=\"ds-note\" href=\"#\"><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 19.2C8.6 15.4 12.1 11.6 17.6 6.4\"/><path d=\"M9.6 5.6c2.6-.5 5.5-.6 8.4-.2.2 2.9 0 5.7-.6 8.3\"/></svg>hey! see my work</a>",
-      "css": ".ds-note{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:.45rem 1rem .55rem;border-radius:8px;background:#e4e4e0;color:#656565;font-family:'Gaegu',cursive;font-weight:700;font-size:1.45rem;line-height:1.1;text-decoration:none;transform:rotate(-2.5deg);transition:transform .25s ease,color .2s ease} .ds-note:hover,.ds-note:focus-visible{color:#2c4a3e;transform:rotate(-1deg) translateY(-3px)} .ds-note:focus-visible{outline:2px solid #2c4a3e;outline-offset:3px}"
+      "css": ".ds-note{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:.45rem 1rem .55rem;border-radius:8px;background:#e4e4e0;color:#656565;font-family:var(--font-hand,'Gaegu'),cursive;font-weight:700;font-size:1.45rem;line-height:1.1;text-decoration:none;transform:rotate(-2.5deg);transition:transform .25s ease,color .2s ease} .ds-note:hover,.ds-note:focus-visible{color:#2c4a3e;transform:rotate(-1deg) translateY(-3px)} .ds-note:focus-visible{outline:2px solid #2c4a3e;outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-note{transition:none}.ds-note:hover,.ds-note:focus-visible{transform:rotate(-2.5deg)}}"
     },
     {
       "name": "Credential Row",
