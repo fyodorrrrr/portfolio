@@ -130,7 +130,7 @@ components:
     rounded: "{rounded.plate}"
     padding: "0"
   input:
-    backgroundColor: "transparent"
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.near-black-ink}"
     typography: "{typography.body}"
     rounded: "{rounded.none}"
@@ -138,6 +138,16 @@ components:
 ---
 
 # Design System: Jose Aquino — Portfolio
+
+## Design Evolution & Identity Checks
+
+User preference recorded on 2026-10-30:
+
+- The portfolio is exploring **playful minimalism**.
+- Any section may be modified, including Hero, About, Projects, Credentials, Contact, and Footer, so the portfolio stays coherent in both visual language and personality. Do not assume only the hero is open to change.
+- Whenever proposing or introducing a new treatment, proactively compare it with the rest of the portfolio. If it moves away from the shared identity, remind the user and explain the specific mismatch, whether it could be an intentional exception, and which other sections or system rules would need to evolve for it to belong.
+- Judge coherence through typography, color, shapes, depth, illustration/icon style, motion, and writing voice. Sections may have different levels of expression; coherence does not require repeating the same decoration everywhere.
+- The rules below document the current implementation and remain the baseline until a replacement direction is agreed. They are revisable as part of that direction.
 
 ## Overview
 
@@ -162,11 +172,11 @@ The system also keeps its honesty constraint: when a project has no real screens
 The palette is warm paper neutrals and near-black ink with one desaturated green.
 
 ### Primary
-- **Pine Ink** (`#2c4a3e`): The accent. Used for small dot markers on labels, the focus outline, hover color on links, and the full-screen page curtain. It is also the dark base of the project stage gradients.
+- **Pine Ink** (`#2c4a3e`): The accent. Used for small dot markers on labels, the focus outline, hover color on links. It is also the dark base of the project stage gradients.
 - **Pine Tint** (`#3f7a5d`, token `--accent-soft`): A lighter green used only for the tinted second line of large headings, so it reads as distinct from near-black (about 4.9:1 on paper). Don't use it for body text or small UI.
 
 ### Neutral
-- **Warm Paper** (`#f7f7f5`): The page background and the background of every section; also the screenshot frame's fill.
+- **Warm Paper** (`#f7f7f5`): The page background and the background of every section; also the screenshot frame's fill. The page and navigation add a faint static paper texture via `--paper-texture` (`public/assets/paper-grain.png`), repeated at its native 256px size. This original procedural tile uses neutral ink at no more than 8/255 alpha (about 3.1%); it adds fine grain without animation or an overlay over content. Light sections inherit the continuous body texture. Behind the grain, `--paper-ambient` adds broad, softly fading radial light/shade and a gentle 125-degree light/shadow variation. These layers derive only from existing `--paper-deep` and `--ink` tokens using transparent color mixes (`--paper-light`: 32% white; `--paper-shade`: 1.2% ink); `--paper` remains the unchanged base. All layers are static CSS backgrounds, scale with the viewport/page, and use no filters, fixed overlays, canvas, JavaScript, or animations. Navigation retains grain alone to keep it even while scrolling. Images, project stages, form fields, dialogs, and the dark footer retain clean surfaces.
 - **Pure White** (`#ffffff`): Surfaces that sit "above" the page — plates, the tag pill on stage cards.
 - **Near-Black Ink** (`#171717`): Primary text, active index entries, primary button backgrounds, and the footer background.
 - **Soft Graphite** (`#656565`): Secondary text — notes, captions, nav links at rest, chip text.
@@ -176,18 +186,18 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 - **Ghost Divider** (`rgba(23, 23, 23, 0.06)`): Barely-there separators in dense lists (the mobile nav panel).
 
 ### Named Rules
-**The One Voice Rule.** Green is the only chromatic color (Pine Ink and its tint are one family). Don't introduce a second accent for a one-off emphasis; that is a system change.
+**The One Voice Rule.** Green is the interface's chromatic accent (Pine Ink and its tint are one family). The inline Clawd mascot has one deliberate brand-color exception: terracotta `#d77757` (`--claude-mascot`), confined to the mascot. Do not extend it to headings, controls, or other accents. Additional exceptions are system changes.
 
 **The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase placeholder treatment, and a credential without a real scan shows no certificate image. Never a substitute image, gradient, icon, or logo standing in for evidence that doesn't exist.
 
 ## Typography
 
-**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback), weights 400, 450 (Book, body default) and 700. One deliberate exception: the hero's hand-lettered margin notes use Gaegu 700 (`--font-hand`, via `next/font/google`, loaded by the hero component only so other routes don't download it).
+**Typeface:** Helixa (self-hosted from `public/fonts/`, Arial/Helvetica fallback), weights 400, 450 (Book, body default) and 700. Expressive annotations use Gaegu 700 (`--font-hand`) and may appear in any section where they support the content. Currently, Gaegu is loaded through `next/font/google` in `Hero.jsx`; reuse outside the hero requires making the font available to those components.
 
 **Character:** One family for everything. Functional text (labels, tags, buttons, metadata) is marked by uppercase case, letter-spacing and smaller size, never by a different font. (An earlier monospace functional face was retired on purpose; don't bring it back.)
 
 ### Hierarchy
-- **Display** (400, `min(16.75cqw, 25.5svh)`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, left-aligned and approximately 15% smaller than the former edge-to-edge treatment. The viewport-height cap protects short screens. The tagline above it is `clamp(1.35rem, 2.3vw, 2.1rem)`, weight 400, Soft Graphite, up to 54rem wide; the name itself is Near-Black Ink.
+- **Display** (400, `min(16.75cqw, 25.5svh)`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, left-aligned and approximately 15% smaller than the former edge-to-edge treatment. The viewport-height cap protects short screens. The tagline above it is `clamp(1.7rem, 2.9vw, 2.65rem)`, weight 400, line-height 1.35, Soft Graphite, up to 62rem wide; on mobile it uses `clamp(1.7rem, 7.2vw, 2rem)` with line-height 1.4; the name itself is Near-Black Ink.
 - **Section title** (400, `clamp(2.4rem, 5.2vw, 4.25rem)`, 1.05, tracking −0.02em): the heading in every section intro. Light weight on purpose; the second line is Pine Tint.
 - **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index.
 - **Group heading** (400, `clamp(1.5rem, 2.6vw, 2.25rem)`, tracking −0.02em): the category names above each group of credential rows (Certifications & Training, and so on), followed by a hairline rule.
@@ -199,7 +209,7 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 - **Label** (400, 0.72rem, tracking 0.14em, uppercase): eyebrow labels and tags; siblings at other sizes share the same identity.
 
 ### Named Rules
-**The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap. The single exception is the handwriting face on the hero margin notes; it stays limited to those notes.
+**The Case & Tracking Rule.** If something needs to read as functional rather than prose, use uppercase and tracked `letter-spacing`, not a font-family swap. Handwritten annotations are a deliberate expressive exception and may appear across sections; keep functional labels and body copy in Helixa.
 
 **Fallback.** `Helixa Fallback` (`@font-face` over local Arial / Arial Bold, with `size-adjust` 96.63% / 92.75% and matching ascent/descent overrides, measured from the font files) sits in every font stack so text doesn't reflow or overflow before Helixa arrives; the two weights used on first paint (Regular, Book) are preloaded. Re-measure if the font changes.
 
@@ -217,7 +227,7 @@ Three tokens in `globals.css` own the page geometry; change them rather than add
 
 **Scrolling.** Fine-pointer devices ease wheel input on the native document with a light 90ms exponential damping time. No transformed page wrapper is used, preserving sticky elements, section tracking, anchors, and route restoration. Pointer presses, navigation keys, external scrolling, scroll locks, and route changes cancel inertia. Nested scroll containers and zoom gestures remain native. Touch devices and reduced-motion preferences use native scrolling; animation frames run only while settling toward a target.
 
-Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). About shares this padding; its supporting facts follow the introduction after 2.5rem. About and all later sections open with a 1px Hairline Grey rule at the top edge, inset to the content width so it lines up with the grid (backgrounds stay one flat paper tone; sections are separated by that rule and whitespace, not by color blocks). Sections fade and rise in on first scroll (14px, 0.6s, IntersectionObserver, one-shot), skipped under `prefers-reduced-motion`.
+Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). About shares this padding; its supporting facts follow the introduction after 2.5rem. About and all later sections open with a 1px Hairline Grey rule at the top edge, inset to the content width so it lines up with the grid (backgrounds stay one flat paper tone; sections are separated by that rule and whitespace, not by color blocks). About, Projects, Credentials, and Contact content uses a scroll-linked focus shift where supported: content enters with 6px blur and 72% opacity, sharpens through the central portion of the viewport, then softly blurs to the same partially visible state as it leaves. The animation follows the section view timeline, so reversing scroll reverses focus. Section backgrounds and dividers remain sharp; only direct content children animate. Browsers without scroll-driven animation use the one-time IntersectionObserver reveal as a fallback. Reduced motion disables both effects. No scroll-frame JavaScript or persistent will-change is used.
 
 **Section intro row.** A two-column grid (`minmax(14rem, 0.8fr)` / `minmax(0, 1.7fr)`): a gray note on the left and the large heading on the right. Used by Projects and Contact (Contact's lede and channels sit under the note, and its form under the heading, on the same two columns). About shares these columns with a full-size section heading on the left and prose on the right. Credentials uses the large heading style left-aligned above its content, with no note.
 
@@ -228,7 +238,7 @@ Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (
 - **720px** — nav switches from hamburger panel to inline links.
 - **900px** — intro, pinned split, About, and Contact collapse to one column. About's supporting facts retain two columns until 640px. The index is hidden and the heading leads.
 
-**Page transition.** Project cards and the project page's Back link play a full-screen Pine Ink curtain that wipes left-to-right, navigates behind it, then wipes off (about 0.45s each way). It's skipped for modifier-clicks and reduced motion.
+**Page transition.** Internal route links use a full-screen Pine Ink curtain that wipes left-to-right, navigates behind it, then wipes off over 450ms each way. Modifier-clicks and reduced motion navigate normally.
 
 ## Elevation & Depth
 
@@ -263,9 +273,11 @@ Square by default (buttons, chips, inputs, section containers are 0px). Radius i
 Gray note (left) + large light heading (right) with an optional tinted second line (`SectionIntro`). Notes are `clamp(1.25rem, 2.1vw, 1.9rem)`, weight 450.
 
 ### About facts
-About fills at least one viewport below the sticky navigation (`min-height: calc(100svh - var(--topbar-h))`), with its content centered vertically. It grows naturally when the content needs more room. A near-black heading using the shared section-title typography sits on the left and the bio on the right, filling its grid column so the outer margins stay balanced. The opening paragraph uses `clamp(1.25rem, 1.8vw, 1.6rem)` at 1.45 line-height; the research paragraph follows after 1.5rem in Soft Graphite at `clamp(var(--text-detail), 1.3vw, 1.125rem)` with a 1.65 line-height. Education and Currently sit beneath the prose as two compact ruled columns. Values use `--text-detail` with a 1.5 line-height; the university and scholarship sit on separate secondary lines. Below 900px the heading and prose stack; below 640px the facts also stack. About is visible by default and does not depend on the scroll-reveal observer.
+About fills at least one viewport below the sticky navigation (`min-height: calc(100svh - var(--topbar-h))`), with its content centered vertically and natural growth when needed. Its grid uses a quieter left heading column (`minmax(10rem, .55fr)`) and a wider prose column (`minmax(0, 1.95fr)`). The heading reads "about me," with "a little context" in Pine Tint, at `clamp(1.5rem, 2.3cqw, 2rem)` with 1.2 line-height. It can wrap naturally.
 
-The About heading reads "about me," with "a little context" on a Pine Tint second line, using the existing shared section-heading treatment. No photograph appears in this section.
+The opening paragraph leads at `clamp(1.75rem, 2.4vw, 2.125rem)` (28–34px), 1.55 line-height, and a maximum 45ch measure (constrained by the available column width). The opening paragraph describes making complex information understandable and useful, followed by the breadth of backend, data-driven, and AI-powered work. A short research paragraph uses `clamp(1.125rem, 1.4vw, 1.25rem)` (18–20px), 1.65 line-height, Soft Graphite, and a maximum 65ch measure. Both are left-aligned with pretty wrapping. Copy leads with engineering breadth and closes with current academic research on practical, reliable AI agents. AgriWise's Top 3 at DOST Hack4AProgress 2026 appears in its Projects caption and case-study outcome rather than About. No inline graphic is included. The three capability phrases ("backend development", "data-driven applications", "AI-powered systems") use a flat marker treatment: existing `--surface-muted` fill, ink text, .22em rounding, and slight inline padding. Helixa and font weight remain unchanged. These are noninteractive prose highlights, not controls; fragments can wrap on small screens with cloned backgrounds and padding. This is an explicit exception to square-by-default shapes for text emphasis.
+
+A compact ruled Education row sits beneath the prose, showing computer science at Laguna State Polytechnic University and the DOST scholarship. Below 900px, heading and prose stack; below 640px, the introduction uses 1.5rem text. No photo appears. About stays visible without scroll-reveal JavaScript.
 
 ### Pinned index
 Large light entries, Pale Ink at rest, Near-Black Ink when active or hovered, no markers or numbers. Keep inactive text no lighter than Pale Ink.
@@ -273,8 +285,20 @@ Large light entries, Pale Ink at rest, Near-Black Ink when active or hovered, no
 ### Project stage card
 A 12px dark gradient panel (Pine Ink-based, glossy radial highlights) containing a white pill of up to three tech tags at the top and the project thumbnail in a 10px frame with a soft shadow below it. Title, a visible "View project" cue, and caption sit under the panel. The title and cue wrap when text is enlarged. The frame lifts 4px on hover (disabled under reduced motion). With no thumbnail, the frame shows the uppercase placeholder.
 
-### Margin notes (hero)
-Hand-lettered marks in the hero's whitespace, in the one handwriting face (Gaegu, `--font-hand`). Three notes and two drawn strokes, no more:
+### Expressive details across sections
+
+Playfulness is not restricted to the hero. Handwritten annotations, drawn marks, inline icons/objects, and expressive text highlights may appear in any section when they support the content and the shared personality. There is no fixed count of notes or strokes; use the fewest details needed for a clear effect, preserve whitespace and reading flow, and avoid competing focal points. Sections may vary in intensity without introducing unrelated visual styles.
+
+Use the existing palette, typography, shape, and depth rules as the baseline. Flag any proposed treatment that departs from them or feels disconnected from other sections, and explain the related changes needed for coherence. Decorative details must not obscure text, disrupt mobile wrapping, or carry essential meaning only through animation or hover. Preserve keyboard access for interactive details and provide reduced-motion alternatives.
+
+#### Current hero implementation
+
+The word "AI" is accompanied by a small Clawd (Claude Code) pixel mascot, rendered as authored SVG geometry in its terracotta brand color with ink eyes. It uses a compact, taller silhouette in a square 1.15em box, sits inline without a frame or background, and stays with "AI" during wrapping. On hover-capable devices its eyes squeeze into inward-facing chevrons (> <) and the character makes a single small hop with a tilt. Reduced motion keeps the eye change but disables movement; touch retains the resting face. It has an accessible mascot label and is not a link. This is a deliberate brand-color exception; the remaining interface keeps its green palette. Pixel geometry relates it to the contribution graph without repeating its container or hover effect.
+
+An inline GitHub contribution graph follows "building" in the tagline. It shows the latest 12 calendar weeks for `fyodorrrrr`, using real daily contribution levels rendered as flat pine-green squares. The grid is 40px tall inside a compact white floating object with an 8px radius, hairline border, and 5px vertical / 8px horizontal padding. It is a non-linked image with an accessible date-range/count label and no pointer-hand cursor or shadow. On hover-capable devices, squares lift slightly in a single staggered ripple per pointer entry, retaining their real contribution colors. There is no idle loop. Reduced motion replaces the ripple with a subtle green color response; touch devices retain the static graph. Data is fetched on the server and cached for 24 hours. It is omitted when authentication or data is unavailable; never substitute invented activity.
+
+The hero currently uses hand-lettered marks in its whitespace, in Gaegu (`--font-hand`). These describe the existing composition rather than a fixed limit:
+
 - **"hey! see my work"** (sticker, links to projects) at the end of the tagline row and **"say hi"** (sticker, links to contact) floating in the top whitespace, with a longer looping Pine Ink arrow doodled beneath it pointing toward the name. Stickers are light gray (`--surface-muted`, 8px radius), rotated about 2–3°; hover straightens and lifts them and turns the text Pine Ink.
 - **"open to roles"**, a static sticker with a small Pine Tint status dot, floating top-left. It's the one note that isn't a link.
 - **A hand-drawn underline** in Pine Tint under "Software engineer" in the tagline.
@@ -286,21 +310,27 @@ Entrance is one authored moment, pure CSS and independent of JavaScript: the her
 - **Credential filter chips** (`/credentials`): rounded pills with a pressed/unpressed state. The credential modal's skill tags are also pills.
 
 ### Credential row and dialog
+Credential rows have 24px rounded corners, a deliberate exception to the square-by-default rule. The hover/focus background and clipped watermark layer inherit the row radius so their edges align. The row itself retains visible overflow to preserve certificate previews. Existing preview behavior and layout remain intact.
+
 Rows (home page) are full-width hairline-separated lines: year, issuer and title, with a tracked "view →" link and a faint logo watermark. Hover tints the row, nudges the text, turns the title green and gently dims sibling rows (to 0.7 opacity, never lower). Rows with a certificate image open a native `<dialog>` (`showModal()`): the browser traps focus, makes the rest of the page inert, closes on Escape and restores focus, and we add a page scroll lock, click-outside-to-close and a 44px close button. Links that open a new tab announce it to screen readers. A credential with no real scan has no `image`, so it gets the compact dialog (or a plain verify link), never a logo posing as the certificate.
 
 On desktop (above 900px), home-page credential rows with a real scan in `/assets/certificates/` reveal a small upright certificate preview beside the cursor. It follows pointer movement and flips to the left near the viewport edge. Keyboard focus shows a stationary preview above the row at the right. The preview preserves the scan's proportions with a thin border and a soft shadow, without tilting. Escape dismisses it until the next row entry or focus. Clicking the row opens the existing dialog. Reduced motion uses the stationary preview and removes its movement; narrow layouts retain tap-to-open. Logos never serve as certificate previews; failed images disappear gracefully.
+
+### Full credentials collection
+
+The `/credentials` page defaults to a list with a sticky right-hand preview on desktop. Rows show the title, issuer, and year with a 24px rounded, low-contrast active/hover/focus background. Hover and keyboard focus update the preview; the first item in the current filter is shown initially. The right-hand panel shows the certificate image, title, description, and a "Verify credential" link when an issuer URL exists. Entries without a scan may display their issuer icon as an icon, including Data Analytics; never label that icon as a certificate. Failed images are omitted. Verification opens in a new tab with an accessible announcement. Selection changes use a subtle 360ms fade-and-rise entrance. A single rounded background glides between hovered/focused rows over 420ms, persists across gaps and while the pointer remains inside the list/preview container, and fades when leaving the container. Its dimensions follow row layout changes immediately; only transform and opacity animate, avoiding height-driven layout work. Changing filter/view clears it. Reduced motion disables these effects. Full metadata remains available through the detail dialog; home-page certificate previews remain intact. Row activation retains existing dialogs or issuer verification links. Category filters apply to both layouts. A labeled List / Cards button group with pressed states switches to the existing card grid; filters are retained when switching. At 900px and below the preview panel is hidden and rows remain directly actionable. The home-page rows use the same 420ms sliding highlight within each category group and retain their cursor-following certificate previews. View selection is local to the current page visit.
 
 ### Cards / Plates
 12px radius, Pure White, 1px Hairline Grey border, no shadow. Holds a real image (1.02× zoom on hover, off under reduced motion) or the placeholder.
 
 ### Inputs / Fields
-Transparent, bottom-border only, floating labels (rest at Faint Ink, float up and tracked on focus/filled). Focus shifts the border to Near-Black Ink; no glow.
+Solid Warm Paper to keep grain out of the fields, bottom-border only, floating labels (rest at Faint Ink, float up and tracked on focus/filled). Focus shifts the border to Near-Black Ink; no glow.
 
 ### Navigation
 Sticky top bar on Warm Paper with a hairline bottom rule, contents on the shared `--content-max` column. Desktop: inline links with a scale-in underline, active link bold. Mobile (<720px): 44px hamburger opening a focus-trapped slide-down panel closed by Escape or outside click. A "Skip to content" link is the first focusable element.
 
 ### Footer
-Near-Black Ink background (`--ink`) with Warm Paper text. A compact row places Jose Aquino at left, with Explore and Get in touch link columns at right. Height follows content with 2.5rem top and bottom padding and no minimum height. No location or bottom credit row. Under 640px, the identity spans the full width above two link columns. Every link has at least a 44px target and a visible light focus outline. Internal page links use the existing curtain transition; same-page anchors scroll normally.
+Near-Black Ink background (`--ink`) with Warm Paper text. A compact row places Jose Aquino at left, with Explore and Get in touch link columns at right. Height follows content with 2.5rem top and bottom padding and no minimum height. No location or bottom credit row. Under 640px, the identity spans the full width above two link columns. Every link has at least a 44px target and a visible light focus outline. Internal page links use the neutral route fade; same-page anchors scroll normally.
 
 ## Do's and Don'ts
 
@@ -314,7 +344,7 @@ Near-Black Ink background (`--ink`) with Warm Paper text. A compact row places J
 
 ### Don't:
 - **Don't** add a `box-shadow` to ordinary surfaces (The Earned-Shadow Rule).
-- **Don't** introduce a second accent color; extend the green family or ask first.
+- **Don't** introduce a second interface accent color; extend the green family. The Clawd mascot's terracotta is a localized brand exception only.
 - **Don't** lighten the pinned index's inactive color below Pale Ink, or use gradient text for headings (the second line is a solid tint).
 - **Don't** let the nav go full-bleed or hard-code section padding; use `--gutter` and `--content-max`.
 - **Don't** apply the wide `--content-max` to long-form reading pages; use `--prose-max`.

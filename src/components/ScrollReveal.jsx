@@ -1,13 +1,26 @@
+
 "use client";
 
 import { useEffect } from "react";
 
 export default function ScrollReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll("[data-reveal]");
+    const elements = document.querySelectorAll("[data-reveal]");
 
-    if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("in"));
+    const showElement = (element) => {
+      element.classList.add("in");
+      element.classList.remove("reveal-pending", "reveal-ready");
+    };
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    if (
+      reducedMotion.matches ||
+      !("IntersectionObserver" in window)
+    ) {
+      elements.forEach(showElement);
       return;
     }
 
@@ -15,15 +28,25 @@ export default function ScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("in");
+            showElement(entry.target);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 }
+      {
+        threshold: 0,
+        rootMargin: "0px 0px -40px 0px",
+      }
     );
 
-    els.forEach((el) => observer.observe(el));
+    elements.forEach((element) => {
+      if (element.getBoundingClientRect().top < window.innerHeight) {
+        showElement(element);
+      } else {
+        observer.observe(element);
+      }
+    });
+
     return () => observer.disconnect();
   }, []);
 

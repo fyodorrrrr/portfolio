@@ -17,6 +17,10 @@ Run lint and build before opening a pull request. There is currently no `npm tes
 
 Follow the surrounding JavaScript and JSX style: two-space indentation, semicolons, and PascalCase component files such as `About.jsx`. Keep route files named according to App Router conventions (`page.js`, `layout.js`). Use the `@/` alias for imports from `src/` when it improves clarity. Put shared colors, spacing, and typography in `src/app/globals.css` using existing CSS tokens; avoid one-off values when a token already fits. Name new image assets descriptively in kebab-case.
 
+## Design Collaboration
+
+The user is exploring playful minimalism and is open to modifying any section to keep the portfolio coherent in both visual style and personality. Follow the "Design Evolution & Identity Checks" section in `DESIGN.md`. Whenever proposing or introducing a new design treatment (for example, icons between words or expressive text highlights), proactively flag any drift from the other sections, explain whether it can work as an intentional exception, and identify what else would need to evolve. Existing design rules are the current baseline, not permanent constraints against an agreed identity change.
+
 ## Testing Guidelines
 
 No test framework or coverage threshold is configured. For UI changes, run `npm run lint` and `npm run build`, then inspect the affected route at desktop and mobile widths. Check keyboard focus, readable contrast, image loading, and links relevant to the change. If tests are introduced, keep them close to the behavior they verify and document the new test command in `package.json`.

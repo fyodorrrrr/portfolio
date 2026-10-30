@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const COVER_MS = 450;
 const REVEAL_MS = 450;
-const EASE = "cubic-bezier(.7, 0, .2, 1)";
+const EASE = "cubic-bezier(.2, .7, .2, 1)";
 
 // Registered by the mounted <PageCurtain />; CurtainLink calls it through startCurtain().
 let runCurtain = null;
@@ -27,7 +27,7 @@ function waitForRoute(pathname, timeout = 4000) {
   });
 }
 
-// Wipes the curtain over the page, runs `navigate`, then wipes it off. Returns false when
+// Wipes the green curtain across the page, runs `navigate`, then wipes it off. Returns false when
 // the curtain can't run (not mounted, mid-run, reduced motion) so the caller navigates normally.
 export function startCurtain(href, navigate) {
   if (!runCurtain) return false;

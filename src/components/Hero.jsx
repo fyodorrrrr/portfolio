@@ -1,4 +1,7 @@
 import { Gaegu } from "next/font/google";
+import { Suspense } from "react";
+import GitHubActivity from "./GitHubActivity";
+import ClaudeMascot from "./ClaudeMascot";
 
 // Handwriting face for the hero's margin notes only. Loaded here (not in layout.js) so the
 // other routes don't download it.
@@ -81,7 +84,9 @@ export default function Hero() {
                 <path className="draw" pathLength="1" d="M2 9C30 3 62 12 100 6S164 10 198 4" />
               </svg>
             </span>{" "}
-            and computer science student building at the intersection of software, AI, and data. Based in Laguna, Philippines
+            and computer science student building{" "}
+            <Suspense fallback={null}><GitHubActivity /></Suspense>{" "}
+            at the intersection of software, <span className="masthead-ai">AI <ClaudeMascot /></span>, and data. Based in Laguna, Philippines
           </p>
 
           <a href="#projects" className="masthead-note" style={{ "--delay": "0.75s" }}>

@@ -20,6 +20,12 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Hero GitHub activity
+
+The hero can show real contribution activity for `fyodorrrrr`. Add a GitHub API token as `GITHUB_TOKEN` in `.env.local` and in your hosting provider's environment settings, then restart the development server or redeploy. Keep the token server-side; do not use a `NEXT_PUBLIC_` prefix or commit its value.
+
+The graph displays the latest 12 calendar weeks, with data cached for 24 hours. If the token is missing or GitHub is unavailable, the graph is omitted without interrupting the introduction. The token needs read access to the requested contribution data, not write permissions.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
