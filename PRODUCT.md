@@ -52,7 +52,6 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
   - **Haul Thrift Marketplace** — Flutter/Firebase mobile thrift app. Has a real GitHub link and a screenshot.
 - Real credentials (`src/data/credentials.js`): Pearson VUE Data Analytics certification (kept first), DeepLearning.AI "AI For Everyone", Coursera "Introduction to AI", CodeChum Java, DAPh Python fundamentals, hackathon placements/participation, and DICT/SEAMEO/AI Ready ASEAN events. Verify links exist only where the issuer provides one.
 - Do not fabricate repo links, demo URLs, screenshots, metrics, or testimonials for projects lacking them — the user has explicitly chosen to leave those as placeholders rather than invent evidence.
-- `public/assets/about-me.jpg`, `port.png`, and `port_jose.jpg` exist but are not used by the current components — not yet decided whether to use them or remove them.
 
 ## Product Principles
 

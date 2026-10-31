@@ -232,14 +232,19 @@ built: [
     "Provider"
   ],
 
-  thumbnail: thumbnail("haul-thrift-shop"),
+  thumbnail: {
+    ...thumbnail("haul-thrift-shop"),
+    src: "/assets/thumbnails/haul-thrift-shop.png?v=brand-logos-padding",
+    width: 1672,
+    height: 941,
+  },
 
   gallery: [
     {
-      src: "/assets/thumbnails/haul-thrift-shop.png",
-      alt: "Haul marketplace screens showing product discovery, home feed, and login",
-      width: 3600,
-      height: 2025
+      src: "/assets/thumbnails/haul-thrift-shop.png?v=brand-logos-padding",
+      alt: "Haul marketplace mockup showing product discovery, home feed, and login",
+      width: 1672,
+      height: 941
     }
   ],
 

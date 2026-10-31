@@ -23,13 +23,3 @@ export function useScrollSpy(selector, initial) {
 
   return [active, setActive];
 }
-
-// Index-link click handler: smooth-scrolls the target to the middle of the viewport.
-export function scrollToTarget(event, id, onActive, value) {
-  event.preventDefault();
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document
-    .getElementById(id)
-    ?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-  onActive(value);
-}

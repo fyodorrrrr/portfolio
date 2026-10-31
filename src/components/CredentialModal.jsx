@@ -29,17 +29,14 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
   };
 
   const hasVerify = credential.verifyUrl && credential.verifyUrl !== "#";
-  const canOpenFull = credential.image && !credential.image.endsWith(".svg");
   const facts = [
     ["Issued", credential.fullDate ?? credential.date],
-    ["Result", credential.result],
-    ["Credential ID", credential.credentialId],
   ].filter(([, value]) => value);
 
   return (
     <dialog
       ref={dialogRef}
-      className="credential-dialog"
+      className={credential.image ? "credential-dialog" : "credential-dialog credential-dialog--compact"}
       aria-labelledby="credential-modal-title"
       onClose={onClose}
       onClick={handleClick}
@@ -59,14 +56,15 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
 
         {credential.image && (
           <div className="credential-modal-media">
-            <div className="credential-modal-plate">
+            <a
+              href={credential.image}
+              target="_blank"
+              rel="noreferrer"
+              className="credential-modal-plate"
+              aria-label={`Open ${credential.title} certificate at full size (opens in a new tab)`}
+            >
               <img src={credential.image} alt={`${credential.title} certificate`} decoding="async" />
-            </div>
-            {canOpenFull && (
-              <a href={credential.image} target="_blank" rel="noreferrer" className="credential-modal-full">
-                Open full size ↗<span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            )}
+            </a>
           </div>
         )}
 
@@ -98,14 +96,13 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
 
           {credential.description && <p className="credential-modal-desc">{credential.description}</p>}
 
+          {(hasVerify || credential.related) && (
           <div className="credential-modal-actions">
-            {hasVerify ? (
+            {hasVerify && (
               <a href={credential.verifyUrl} target="_blank" rel="noreferrer" className="credential-modal-verify">
                 Verify credential ↗<span className="sr-only"> (opens in a new tab)</span>
               </a>
-            ) : credential.image ? (
-              <span className="credential-modal-note">Certificate on file</span>
-            ) : null}
+            )}
             {credential.related && (
               <CurtainLink
                 href={credential.related.href}
@@ -120,6 +117,7 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
               </CurtainLink>
             )}
           </div>
+          )}
         </div>
       </div>
     </dialog>

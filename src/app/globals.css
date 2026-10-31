@@ -258,7 +258,6 @@ body {
 }
 @media (max-width: 640px) { .entry { padding: 3.25rem var(--gutter); } }
 
-.dateline,
 .masthead-grid,
 .contact-grid,
 .credentials-list,
@@ -267,27 +266,6 @@ body {
   max-width: var(--content-max);
   margin-left: auto;
   margin-right: auto;
-}
-
-.dateline {
-  text-align: center;
-  margin-bottom: 2.75rem;
-}
-.dateline h2 {
-  font-size: clamp(1.6rem, 3.4vw, 2.35rem);
-  letter-spacing: -.01em;
-  font-weight: 600;
-  margin: 0;
-}
-.dateline-desc {
-  margin: .75rem auto 0;
-  max-width: 34rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-@media (max-width: 640px) {
-  .dateline { margin-bottom: 2rem; }
 }
 
 /* ---------- plate (photo / screenshot frame) ---------- */
@@ -404,7 +382,6 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
     stroke-dashoffset: 1;
     animation: stroke-draw .8s cubic-bezier(.4, 0, .2, 1) calc(var(--delay, 0s)) forwards;
   }
-  .masthead .draw--head { animation-delay: calc(var(--delay, 0s) + .7s); animation-duration: .3s; }
 }
 @keyframes note-pop { from { opacity: 0; scale: .85; } to { opacity: 1; scale: 1; } }
 @keyframes stroke-draw { to { stroke-dashoffset: 0; } }
@@ -434,14 +411,51 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
 @keyframes activity-ripple { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-3px); } }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-activity:hover rect { animation: activity-ripple 420ms cubic-bezier(.2, .7, .2, 1) var(--ripple-delay) both; } }
 @media (hover: hover) and (prefers-reduced-motion: reduce) { .masthead-activity:hover { color: var(--accent-soft); } }
-.masthead-ai { white-space: nowrap; }
 .masthead-location { display: block; margin-top: .35em; }
-.masthead-claude { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; margin-inline: .08em; overflow: visible; }
-.claude-character { transform-box: fill-box; transform-origin: center bottom; }
-.claude-eyes-happy { opacity: 0; }
-@media (hover: hover) { .masthead-claude:hover .claude-eyes-rest { opacity: 0; } .masthead-claude:hover .claude-eyes-happy { opacity: 1; } }
-@keyframes claude-hop { 0%, 100% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-2px) rotate(-6deg); } 65% { transform: translateY(-1px) rotate(4deg); } }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-claude:hover .claude-character { animation: claude-hop 480ms cubic-bezier(.2, .7, .2, 1) both; } }
+.masthead-location-end { display: inline-block; white-space: nowrap; }
+.masthead-mascot {
+  display: inline-block;
+  width: 2.125em;
+  height: 2.125em;
+  vertical-align: -.65em;
+  margin-inline: -.15em;
+  background-image: url('/assets/mascot-sleeping-sheet.png');
+  background-size: 400% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+/* Four 32px frames at the source files' authored 3 FPS. */
+@keyframes mascot-sleep {
+  from { background-position: 0 0; }
+  to { background-position: 133.333333% 0; }
+}
+@keyframes mascot-hop {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
+@media (hover: hover) {
+  .masthead-mascot:hover {
+    background-image: url('/assets/mascot-hopping-sheet.png');
+    background-size: 900% 100%;
+    background-position: 100% 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .masthead-mascot { animation: mascot-sleep 1.333333s steps(4, end) infinite paused; }
+  .masthead-mascot[data-active="true"] { animation-play-state: running; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  /* Nine poses at 12 FPS: reach frame nine after eight steps, then hold it. */
+  .masthead-mascot:hover {
+    animation-name: mascot-hop;
+    animation-duration: .666667s;
+    animation-timing-function: steps(8, end);
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+
 
 
 /* ---------- about ---------- */
@@ -1225,18 +1239,8 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
   border-radius: 4px;
   box-shadow: 0 6px 24px rgba(23, 23, 23, .14);
 }
-.credential-modal-full {
-  align-self: flex-start;
-  font-size: .78rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ink-faint);
-  padding-bottom: .15rem;
-  transition: color .2s ease, border-color .2s ease;
-}
-.credential-modal-full:hover { color: var(--accent); border-color: var(--accent); }
+.credential-modal-plate { cursor: zoom-in; }
+.credential-modal-plate:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .credential-modal-body { display: flex; flex-direction: column; min-width: 0; padding-top: 2.5rem; }
 @media (max-width: 860px) { .credential-modal-body { padding-top: 0; } }
@@ -1261,6 +1265,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 
 .credential-modal-desc { margin: 1.25rem 0 0; line-height: 1.6; color: var(--ink-soft); font-size: .92rem; }
 
+.credential-dialog--compact { width: min(36rem, calc(100% - 3rem)); }
 .credential-modal--compact { grid-template-columns: minmax(0, 1fr); max-width: 36rem; }
 .credential-modal-actions { margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
 .credential-modal-related {
@@ -1291,7 +1296,6 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 }
 .credential-modal-verify:hover { background: var(--accent); border-color: var(--accent); }
 .credential-modal-verify:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.credential-modal-note { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
 
 /* ---------- contact ---------- */
 .about-layout,
@@ -1452,7 +1456,6 @@ a:focus-visible, button:focus-visible, .form-submit:focus-visible {
 
 /* Restored playful editorial refinements. */
 :root {
-  --claude-mascot: #d77757;
   --paper-texture: url('/assets/paper-grain.png');
   --paper-light: color-mix(in srgb, var(--paper-deep) 32%, transparent);
   --paper-shade: color-mix(in srgb, var(--ink) 1.2%, transparent);

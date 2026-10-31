@@ -1,7 +1,7 @@
 import { Gaegu } from "next/font/google";
 import { Suspense } from "react";
 import GitHubActivity, { GitHubActivityPlaceholder } from "./GitHubActivity";
-import ClaudeMascot from "./ClaudeMascot";
+import Mascot from "./Mascot";
 
 // Handwriting face for the hero's margin notes only. Loaded here (not in layout.js) so the
 // other routes don't download it.
@@ -39,7 +39,7 @@ export default function Hero() {
         <h1>Jose Aquino</h1>
           <p className="masthead-role">
             <span className="masthead-mark">
-              Software engineer
+             Developer
               <svg
                 className="masthead-mark-stroke"
                 viewBox="0 0 200 14"
@@ -56,18 +56,24 @@ export default function Hero() {
             </span>{" "}
             and computer science student building{" "}
             <Suspense fallback={<GitHubActivityPlaceholder />}><GitHubActivity /></Suspense>{" "}
-            at the intersection of software, <span className="masthead-ai">AI <ClaudeMascot /></span>, and data.
-            <span className="masthead-location">Based in Laguna, Philippines</span>
+            at the intersection of software, AI, and data.
+            <span className="masthead-location">
+              Based in Laguna,{" "}
+              <span className="masthead-location-end">
+                Philippines{" "}
+                <Mascot />
+              </span>
+            </span>
           </p>
 
         <div className="masthead-actions">
+          <a href="#contact" className="masthead-note" style={{ "--delay": "0.6s" }}>
+            <Arrow />
+            say hi<span className="sr-only">, contact me</span>
+          </a>
           <a href="#projects" className="masthead-note" style={{ "--delay": "0.75s" }}>
             <Arrow />
-            hey! see my work
-          </a>
-          <a href="#contact" className="masthead-note" style={{ "--delay": "0.6s" }}>
-            say hi<span className="sr-only">, contact me</span>
-            <Arrow />
+            see my work!
           </a>
         </div>
       </div>

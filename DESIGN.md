@@ -186,7 +186,7 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 - **Ghost Divider** (`rgba(23, 23, 23, 0.06)`): Barely-there separators in dense lists (the mobile nav panel).
 
 ### Named Rules
-**The One Voice Rule.** Green is the interface's chromatic accent (Pine Ink and its tint are one family). The inline Clawd mascot has one deliberate brand-color exception: terracotta `#d77757` (`--claude-mascot`), confined to the mascot. Do not extend it to headings, controls, or other accents. Additional exceptions are system changes.
+**The One Voice Rule.** Green is the interface's chromatic accent (Pine Ink and its tint are one family). The hero's personal glasses mascot uses the same green family and near-black glasses; it replaces the former terracotta Clawd exception. Additional accent colors are system changes.
 
 **The No Fake Evidence Rule.** A project plate without a real screenshot shows the uppercase placeholder treatment, and a credential without a real scan shows no certificate image. Never a substitute image, gradient, icon, or logo standing in for evidence that doesn't exist.
 
@@ -377,3 +377,23 @@ At enlarged text sizes, long words may wrap as needed to preserve the reading co
 ## Contact form: soft minimalism
 
 Contact fields and Send note share `--radius-control: 8px`. Fields use a full `--field-border` outline, clean paper fill, .875rem vertical and 1rem horizontal padding, and permanent .875rem sentence-case labels above the controls. Labels follow normal document flow, replacing the floating-label interaction. Keyboard focus uses a pine outline with a 3px offset. The textarea can resize vertically. Contact links remain simple divided rows; the section has no outer card or shadow. This supersedes earlier square-contact-control and floating-label guidance while preserving the editorial layout.
+
+
+## Current hero mascot
+
+The location line ends with a decorative pine-green glasses mascot, kept beside “Philippines” when wrapping. It uses a 2.125em square sprite viewport with pixel rendering.
+
+Editable sources are `public/assets/sleeping_animation.piskel` and `public/assets/hoping_animation.piskel`. Browser exports are `mascot-sleeping-sheet.png` (four 32px frames) and `mascot-hopping-sheet.png` (nine 32px frames). Sleeping loops at 3 FPS. Hover plays the hop once at 12 FPS, holds its last frame, and pointer leave restores sleeping. Reduced motion uses still poses. The Mascot component pauses playback offscreen and when the tab is hidden.
+
+## Contact form: soft minimalism
+
+Contact fields and Send note share `--radius-control: 8px`. Fields use a full `--field-border` outline, clean paper fill, .875rem vertical and 1rem horizontal padding, and permanent .875rem sentence-case labels above the controls. Labels follow normal document flow, replacing the floating-label interaction. Keyboard focus uses a pine outline with a 3px offset. The textarea can resize vertically. Contact links remain simple divided rows; the section has no outer card or shadow. This supersedes earlier square-contact-control and floating-label guidance while preserving the editorial layout.
+
+At enlarged text sizes, long words may wrap as needed to preserve the reading column. Hero note links can shrink and wrap within their container, with arrows retaining their size.
+
+Details-only credential dialogs use `credential-dialog--compact` to constrain the native dialog wrapper to the same 36rem maximum as the visible panel. This keeps the panel centered and its backdrop hit area aligned; certificate dialogs retain the wider 66rem wrapper.
+
+
+Credential modal certificate images link directly to the full-size asset in a new tab, with a visible keyboard focus outline and zoom cursor. The separate full-size text link and certificate-on-file note are omitted. Facts show only the issue date; Result and Credential ID are not displayed. Verification and related-project links remain available.
+
+Haul uses a refined three-phone presentation mockup in `public/assets/thumbnails/haul-thrift-shop.png` (1672×941), shared by its homepage thumbnail and case study. The user approved minor interface changes from image editing because original screenshots are unavailable; this is a localized exception to exact screenshot preservation. Treat this asset as a presentation mockup rather than a pixel-exact interface capture.
