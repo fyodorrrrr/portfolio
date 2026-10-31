@@ -7,16 +7,6 @@ export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
-  if (!project) return {};
-  return {
-    title: `${project.title} — Jose Aquino`,
-    description: project.description,
-  };
-}
-
 export default async function ProjectDetail({ params }) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
@@ -27,7 +17,7 @@ export default async function ProjectDetail({ params }) {
   const slides = project.gallery?.length ? project.gallery : [{}];
 
   return (
-    <div className="project-detail">
+    <div className="project-detail project-case-study">
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="project-detail-bar case-links">
         <CurtainLink href="/#projects">← Back</CurtainLink>

@@ -1,6 +1,12 @@
 const USERNAME = "fyodorrrrr";
 const LEVELS = ["NONE", "FIRST_QUARTILE", "SECOND_QUARTILE", "THIRD_QUARTILE", "FOURTH_QUARTILE"];
 
+// Keep the sentence's line breaks stable while activity loads or is unavailable.
+// No invented cells or contribution values are shown in either state.
+export function GitHubActivityPlaceholder() {
+  return <span className="masthead-activity masthead-activity--placeholder" aria-hidden="true" />;
+}
+
 async function getActivity() {
   if (!process.env.GITHUB_TOKEN) return null;
 
@@ -29,7 +35,7 @@ async function getActivity() {
 
 export default async function GitHubActivity() {
   const weeks = await getActivity();
-  if (!weeks) return null;
+  if (!weeks) return <GitHubActivityPlaceholder />;
 
   const days = weeks.flatMap((week) => week.contributionDays);
   const count = days.reduce((total, day) => total + day.contributionCount, 0);

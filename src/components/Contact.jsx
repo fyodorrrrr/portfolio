@@ -12,6 +12,8 @@ export default function Contact() {
     e.preventDefault();
     const form = e.currentTarget;
 
+    if (status === "sending" || !form.reportValidity()) return;
+
     // Honeypot: bots fill every field, humans never see this one.
     if (form._honey.value) return;
 
@@ -70,16 +72,16 @@ export default function Contact() {
           <input type="text" name="_honey" tabIndex="-1" autoComplete="off" className="hidden" aria-hidden="true" />
 
           <div className="form-field">
-            <input id="contact-name" type="text" name="name" placeholder=" " required disabled={status === "sending"} />
             <label htmlFor="contact-name">Your name</label>
+            <input id="contact-name" type="text" name="name" autoComplete="name" required disabled={status === "sending"} />
           </div>
           <div className="form-field">
-            <input id="contact-email" type="email" name="email" placeholder=" " required disabled={status === "sending"} />
             <label htmlFor="contact-email">Your email</label>
+            <input id="contact-email" type="email" name="email" autoComplete="email" required disabled={status === "sending"} />
           </div>
           <div className="form-field">
-            <textarea id="contact-message" name="message" rows="4" placeholder=" " required disabled={status === "sending"}></textarea>
             <label htmlFor="contact-message">What are you building?</label>
+            <textarea id="contact-message" name="message" rows="4" required disabled={status === "sending"}></textarea>
           </div>
 
           <button type="submit" className="form-submit contact-submit" disabled={status === "sending"}>

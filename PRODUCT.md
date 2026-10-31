@@ -34,7 +34,7 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 - Next.js 15 (App Router) / React 19 / Tailwind CSS 4, no test suite configured.
 - No CMS or database — all content edits are code edits.
 - Contact form has no spam protection beyond a honeypot field; no rate limiting.
-- Undecided: final production domain (currently placeholder `example.com` in `metadataBase`).
+- Final production domain remains undecided. Placeholder SEO metadata and route metadata exports have been removed.
 - Undecided: whether to pursue real GitHub/demo links and screenshots for AgriWise, EquipED, and SBCC Management System, or leave them as placeholder (the detail page already hides "#" links gracefully rather than showing dead ones).
 
 ## Brand Commitments

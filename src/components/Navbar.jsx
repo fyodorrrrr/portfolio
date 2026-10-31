@@ -64,6 +64,13 @@ export default function Navbar() {
     };
     const handleKeyDown = (e) => {
       if (e.key === "Escape") closeAndRefocus();
+      if (e.key === "Tab") {
+        const controls = [...topbarRef.current.querySelectorAll("a, button")].filter((node) => node.offsetParent !== null);
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
     };
     const handleClickOutside = (e) => {
       if (topbarRef.current && !topbarRef.current.contains(e.target)) {
@@ -71,9 +78,12 @@ export default function Navbar() {
       }
     };
 
+    const handleResize = () => { if (window.innerWidth >= 720) setIsOpen(false); };
+    window.addEventListener("resize", handleResize);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      window.removeEventListener("resize", handleResize);
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("mousedown", handleClickOutside);
       mainEl?.removeAttribute("inert");

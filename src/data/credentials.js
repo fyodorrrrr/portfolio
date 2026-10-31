@@ -6,7 +6,6 @@ export const credentials = [
     date: "2026",
     verifyUrl: "https://www.credly.com/badges/5a84ace0-79a5-4080-b3b8-ada4255e8400/public_url",
     logo: "/assets/logo/pearson-vue.svg",
-    image: "/assets/logo/pearson-vue.svg",
     // No scanned certificate yet, so no `image` (the modal would present a logo as the certificate).
     // `modal: true` still opens the compact details dialog; add an `image` once the scan exists.
     modal: true,

@@ -12,7 +12,7 @@ export default function ClaudeMascot() {
     >
       <g className="claude-character">
         <path
-          fill="var(--claude-mascot)"
+          fill="var(--claude-mascot, #D97757)"
           d="M5 4h14v3h2v4h2v3h-4v3H5v-3H1v-3h2V7h2Z M5 17h2v4H5Z M9 17h2v3H9Z M13 17h2v3h-2Z M17 17h2v4h-2Z"
         />
         <g className="claude-eyes-rest" fill="var(--ink)">

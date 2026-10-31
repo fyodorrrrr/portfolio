@@ -58,6 +58,8 @@
   --line: #e5e5e2;
   --line-soft: rgba(23, 23, 23, .06);
   --line-strong: #d4d4d0;
+  --field-border: #858580;
+  --radius-control: 8px;
   --surface-muted: #e4e4e0;
   --text-detail: 1.0625rem;
   --background: var(--paper);
@@ -67,6 +69,7 @@
   --accent-soft: #3f7a5d; /* tinted second line of big headings (~4.9:1 on paper) */
   --topbar-h: 4.5rem; /* the sticky nav's height; the hero and anchor offsets are built on it */
   --prose-max: 72rem; /* reading width for long-form pages (case studies, credentials page) */
+  --case-study-max: 48rem;
 }
 @media (max-width: 719px) { :root { --topbar-h: 4rem; } }
 
@@ -92,6 +95,7 @@ body {
   color: var(--ink);
   font-family: 'Helixa', 'Helixa Fallback', Arial, Helvetica, sans-serif;
   font-weight: 450;
+  overflow-wrap: anywhere;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -232,9 +236,7 @@ body {
   box-sizing: border-box;
   padding: 5.5rem var(--gutter);
   scroll-margin-top: var(--topbar-h);
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .6s ease, transform .6s ease;
+  opacity: 1;
 }
 .entry.in { opacity: 1; transform: translateY(0); }
 
@@ -320,34 +322,29 @@ body {
 }
 
 /* ---------- masthead ---------- */
-/* Hero: empty space above, a short tagline, then the name set edge to edge at the bottom. */
+/* Centered reading column with a compact name above the introduction. */
 .masthead {
   position: relative;
-  overflow-x: clip; /* never let the giant name create a horizontal scrollbar */
-  /* The hero is the first screen: it must not wait for the JS scroll-reveal. */
   opacity: 1;
   transform: none;
   transition: none;
   min-height: calc(100svh - var(--topbar-h));
-  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 3rem;
-  padding-bottom: clamp(.5rem, 1vw, 1rem);
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(3rem, 8svh, 6rem);
 }
-.masthead-top {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: clamp(1.5rem, 3.5vw, 3rem);
+.masthead-grid {
+  max-width: 48rem;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
+.masthead-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .masthead-role {
   margin: 0;
-  max-width: 54rem;
-  font-size: clamp(1.35rem, 2.3vw, 2.1rem);
-  line-height: 1.22;
+  max-width: 100%;
+  font-size: clamp(1.5rem, 2.55vw, 2.35rem);
+  line-height: 1.35;
   letter-spacing: -.01em;
   font-weight: 400;
   color: var(--ink-soft);
@@ -357,7 +354,8 @@ body {
    The two with arrows are real links, so the whitespace points somewhere. The handwriting
    face is for these notes only. */
 .masthead-note {
-  flex-shrink: 0;
+  flex-shrink: 1;
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -377,38 +375,7 @@ body {
 a.masthead-note:hover,
 a.masthead-note:focus-visible { color: var(--accent); transform: rotate(-1deg) translateY(-3px); }
 a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.masthead-note-arrow { width: 1.3rem; height: 1.3rem; }
-.masthead-note-arrow--down { transform: rotate(90deg); } /* the base arrow points up-right; this one points down-right */
-
-/* "open to roles": a static note with a status dot, floating top-left of the whitespace. */
-.masthead-note--status {
-  position: absolute;
-  top: clamp(5rem, 20vh, 11rem);
-  left: calc(var(--gutter) + 4vw);
-  transform: rotate(-1.5deg);
-}
-.masthead-note-dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--accent-soft); }
-
-/* "say hi" with a longer doodled arrow looping down toward the name. */
-.masthead-float {
-  position: absolute;
-  top: clamp(4rem, 14vh, 8rem);
-  right: calc(var(--gutter) + 28vw);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.masthead-note--float { transform: rotate(3deg); }
-a.masthead-note--float:hover,
-a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px); }
-.masthead-doodle {
-  width: clamp(4.5rem, 7vw, 6.5rem);
-  height: auto;
-  margin-top: .5rem;
-  color: var(--accent);
-  overflow: visible;
-}
-
+.masthead-note-arrow { flex-shrink: 0; width: 1.3rem; height: 1.3rem; }
 /* The underline drawn under "Software engineer" in the tagline. */
 .masthead-mark { position: relative; display: inline-block; }
 .masthead-mark-stroke {
@@ -423,36 +390,9 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 }
 .masthead-mark-stroke path { vector-effect: non-scaling-stroke; }
 
-/* Keep contact reachable when the floating notes no longer have room above the name. */
-@media (max-width: 900px) {
-  .masthead-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-}
-@media (max-width: 900px), (max-height: 760px) {
-  .masthead-note--status { position: static; align-self: flex-start; margin-bottom: 1.25rem; }
-}
-@media (max-width: 1100px), (max-height: 760px) {
-  .masthead-float { position: static; align-self: flex-end; margin-bottom: 1.5rem; }
-  .masthead-doodle { display: none; }
-}
 @media (max-width: 640px) {
-  .masthead {
-    display: grid;
-    min-height: calc(100svh - var(--topbar-h));
-    grid-template-columns: max-content minmax(0, 1fr);
-    grid-template-rows: auto auto minmax(1.5rem, 1fr) auto auto;
-    align-content: stretch;
-    align-items: center;
-    gap: 1.5rem .75rem;
-    padding-block: 2rem;
-  }
-  .masthead-note--status, .masthead-float { margin: 0; align-self: center; }
-  .masthead-note--status { grid-column: 1 / -1; grid-row: 1; justify-self: start; }
-  .masthead-float { grid-column: 1 / -1; grid-row: 2; justify-self: end; margin-top: clamp(1rem, 6svh, 3rem); }
-  .masthead-grid { display: contents; }
-  .masthead-top { grid-column: 1 / -1; grid-row: 4; align-self: end; margin-bottom: 0; }
-  .masthead-name { grid-column: 1 / -1; grid-row: 5; }
   .masthead-note { font-size: clamp(1.375rem, 5.8vw, 1.625rem); padding: .6rem .85rem; }
-  .masthead-role { font-size: clamp(1.375rem, 5.8vw, 1.625rem); line-height: 1.3; }
+  .masthead-role { font-size: clamp(1.5rem, 6.5vw, 1.825rem); line-height: 1.4; }
 }
 
 /* Entrance: notes pop in and strokes draw on at page load (CSS only, no JS needed). Without
@@ -471,28 +411,40 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 @media (prefers-reduced-motion: reduce) {
   .masthead-note { transition: color .2s ease; }
   a.masthead-note:hover, a.masthead-note:focus-visible { transform: rotate(-2.5deg); }
-  a.masthead-note--float:hover, a.masthead-note--float:focus-visible { transform: rotate(3deg); }
 }
 
-/* Keep the name about 15% smaller than the former edge-to-edge treatment.
-   Container width controls the measure; the height cap protects short viewports. */
-.masthead-name { container-type: inline-size; }
 .masthead h1 {
   margin: 0;
-  padding-bottom: .2em; /* reserve space for descenders below the tight line box */
-  font-size: 11.9vw; /* fallback for browsers without container or small-viewport units */
-  font-size: min(16.75cqw, 25.5svh);
-  line-height: .9;
+  font-size: clamp(2.4rem, 4vw, 3.75rem);
+  line-height: 1.1;
   letter-spacing: -.03em;
   font-weight: 400;
-  white-space: nowrap;
   color: var(--ink);
 }
 
+.masthead-activity { --activity-height: 35px; box-sizing: border-box; inline-size: calc(var(--activity-height) * 119 / 69 + 18px); block-size: calc(var(--activity-height) + 12px); display: inline-flex; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-deep); vertical-align: middle; align-items: center; margin-inline: .12em; color: var(--accent); }
+.masthead-activity--placeholder { visibility: hidden; }
+@media (max-width: 640px) { .masthead-activity { --activity-height: 40px; } }
+.masthead-activity svg { display: block; width: auto; height: var(--activity-height); overflow: visible; }
+.masthead-activity rect { fill: currentColor; }
+.masthead-activity .activity-level-0 { fill: var(--surface-muted); }
+.masthead-activity .activity-level-1 { fill-opacity: .25; }
+.masthead-activity .activity-level-2 { fill-opacity: .5; }
+.masthead-activity .activity-level-3 { fill-opacity: .75; }
+@keyframes activity-ripple { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-3px); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-activity:hover rect { animation: activity-ripple 420ms cubic-bezier(.2, .7, .2, 1) var(--ripple-delay) both; } }
+@media (hover: hover) and (prefers-reduced-motion: reduce) { .masthead-activity:hover { color: var(--accent-soft); } }
+.masthead-ai { white-space: nowrap; }
+.masthead-location { display: block; margin-top: .35em; }
+.masthead-claude { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; margin-inline: .08em; overflow: visible; }
+.claude-character { transform-box: fill-box; transform-origin: center bottom; }
+.claude-eyes-happy { opacity: 0; }
+@media (hover: hover) { .masthead-claude:hover .claude-eyes-rest { opacity: 0; } .masthead-claude:hover .claude-eyes-happy { opacity: 1; } }
+@keyframes claude-hop { 0%, 100% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-2px) rotate(-6deg); } 65% { transform: translateY(-1px) rotate(4deg); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-claude:hover .claude-character { animation: claude-hop 480ms cubic-bezier(.2, .7, .2, 1) both; } }
+
+
 /* ---------- about ---------- */
-@media (max-width: 640px) {
-  .masthead h1 { font-size: 19.5cqw; }
-}
 
 .about-section {
   min-height: calc(100svh - var(--topbar-h));
@@ -542,8 +494,11 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 }
 .about-fact {
   min-width: 0;
-  padding-top: .75rem;
-  border-top: 1px solid var(--line);
+  width: fit-content;
+  max-width: 100%;
+  padding: clamp(1.25rem, 2.5vw, 1.5rem);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--surface-muted) 45%, var(--paper));
 }
 .about-fact dt { font-size: .82rem; line-height: 1.4; color: var(--ink-soft); }
 .about-fact dd {
@@ -559,6 +514,7 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 @media (max-width: 640px) {
   .about-intro, .about-body { text-align: left; }
   .about-facts { grid-template-columns: minmax(0, 1fr); }
+  .about-fact { width: 100%; }
 }
 
 /* ---------- shared section intro + pinned index split; projects stage cards ---------- */
@@ -715,6 +671,17 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 
 /* ---------- project detail page ---------- */
 .project-detail { min-height: 100vh; box-sizing: border-box; padding: 0 var(--gutter) clamp(3rem, 6vw, 5rem); }
+.project-case-study { --prose-max: var(--case-study-max); }
+.project-case-study .project-detail-desc,
+.project-case-study .project-detail-section p,
+.project-case-study .project-built-list p {
+  max-width: none;
+  text-align: justify;
+  hyphens: auto;
+}
+.project-case-study .project-detail-section { grid-template-columns: minmax(0, 1fr); row-gap: 1rem; }
+.project-case-study .project-detail-section > :not(.eyebrow) { grid-column: 1; }
+.project-case-study .project-detail-section .eyebrow { margin-bottom: 0; }
 .project-detail-bar {
   width: 100%;
   max-width: var(--prose-max);
@@ -758,6 +725,13 @@ a.masthead-note--float:focus-visible { transform: rotate(1deg) translateY(-3px);
 .project-detail-section > :not(.eyebrow) { grid-column: 2; }
 .project-detail-section p { margin: 0; max-width: 48rem; font-size: var(--text-detail); line-height: 1.65; color: var(--ink-soft); }
 @media (max-width: 720px) {
+  .project-case-study .project-detail-desc,
+  .project-case-study .project-detail-section p,
+  .project-case-study .project-built-list p {
+    text-align: left;
+    hyphens: none;
+  }
+  .project-case-study .project-detail-section { grid-template-columns: minmax(0, 1fr); }
   .project-detail-header { margin-top: 1rem; }
   .project-detail-plate { margin-top: 2rem; }
   .project-detail-section { grid-template-columns: minmax(0, 1fr); }
@@ -927,10 +901,6 @@ button.credential-row:hover .credential-info,
 a.credential-row:focus-visible .credential-info,
 button.credential-row:focus-visible .credential-info { transform: translateX(.4rem); }
 
-.credentials-list:has(a.credential-row:hover, button.credential-row:hover) .credential-row:not(:hover) {
-  opacity: .7;
-}
-.credential-row { transition: opacity .25s ease; }
 .credential-preview { display: none; }
 @media (min-width: 901px) {
   .credential-row:hover,
@@ -1355,38 +1325,30 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .contact-channels a:hover { color: var(--ink); }
 .contact-channels a:hover .arrow { color: var(--ink); transform: translateX(4px); }
 
-.form-field { position: relative; margin-bottom: 1.9rem; }
+.form-field { display: grid; gap: .5rem; margin-bottom: 1.5rem; }
 .form-field input, .form-field textarea {
   width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--line);
-  padding: .6rem 0;
+  min-width: 0;
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-control);
+  padding: .875rem 1rem;
   font-family: 'Helixa', sans-serif;
   font-size: 1rem;
+  line-height: 1.5;
   color: var(--ink);
-  resize: none;
   transition: border-color .2s ease;
 }
-.form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--ink); }
-.form-field label {
-  position: absolute;
-  left: 0; top: .6rem;
-  font-size: .78rem;
-  color: var(--ink-faint);
-  letter-spacing: .01em;
-  transition: all .18s ease;
-  pointer-events: none;
+.form-field textarea { resize: vertical; min-height: 9rem; }
+.form-field input:focus, .form-field textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-color: var(--accent);
 }
-.form-field input:focus + label,
-.form-field input:not(:placeholder-shown) + label,
-.form-field textarea:focus + label,
-.form-field textarea:not(:placeholder-shown) + label {
-  top: -.85rem;
-  font-size: .66rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink);
+.form-field label {
+  font-size: .875rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  letter-spacing: .01em;
 }
 .form-submit {
   margin-top: .5rem;
@@ -1409,6 +1371,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .contact-submit,
 .contact-submit:hover {
   min-height: 48px;
+  border-radius: var(--radius-control);
   gap: 1.5rem;
   padding: .85rem 1.5rem;
   font-size: 1rem;
@@ -1487,19 +1450,9 @@ a:focus-visible, button:focus-visible, .form-submit:focus-visible {
   .footer-identity { grid-column: 1 / -1; }
 }
 
-/* ---------- neutral route fade ---------- */
-.page-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--accent);
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateX(-100%);
-}
-
 /* Restored playful editorial refinements. */
 :root {
+  --claude-mascot: #d77757;
   --paper-texture: url('/assets/paper-grain.png');
   --paper-light: color-mix(in srgb, var(--paper-deep) 32%, transparent);
   --paper-shade: color-mix(in srgb, var(--ink) 1.2%, transparent);
@@ -1511,25 +1464,6 @@ a:focus-visible, button:focus-visible, .form-submit:focus-visible {
 body { background-image: var(--paper-texture), var(--paper-ambient); background-repeat: repeat, no-repeat, no-repeat, no-repeat; background-size: 256px 256px, 100% 100%, 100% 100%, 100% 100%; }
 .topbar, .mobile-panel { background-image: var(--paper-texture); }
 .form-field input, .form-field textarea { background: var(--paper); }
-.masthead-role { max-width: 62rem; font-size: clamp(1.7rem, 2.9vw, 2.65rem); line-height: 1.35; }
-@media (max-width: 640px) { .masthead-role { font-size: clamp(1.7rem, 7.2vw, 2rem); line-height: 1.4; } }
-.masthead-activity { display: inline-flex; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-deep); vertical-align: middle; align-items: center; margin-inline: .12em; color: var(--accent); }
-.masthead-activity svg { display: block; width: auto; height: 40px; overflow: visible; }
-.masthead-activity rect { fill: currentColor; }
-.masthead-activity .activity-level-0 { fill: var(--surface-muted); }
-.masthead-activity .activity-level-1 { fill-opacity: .25; }
-.masthead-activity .activity-level-2 { fill-opacity: .5; }
-.masthead-activity .activity-level-3 { fill-opacity: .75; }
-@keyframes activity-ripple { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-3px); } }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-activity:hover rect { animation: activity-ripple 420ms cubic-bezier(.2, .7, .2, 1) var(--ripple-delay) both; } }
-@media (hover: hover) and (prefers-reduced-motion: reduce) { .masthead-activity:hover { color: var(--accent-soft); } }
-.masthead-ai { white-space: nowrap; }
-.masthead-claude { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; margin-inline: .08em; overflow: visible; }
-.claude-character { transform-box: fill-box; transform-origin: center bottom; }
-.claude-eyes-happy { opacity: 0; }
-@media (hover: hover) { .masthead-claude:hover .claude-eyes-rest { opacity: 0; } .masthead-claude:hover .claude-eyes-happy { opacity: 1; } }
-@keyframes claude-hop { 0%, 100% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-2px) rotate(-6deg); } 65% { transform: translateY(-1px) rotate(4deg); } }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) { .masthead-claude:hover .claude-character { animation: claude-hop 480ms cubic-bezier(.2, .7, .2, 1) both; } }
 .about-layout { grid-template-columns: minmax(10rem, .55fr) minmax(0, 1.95fr); }
 .about-layout > .section-intro-title { font-size: clamp(1.5rem, 2.3cqw, 2rem); line-height: 1.2; }
 .about-layout > .section-intro-title span { white-space: normal; }
@@ -1575,3 +1509,20 @@ a.credential-row::before, button.credential-row::before { border-radius: inherit
 .credential-detail-preview h2 { margin:0; font-size:1.3rem; font-weight:500; line-height:1.4; }
 .credential-detail-description { margin:1.5rem 0 0; font-size:1rem; line-height:1.65; }
 @media (max-width:900px) { .credentials-explorer { grid-template-columns:minmax(0,1fr); } .credential-detail-preview { display:none; } .credential-explorer-row { padding:1.25rem 1rem; } }
+
+/* Sections are readable before JavaScript and if animation setup is unavailable. */
+@media (prefers-reduced-motion: no-preference) {
+  .entry.reveal-pending { transform: translateY(8px); }
+  .entry.reveal-ready { transition: transform .6s ease; }
+}
+.route-snapshot { position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: none; }
+.route-snapshot:empty { display: none; }
+.route-snapshot > * { width: 100%; background-color: var(--paper); }
+@media (max-width: 900px) {
+  .about-layout { grid-template-columns: minmax(0, 1fr); }
+  .about-layout, #contact > .section-intro, .contact-grid { padding-inline: 0; }
+}
+@media (max-width: 640px) {
+  .contact-channels a { overflow-wrap: anywhere; gap: .5rem; }
+  .credential-explorer-row { gap: .75rem; }
+}

@@ -9,7 +9,7 @@ export default function ScrollReveal() {
 
     const showElement = (element) => {
       element.classList.add("in");
-      element.classList.remove("reveal-pending", "reveal-ready");
+      element.classList.remove("reveal-pending");
     };
 
     const reducedMotion = window.matchMedia(
@@ -43,11 +43,22 @@ export default function ScrollReveal() {
       if (element.getBoundingClientRect().top < window.innerHeight) {
         showElement(element);
       } else {
+        element.classList.add("reveal-ready", "reveal-pending");
         observer.observe(element);
       }
     });
 
-    return () => observer.disconnect();
+    const handleMotionChange = () => {
+      if (!reducedMotion.matches) return;
+      observer.disconnect();
+      elements.forEach(showElement);
+    };
+    reducedMotion.addEventListener("change", handleMotionChange);
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", handleMotionChange);
+      elements.forEach(showElement);
+    };
   }, []);
 
   return null;

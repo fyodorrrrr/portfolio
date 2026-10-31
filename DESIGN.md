@@ -15,9 +15,9 @@ colors:
 typography:
   display:
     fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
-    fontSize: "min(16.75cqw, 25.5svh)"
+    fontSize: "clamp(2.4rem, 4vw, 3.75rem)"
     fontWeight: 400
-    lineHeight: 0.9
+    lineHeight: 1.1
     letterSpacing: "-0.03em"
   section-title:
     fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
@@ -45,10 +45,10 @@ typography:
     letterSpacing: "-0.01em"
   hero-lede:
     fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(1.25rem, 2.1vw, 1.75rem)"
-    fontWeight: 500
-    lineHeight: 1.5
-    letterSpacing: "normal"
+    fontSize: "clamp(1.5rem, 2.55vw, 2.35rem)"
+    fontWeight: 400
+    lineHeight: 1.35
+    letterSpacing: "-0.01em"
   modal-title:
     fontFamily: "Helixa, Helixa Fallback, Arial, Helvetica, sans-serif"
     fontSize: "1.45rem"
@@ -197,11 +197,11 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 **Character:** One family for everything. Functional text (labels, tags, buttons, metadata) is marked by uppercase case, letter-spacing and smaller size, never by a different font. (An earlier monospace functional face was retired on purpose; don't bring it back.)
 
 ### Hierarchy
-- **Display** (400, `min(16.75cqw, 25.5svh)`, line-height 0.9, tracking −0.03em): the hero `<h1>` only, left-aligned and approximately 15% smaller than the former edge-to-edge treatment. The viewport-height cap protects short screens. The tagline above it is `clamp(1.7rem, 2.9vw, 2.65rem)`, weight 400, line-height 1.35, Soft Graphite, up to 62rem wide; on mobile it uses `clamp(1.7rem, 7.2vw, 2rem)` with line-height 1.4; the name itself is Near-Black Ink.
+- **Display** (400, `clamp(2.4rem, 4vw, 3.75rem)`, line-height 1.1, tracking −0.03em): the compact hero name above the introduction. The introduction beneath it uses `clamp(1.5rem, 2.55vw, 2.35rem)`, weight 400, line-height 1.35, Soft Graphite; on mobile it uses `clamp(1.5rem, 6.5vw, 1.825rem)` with line-height 1.4. The hero column is at most 48rem wide.
 - **Section title** (400, `clamp(2.4rem, 5.2vw, 4.25rem)`, 1.05, tracking −0.02em): the heading in every section intro. Light weight on purpose; the second line is Pine Tint.
 - **Index** (400, `clamp(2rem, 3.6vw, 3rem)`): names in the pinned index.
 - **Group heading** (400, `clamp(1.5rem, 2.6vw, 2.25rem)`, tracking −0.02em): the category names above each group of credential rows (Certifications & Training, and so on), followed by a hairline rule.
-- **Note** (450, `clamp(1.25rem, 2.1vw, 1.9rem)`): the gray note beside a section title. About uses this scale for its first-person introduction, with a 1.4 line-height. The hero's lede is at weight 500 (`clamp(1.25rem, 2.1vw, 1.75rem)`).
+- **Note** (450, `clamp(1.25rem, 2.1vw, 1.9rem)`): the gray note beside a section title. About uses this scale for its first-person introduction, with a 1.4 line-height. The hero's introduction uses the separate Hero Lede role: weight 400, `clamp(1.5rem, 2.55vw, 2.35rem)` with 1.35 line-height; mobile uses `clamp(1.5rem, 6.5vw, 1.825rem)` and 1.4 line-height.
 - **Title** (500, 1.3rem): card titles and short ledes.
 - **Row title** (600, 1.05rem): credential row and card titles. **Modal title** (700, 1.45rem): the credential dialog heading.
 - **Meta / small UI** (0.82rem / 0.78rem, tracked 0.06em / 0.04em): years, "view →" links, filter chips and other secondary functional text.
@@ -223,11 +223,11 @@ Three tokens in `globals.css` own the page geometry; change them rather than add
 - `--prose-max`: `72rem` — reading width for case-study pages and the `/credentials` page.
 - `--topbar-h`: `4.5rem` (`5rem` below 720px) — the sticky nav's minimum height. The nav is given exactly this height, and the hero (`min-height: calc(100svh - var(--topbar-h))`) and anchor scroll offsets are built on it.
 
-**Hero.** Empty space above, then a short tagline, then the large left-aligned name occupying approximately 85% of the available width, anchored to the bottom of the first screen (`min-height: calc(100svh - var(--topbar-h))`). The name reserves 0.2em below its tight line box for descenders, in addition to the hero's `clamp(.5rem, 1vw, 1rem)` bottom inset, so letters clear the About separator. A deliberate expanse of paper follows before About.
+**Hero.** A 48rem content column is centered horizontally and vertically within the first viewport below the nav. The smaller name appears first, then the left-aligned introduction with its inline graph and mascot, then the location on a separate line. A wrapping handwritten action row places "hey! see my work" before "say hi" below the introduction. All elements follow document flow; the previous floating doodle and oversized bottom name are removed. The hero grows naturally on small or enlarged-text screens.
 
 **Scrolling.** Fine-pointer devices ease wheel input on the native document with a light 90ms exponential damping time. No transformed page wrapper is used, preserving sticky elements, section tracking, anchors, and route restoration. Pointer presses, navigation keys, external scrolling, scroll locks, and route changes cancel inertia. Nested scroll containers and zoom gestures remain native. Touch devices and reduced-motion preferences use native scrolling; animation frames run only while settling toward a target.
 
-Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). About shares this padding; its supporting facts follow the introduction after 2.5rem. About and all later sections open with a 1px Hairline Grey rule at the top edge, inset to the content width so it lines up with the grid (backgrounds stay one flat paper tone; sections are separated by that rule and whitespace, not by color blocks). About, Projects, Credentials, and Contact content uses a scroll-linked focus shift where supported: content enters with 6px blur and 72% opacity, sharpens through the central portion of the viewport, then softly blurs to the same partially visible state as it leaves. The animation follows the section view timeline, so reversing scroll reverses focus. Section backgrounds and dividers remain sharp; only direct content children animate. Browsers without scroll-driven animation use the one-time IntersectionObserver reveal as a fallback. Reduced motion disables both effects. No scroll-frame JavaScript or persistent will-change is used.
+Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (3.25rem under 640px). About shares this padding; its supporting facts follow the introduction after 2.5rem. About and all later sections open with a 1px Hairline Grey rule at the top edge, inset to the content width so it lines up with the grid (backgrounds stay one flat paper tone; sections are separated by that rule and whitespace, not by color blocks). Sections stay readable before JavaScript loads. Offscreen sections use a one-time, 600ms opacity/rise reveal through IntersectionObserver; there is no section blur or scroll-linked animation. Reduced motion and browsers without IntersectionObserver show content immediately.
 
 **Section intro row.** A two-column grid (`minmax(14rem, 0.8fr)` / `minmax(0, 1.7fr)`): a gray note on the left and the large heading on the right. Used by Projects and Contact (Contact's lede and channels sit under the note, and its form under the heading, on the same two columns). About shares these columns with a full-size section heading on the left and prose on the right. Credentials uses the large heading style left-aligned above its content, with no note.
 
@@ -238,7 +238,7 @@ Vertical rhythm comes from the shared `.entry` unit: 5.5rem top/bottom padding (
 - **720px** — nav switches from hamburger panel to inline links.
 - **900px** — intro, pinned split, About, and Contact collapse to one column. About's supporting facts retain two columns until 640px. The index is hidden and the heading leads.
 
-**Page transition.** Internal route links use a full-screen Pine Ink curtain that wipes left-to-right, navigates behind it, then wipes off over 450ms each way. Modifier-clicks and reduced motion navigate normally.
+**Page transition.** Internal route links use a 850ms blur crossfade: an inert visual copy of the outgoing route blurs and fades while the incoming route sharpens. The snapshot is removed after animation or timeout. Same-page anchors, modifier-clicks, and reduced motion use normal navigation. The green wipe is removed.
 
 ## Elevation & Depth
 
@@ -261,7 +261,7 @@ Square by default (buttons, chips, inputs, section containers are 0px). Radius i
 - **Hairline radius** (4px): the certificate image inside the credential dialog only.
 
 ### Named Rules
-**The Reserved-Radius Rule.** A new component that isn't an image container, a floating object, or a round control gets 0px radius. Don't invent an in-between radius as a default.
+**The Reserved-Radius Rule.** Contact form fields and Send note use the shared 8px `--radius-control` treatment. Other new components that are not image containers, floating objects, or round controls default to 0px radius. Don't invent an in-between radius as a default.
 
 ## Components
 
@@ -295,15 +295,14 @@ Use the existing palette, typography, shape, and depth rules as the baseline. Fl
 
 The word "AI" is accompanied by a small Clawd (Claude Code) pixel mascot, rendered as authored SVG geometry in its terracotta brand color with ink eyes. It uses a compact, taller silhouette in a square 1.15em box, sits inline without a frame or background, and stays with "AI" during wrapping. On hover-capable devices its eyes squeeze into inward-facing chevrons (> <) and the character makes a single small hop with a tilt. Reduced motion keeps the eye change but disables movement; touch retains the resting face. It has an accessible mascot label and is not a link. This is a deliberate brand-color exception; the remaining interface keeps its green palette. Pixel geometry relates it to the contribution graph without repeating its container or hover effect.
 
-An inline GitHub contribution graph follows "building" in the tagline. It shows the latest 12 calendar weeks for `fyodorrrrr`, using real daily contribution levels rendered as flat pine-green squares. The grid is 40px tall inside a compact white floating object with an 8px radius, hairline border, and 5px vertical / 8px horizontal padding. It is a non-linked image with an accessible date-range/count label and no pointer-hand cursor or shadow. On hover-capable devices, squares lift slightly in a single staggered ripple per pointer entry, retaining their real contribution colors. There is no idle loop. Reduced motion replaces the ripple with a subtle green color response; touch devices retain the static graph. Data is fetched on the server and cached for 24 hours. It is omitted when authentication or data is unavailable; never substitute invented activity.
+An inline GitHub contribution graph follows "building" in the tagline. It shows the latest 12 calendar weeks for `fyodorrrrr`, using real daily contribution levels rendered as flat pine-green squares. The grid is 35px tall on desktop and 40px tall on mobile inside a compact white floating object with an 8px radius, hairline border, and 5px vertical / 8px horizontal padding. It is a non-linked image with an accessible date-range/count label and no pointer-hand cursor or shadow. On hover-capable devices, squares lift slightly in a single staggered ripple per pointer entry, retaining their real contribution colors. There is no idle loop. Reduced motion replaces the ripple with a subtle green color response; touch devices retain the static graph. Data is fetched on the server and cached for 24 hours. During Suspense loading or unavailable data, an invisible, aria-hidden slot reserves the same responsive outer dimensions (approximately 78×47px on desktop and 87×52px on mobile) as the graph, preventing the sentence from rewrapping. No contribution cells or invented values appear in those states.
 
 The hero currently uses hand-lettered marks in its whitespace, in Gaegu (`--font-hand`). These describe the existing composition rather than a fixed limit:
 
-- **"hey! see my work"** (sticker, links to projects) at the end of the tagline row and **"say hi"** (sticker, links to contact) floating in the top whitespace, with a longer looping Pine Ink arrow doodled beneath it pointing toward the name. Stickers are light gray (`--surface-muted`, 8px radius), rotated about 2–3°; hover straightens and lifts them and turns the text Pine Ink.
-- **"open to roles"**, a static sticker with a small Pine Tint status dot, floating top-left. It's the one note that isn't a link.
-- **A hand-drawn underline** in Pine Tint under "Software engineer" in the tagline.
+- **"hey! see my work"** and **"say hi"** form an in-flow action row below the introduction. Both use light-gray handwritten stickers, small arrow icons, and the established lift/color hover treatment.
+- A Pine Tint drawn underline emphasizes "Software engineer".
 
-Entrance is one authored moment, pure CSS and independent of JavaScript: the hero is visible from first paint (it opts out of the scroll-reveal fade), and at load the notes pop in (about 0.45s, staggered) and the strokes draw on (about 0.8s). Under reduced motion everything is simply present and hover only changes color. Notes are at least 44px tall. To keep the absolutely placed notes off the tagline and name: below 900px wide or under 760px tall "open to roles" drops into the flow above the tagline, and below 1100px wide or under 760px tall the "say hi" link moves into normal flow at the right and only its large doodle is hidden. The hero clips horizontal overflow so the giant name can never create a horizontal scrollbar.
+The hero is visible from first paint. The notes pop in once and the underline draws on at load; reduced motion presents them immediately. Actions remain at least 44px tall, wrap on narrow screens, and retain visible focus outlines.
 
 ### Chips
 - **Tech tags** (case studies): transparent, Hairline Grey border, Soft Graphite label text, 0px radius; informational only.
@@ -349,3 +348,32 @@ Near-Black Ink background (`--ink`) with Warm Paper text. A compact row places J
 - **Don't** let the nav go full-bleed or hard-code section padding; use `--gutter` and `--content-max`.
 - **Don't** apply the wide `--content-max` to long-form reading pages; use `--prose-max`.
 - **Don't** fabricate evidence (screenshots, links, metrics, certificate images) to fill a visual gap; and don't hand-roll a modal when a native `<dialog>` does the focus and inert work.
+
+
+## Audit refinements
+
+About stacks into one column at 900px and below, with extra inner side padding removed on tablet and phone. The hero has no availability/status note; mobile composition follows natural flex flow. Page metadata exports and the placeholder domain were removed at the user's request. Contact validates required fields before submission. The mobile navigation traps keyboard focus and closes when resized to desktop.
+
+
+## Project case-study composition
+
+Detailed project routes use a centered 48rem column (`--case-study-max`, scoped through `--prose-max` on `.project-case-study`). The Back link, title, screenshots, and narrative sections align to that column, creating generous desktop side margins. Descriptions and narrative paragraphs fill this shared width rather than applying narrower independent maximum widths; prose is justified with automatic hyphenation. Screenshots shrink with the column to maintain a consistent reading measure. Narrative headings stack above their content at every screen size, with a 1rem gap. The problem, What I built, and Outcome use the existing small Helixa heading treatment; dividers and larger spacing separate sections. Existing fluid page gutters remain on mobile. The credentials collection retains its wider 72rem layout.
+
+
+The hero introduction stays left-aligned. "Based in Laguna, Philippines" appears on its own line with .35em separation from the introduction.
+
+
+## Hero maintenance
+
+Hero layout, inline graphics, responsive rules, and motion live together in the masthead block of `globals.css`. There is one desktop introduction rule and one mobile override; removed status-note styles and the former mobile grid are deleted. `GitHubActivityPlaceholder` is shared by the loading and unavailable-data states. Its fixed inline dimensions match the loaded graph, with no added client JavaScript.
+
+## Readability and contrast refinements
+
+Contact field boundaries use `--field-border` (`#858580`, about 3.4:1 on paper); decorative dividers retain `--line`. Contact labels stay at .875rem (14px at the default root size) in both resting and populated states, with reserved space above inputs and sentence case. Floating labels move without shrinking, and reduced motion removes their movement transition. Credential hover emphasis retains full opacity on neighboring rows. Section reveals animate movement only, preserving text contrast. Case-study prose remains justified on desktop and becomes left-aligned without automatic hyphenation at 720px and below.
+
+At enlarged text sizes, long words may wrap as needed to preserve the reading column. Hero note links can shrink and wrap within their container, with arrows retaining their size.
+
+
+## Contact form: soft minimalism
+
+Contact fields and Send note share `--radius-control: 8px`. Fields use a full `--field-border` outline, clean paper fill, .875rem vertical and 1rem horizontal padding, and permanent .875rem sentence-case labels above the controls. Labels follow normal document flow, replacing the floating-label interaction. Keyboard focus uses a pine outline with a 3px offset. The textarea can resize vertically. Contact links remain simple divided rows; the section has no outer card or shadow. This supersedes earlier square-contact-control and floating-label guidance while preserving the editorial layout.

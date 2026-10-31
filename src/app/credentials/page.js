@@ -2,11 +2,6 @@ import CurtainLink from "@/components/CurtainLink";
 import CredentialsList from "@/components/CredentialsList";
 import { credentials } from "@/data/credentials";
 
-export const metadata = {
-  title: "Credentials — Jose Aquino",
-  description: "Certifications, training, and recognition.",
-};
-
 export default function CredentialsPage() {
   return (
     <div className="project-detail">

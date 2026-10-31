@@ -1,79 +1,79 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
-const COVER_MS = 450;
-const REVEAL_MS = 450;
-const EASE = "cubic-bezier(.2, .7, .2, 1)";
+let beginTransition = null;
 
-// Registered by the mounted <PageCurtain />; CurtainLink calls it through startCurtain().
-let runCurtain = null;
-
-// Resolves once the browser URL reflects the new route (the app router commits the URL
-// and the new UI together), with a timeout so a slow route never leaves the curtain stuck.
-function waitForRoute(pathname, timeout = 4000) {
-  return new Promise((resolve) => {
-    const start = performance.now();
-    const check = () => {
-      if (window.location.pathname === pathname) {
-        setTimeout(resolve, 120);
-      } else if (performance.now() - start > timeout) {
-        resolve();
-      } else {
-        setTimeout(check, 16);
-      }
-    };
-    check();
-  });
-}
-
-// Wipes the green curtain across the page, runs `navigate`, then wipes it off. Returns false when
-// the curtain can't run (not mounted, mid-run, reduced motion) so the caller navigates normally.
+// Retain the link API while replacing the curtain with a true route crossfade.
 export function startCurtain(href, navigate) {
-  if (!runCurtain) return false;
-  return runCurtain(href, navigate);
+  return beginTransition?.(href, navigate) ?? false;
 }
 
 export default function PageCurtain() {
-  const curtainRef = useRef(null);
-  const busyRef = useRef(false);
+  const pathname = usePathname();
+  const overlayRef = useRef(null);
+  const pendingRef = useRef(false);
+  const animationsRef = useRef([]);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
-    runCurtain = (href, navigate) => {
-      const el = curtainRef.current;
-      if (!el || busyRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return false;
-      }
-      busyRef.current = true;
-      const pathname = new URL(href, window.location.href).pathname;
+    const reset = () => {
+      clearTimeout(timeoutRef.current);
+      animationsRef.current.forEach((animation) => animation.cancel());
+      animationsRef.current = [];
+      overlayRef.current?.replaceChildren();
+      pendingRef.current = false;
+    };
+    beginTransition = (href, navigate) => {
+      const target = new URL(href, window.location.href);
+      const content = document.getElementById("route-content");
+      const overlay = overlayRef.current;
+      if (target.origin !== window.location.origin || target.pathname === window.location.pathname ||
+          pendingRef.current || !content || !overlay || !content.animate ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
 
-      (async () => {
-        try {
-          el.style.visibility = "visible";
-          await el.animate(
-            [{ transform: "translateX(-100%)" }, { transform: "translateX(0)" }],
-            { duration: COVER_MS, easing: EASE, fill: "forwards" }
-          ).finished;
-          navigate();
-          await waitForRoute(pathname);
-          await el.animate(
-            [{ transform: "translateX(0)" }, { transform: "translateX(100%)" }],
-            { duration: REVEAL_MS, easing: EASE, fill: "forwards" }
-          ).finished;
-        } catch {
-          navigate();
-        } finally {
-          el.getAnimations().forEach((animation) => animation.cancel());
-          el.style.visibility = "hidden";
-          busyRef.current = false;
-        }
-      })();
+      reset();
+      const snapshot = content.cloneNode(true);
+      snapshot.removeAttribute("id");
+      snapshot.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+      snapshot.querySelectorAll("dialog").forEach((node) => node.remove());
+      snapshot.style.transform = `translateY(${-window.scrollY}px)`;
+      snapshot.style.pointerEvents = "none";
+      overlay.append(snapshot);
+      pendingRef.current = true;
+      timeoutRef.current = setTimeout(reset, 5000);
+      try { navigate(); } catch { reset(); return false; }
       return true;
     };
-    return () => {
-      runCurtain = null;
-    };
+    return () => { beginTransition = null; reset(); };
   }, []);
 
-  return <div ref={curtainRef} className="page-curtain" aria-hidden="true" />;
+  useEffect(() => {
+    if (!pendingRef.current) return;
+    const content = document.getElementById("route-content");
+    const snapshot = overlayRef.current?.firstElementChild;
+    if (!content || !snapshot) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timing = { duration: reduced ? 0 : 850, easing: "cubic-bezier(.22, .68, .2, 1)" };
+    const outgoing = snapshot.animate(
+      [{ opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(6px)" }],
+      { ...timing, fill: "forwards" }
+    );
+    const incoming = content.animate(
+      [{ opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)" }], timing
+    );
+    animationsRef.current = [outgoing, incoming];
+    Promise.allSettled([outgoing.finished, incoming.finished]).then(() => {
+      if (animationsRef.current[0] !== outgoing) return;
+      outgoing.cancel();
+      incoming.cancel();
+      animationsRef.current = [];
+      overlayRef.current?.replaceChildren();
+      pendingRef.current = false;
+      clearTimeout(timeoutRef.current);
+    });
+  }, [pathname]);
+
+  return <div ref={overlayRef} className="route-snapshot" aria-hidden="true" inert />;
 }

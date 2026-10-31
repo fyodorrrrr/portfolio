@@ -1,6 +1,6 @@
 import { Gaegu } from "next/font/google";
 import { Suspense } from "react";
-import GitHubActivity from "./GitHubActivity";
+import GitHubActivity, { GitHubActivityPlaceholder } from "./GitHubActivity";
 import ClaudeMascot from "./ClaudeMascot";
 
 // Handwriting face for the hero's margin notes only. Loaded here (not in layout.js) so the
@@ -13,10 +13,10 @@ const hand = Gaegu({
 });
 
 // Hand-drawn arrow for the margin notes (decorative; the link text carries the meaning).
-function Arrow({ flip = false }) {
+function Arrow() {
   return (
     <svg
-      className={flip ? "masthead-note-arrow masthead-note-arrow--down" : "masthead-note-arrow"}
+      className="masthead-note-arrow"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -35,38 +35,8 @@ function Arrow({ flip = false }) {
 export default function Hero() {
   return (
     <section id="home" className={`entry masthead ${hand.variable}`}>
-      <p className="masthead-note masthead-note--status" style={{ "--delay": "0.9s" }}>
-        <span className="masthead-note-dot" aria-hidden="true" />
-        open to roles
-      </p>
-
-      <div className="masthead-float">
-        <a href="#contact" className="masthead-note masthead-note--float" style={{ "--delay": "0.6s" }}>
-          say hi<span className="sr-only">, contact me</span>
-          <Arrow flip />
-        </a>
-        <svg
-          className="masthead-doodle"
-          viewBox="0 0 120 200"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-          style={{ "--delay": "1.1s" }}
-        >
-          <path
-            className="draw"
-            pathLength="1"
-            d="M34 6C92 18 108 68 64 86C20 104 16 60 52 68C92 78 74 138 58 176"
-          />
-          <path className="draw draw--head" pathLength="1" d="M40 156L58 180L78 160" />
-        </svg>
-      </div>
-
       <div className="masthead-grid">
-        <div className="masthead-top">
+        <h1>Jose Aquino</h1>
           <p className="masthead-role">
             <span className="masthead-mark">
               Software engineer
@@ -85,18 +55,20 @@ export default function Hero() {
               </svg>
             </span>{" "}
             and computer science student building{" "}
-            <Suspense fallback={null}><GitHubActivity /></Suspense>{" "}
-            at the intersection of software, <span className="masthead-ai">AI <ClaudeMascot /></span>, and data. Based in Laguna, Philippines
+            <Suspense fallback={<GitHubActivityPlaceholder />}><GitHubActivity /></Suspense>{" "}
+            at the intersection of software, <span className="masthead-ai">AI <ClaudeMascot /></span>, and data.
+            <span className="masthead-location">Based in Laguna, Philippines</span>
           </p>
 
+        <div className="masthead-actions">
           <a href="#projects" className="masthead-note" style={{ "--delay": "0.75s" }}>
             <Arrow />
             hey! see my work
           </a>
-        </div>
-
-        <div className="masthead-name">
-          <h1>Jose Aquino</h1>
+          <a href="#contact" className="masthead-note" style={{ "--delay": "0.6s" }}>
+            say hi<span className="sr-only">, contact me</span>
+            <Arrow />
+          </a>
         </div>
       </div>
     </section>

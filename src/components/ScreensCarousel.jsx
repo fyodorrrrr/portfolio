@@ -71,7 +71,7 @@ export default function ScreensCarousel({ title, slides }) {
                 alt={slide.alt ?? `${title} screenshot ${i + 1} of ${slides.length}`}
                 width={slide.width}
                 height={slide.height}
-                sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1213px) 95vw, 72rem"
+                sizes="(max-width: 832px) calc(100vw - 2rem), 48rem"
                 priority={i === 0}
               />
             ) : (

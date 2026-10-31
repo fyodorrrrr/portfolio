@@ -7,6 +7,7 @@ export function useScrollSpy(selector, initial) {
   const [active, setActive] = useState(initial);
 
   useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
     const targets = document.querySelectorAll(selector);
     const observer = new IntersectionObserver(
       (entries) => {
