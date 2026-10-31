@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Mascot() {
   const mascotRef = useRef(null);
+  const [hopping, setHopping] = useState(false);
 
   useEffect(() => {
     const mascot = mascotRef.current;
@@ -24,5 +25,20 @@ export default function Mascot() {
     };
   }, []);
 
-  return <span ref={mascotRef} className="masthead-mascot" aria-hidden="true" />;
+  return (
+    <button
+      ref={mascotRef}
+      type="button"
+      className="masthead-mascot"
+      data-hopping={hopping || undefined}
+      aria-label={hopping ? "Put mascot back to sleep" : "Make mascot hop"}
+      aria-pressed={hopping}
+      onClick={(event) => {
+        if (event.detail === 0 || window.matchMedia("(hover: none), (pointer: coarse)").matches) {
+          setHopping((value) => !value);
+        }
+      }}
+      onBlur={() => setHopping(false)}
+    />
+  );
 }

@@ -401,6 +401,7 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
 
 .masthead-activity { --activity-height: 35px; box-sizing: border-box; inline-size: calc(var(--activity-height) * 119 / 69 + 18px); block-size: calc(var(--activity-height) + 12px); display: inline-flex; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-deep); vertical-align: middle; align-items: center; margin-inline: .12em; color: var(--accent); }
 .masthead-activity--placeholder { visibility: hidden; }
+button.masthead-activity { font: inherit; cursor: pointer; }
 @media (max-width: 640px) { .masthead-activity { --activity-height: 40px; } }
 .masthead-activity svg { display: block; width: auto; height: var(--activity-height); overflow: visible; }
 .masthead-activity rect { fill: currentColor; }
@@ -415,6 +416,11 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
 .masthead-location-end { display: inline-block; white-space: nowrap; }
 .masthead-mascot {
   display: inline-block;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font: inherit;
+  cursor: pointer;
   width: 2.125em;
   height: 2.125em;
   vertical-align: -.65em;
@@ -441,6 +447,11 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
     background-position: 100% 0;
   }
 }
+.masthead-mascot[data-hopping="true"] {
+  background-image: url('/assets/mascot-hopping-sheet.png');
+  background-size: 900% 100%;
+  background-position: 100% 0;
+}
 @media (prefers-reduced-motion: no-preference) {
   .masthead-mascot { animation: mascot-sleep 1.333333s steps(4, end) infinite paused; }
   .masthead-mascot[data-active="true"] { animation-play-state: running; }
@@ -448,6 +459,15 @@ a.masthead-note:focus-visible { outline: 2px solid var(--accent); outline-offset
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   /* Nine poses at 12 FPS: reach frame nine after eight steps, then hold it. */
   .masthead-mascot:hover {
+    animation-name: mascot-hop;
+    animation-duration: .666667s;
+    animation-timing-function: steps(8, end);
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .masthead-mascot[data-hopping="true"] {
     animation-name: mascot-hop;
     animation-duration: .666667s;
     animation-timing-function: steps(8, end);

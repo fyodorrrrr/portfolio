@@ -1,4 +1,5 @@
 import { LEVELS, loadContributionWeeks } from "@/lib/github-activity.mjs";
+import ActivityInteraction from "./ActivityInteraction";
 
 // Keep the sentence's line breaks stable while activity loads or is unavailable.
 // No invented cells or contribution values are shown in either state.
@@ -15,12 +16,7 @@ export default async function GitHubActivity() {
   const description = `${count} GitHub contributions from ${days[0].date} to ${days.at(-1).date}.`;
 
   return (
-    <span
-      className="masthead-activity"
-      role="img"
-      aria-label={description}
-      title={description}
-    >
+    <ActivityInteraction description={description}>
       <svg viewBox="0 0 119 69" aria-hidden="true" focusable="false">
         {weeks.flatMap((week, column) => week.contributionDays.map((day) => (
           <rect
@@ -35,6 +31,6 @@ export default async function GitHubActivity() {
           />
         )))}
       </svg>
-    </span>
+    </ActivityInteraction>
   );
 }
