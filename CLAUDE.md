@@ -15,7 +15,7 @@ npm run start    # run production build
 npm run lint     # eslint (next/core-web-vitals config)
 ```
 
-There is no test suite configured in this repo.
+`npm test` runs Node tests for contribution-calendar parsing and source fallback.
 
 ## Architecture
 
@@ -64,7 +64,7 @@ The contact form posts to FormSubmit.co (`Contact.jsx`); there is no server code
 
 ### GitHub activity
 
-`GitHubActivity.jsx` is an async Server Component embedded in the hero tagline through Suspense. It queries GitHub GraphQL for `fyodorrrrr`'s latest 12 calendar weeks and caches the response for 24 hours. Set `GITHUB_TOKEN` in `.env.local` for development and in the deployment environment, then restart/redeploy. Use a token with read access to public profile contribution data; never prefix it with `NEXT_PUBLIC_` or commit its value. With no token, an API error, or unavailable data, the graph renders the same invisible fixed-size slot as its Suspense fallback, keeping sentence wrapping stable. No activity is fabricated.
+`GitHubActivity.jsx` is an async Server Component embedded in the hero through Suspense. `src/lib/github-activity.mjs` prefers GraphQL when an optional server-side `GITHUB_TOKEN` is present, falling back to GitHub's public HTML contribution calendar when the token is absent or the API fails. Both sources refresh hourly and return the latest 12 weeks. Public HTML is parsed into dates, levels, and exact tooltip counts; changed or incomplete markup returns unavailable instead of invented data. Secrets stay server-side. Run `npm test` for parsing and fallback checks.
 
 ## Git commits
 

@@ -2,6 +2,13 @@ import "./globals.css";
 import PageCurtain from "@/components/PageCurtain";
 import SmoothScroll from "@/components/SmoothScroll";
 
+export const metadata = {
+  title: {
+    default: "Jose Aquino",
+    template: "Jose Aquino | %s",
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

@@ -19,6 +19,13 @@ export default function Navbar() {
   const toggleRef = useRef(null);
   const firstMobileLinkRef = useRef(null);
 
+  useEffect(() => {
+    const section = navItems.find((item) => item.id === activeSection);
+    document.title = activeSection === "home" || !section
+      ? "Jose Aquino"
+      : `Jose Aquino | ${section.label[0].toUpperCase()}${section.label.slice(1)}`;
+  }, [activeSection]);
+
   const handleScroll = () => {
     if (scrollingRef.current) return;
     const scrollPosition = window.scrollY + 140;

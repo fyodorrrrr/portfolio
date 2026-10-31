@@ -22,9 +22,11 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Hero GitHub activity
 
-The hero can show real contribution activity for `fyodorrrrr`. Add a GitHub API token as `GITHUB_TOKEN` in `.env.local` and in your hosting provider's environment settings, then restart the development server or redeploy. Keep the token server-side; do not use a `NEXT_PUBLIC_` prefix or commit its value.
+The hero shows real contribution activity for `fyodorrrrr` from GitHub's public calendar without a token. An optional server-side `GITHUB_TOKEN` enables GraphQL as the preferred source; failed API requests fall back to the public calendar. Responses refresh hourly. On Vercel, set any optional token under Project Settings → Environment Variables and redeploy; local `.env` files are not uploaded by Git. Never use a `NEXT_PUBLIC_` prefix or commit the token.
 
-The graph displays the latest 12 calendar weeks, with data cached for 24 hours. If the token is missing or GitHub is unavailable, the graph is omitted without interrupting the introduction. The token needs read access to the requested contribution data, not write permissions.
+Run `npm test` for contribution-calendar parsing and fallback tests. `npm run lint` and `npm run build` validate the application. Browser titles use “Jose Aquino” on Home and “Jose Aquino | About” (and equivalent section names) as navigation changes; credentials and case studies have their own route titles.
+
+The graph displays the latest 12 calendar weeks, cached for one hour. If both GitHub sources are unavailable, the graph is omitted without interrupting the introduction. Optional tokens need read access only. The public-calendar fallback depends on GitHub’s HTML structure; parsing rejects incomplete data safely.
 
 ## Learn More
 

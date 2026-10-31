@@ -2,6 +2,8 @@ import CurtainLink from "@/components/CurtainLink";
 import CredentialsList from "@/components/CredentialsList";
 import { credentials } from "@/data/credentials";
 
+export const metadata = { title: "Credentials" };
+
 export default function CredentialsPage() {
   return (
     <div className="project-detail">

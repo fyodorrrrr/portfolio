@@ -31,10 +31,10 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 
 ## Capabilities and Constraints
 
-- Next.js 15 (App Router) / React 19 / Tailwind CSS 4, no test suite configured.
+- Next.js 15 (App Router) / React 19 / Tailwind CSS 4, Node tests cover contribution-calendar parsing and fallback loading (`npm test`).
 - No CMS or database — all content edits are code edits.
 - Contact form has no spam protection beyond a honeypot field; no rate limiting.
-- Final production domain remains undecided. Placeholder SEO metadata and route metadata exports have been removed.
+- Final production domain remains undecided. The root title is Jose Aquino; active homepage sections and detail routes append their section or project name. No placeholder domain is configured.
 - Undecided: whether to pursue real GitHub/demo links and screenshots for AgriWise, EquipED, and SBCC Management System, or leave them as placeholder (the detail page already hides "#" links gracefully rather than showing dead ones).
 
 ## Brand Commitments

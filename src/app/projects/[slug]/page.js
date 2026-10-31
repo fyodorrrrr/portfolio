@@ -7,6 +7,12 @@ export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+  return { title: project?.title ?? "Project" };
+}
+
 export default async function ProjectDetail({ params }) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
