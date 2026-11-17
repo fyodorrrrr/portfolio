@@ -3,6 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import CredentialModal from "./CredentialModal";
 
+// Recognitions lead the unfiltered /credentials view; other items keep their data order.
+const LEADING_CATEGORY = "Hackathons & Competitions";
+
+function leadWithRecognitions(items) {
+  return [
+    ...items.filter((c) => c.category === LEADING_CATEGORY),
+    ...items.filter((c) => c.category !== LEADING_CATEGORY),
+  ];
+}
+
+// One-line trophy sketch tucked behind recognition rows on /credentials (decorative).
+function TrophySketch() {
+  return (
+    <svg className="credential-trophy" viewBox="0 0 120 120" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d="M2 110C16 104 28 116 44 112C60 109 78 115 92 111C98 110 102 104 98 102C94 100 92 106 86 108C84 108.5 82 108 80 108L43 108C42 105 42 101 44 98L55 98C56 92 53 86 55 81C57 78 57 75 56 71C46 66 37 52 36 31C38 22 82 22 84 30C82 37 38 37 36 31C27 23 13 26 14 38C15 50 26 58 40 60C43 60 44 56 41 55C38 54 37 58 40 60C45 64 50 66 57 71C60 72 62 72 64 71C74 66 83 54 84 32C93 23 107 26 106 38C105 50 94 58 80 60C77 60 76 56 79 55C82 54 83 58 80 60C75 64 70 66 64 72C63 76 63 78 65 81C67 86 64 92 65 98L79 98C81 101 81 105 80 108C88 110 100 105 108 106C112 107 115 104 118 102" />
+    </svg>
+  );
+}
+
 function groupByCategory(items) {
   const groups = [];
   for (const item of items) {
@@ -87,7 +106,7 @@ function CredentialRow({ credential, onOpenModal, previewsDismissed, onPreviewEn
     <CredentialTrigger
       credential={credential}
       onOpenModal={onOpenModal}
-      className="credential-row"
+      className={credential.recognition ? "credential-row credential-row--recognition" : "credential-row"}
       data-preview-dismissed={previewsDismissed || undefined}
       onMouseEnter={(event) => {
         onHighlight(event);
@@ -265,7 +284,7 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
   );
 
   if (variant === "grid" || variant === "explorer") {
-    const visible = filter === "all" ? items : items.filter((c) => c.category === filter);
+    const visible = filter === "all" ? leadWithRecognitions(items) : items.filter((c) => c.category === filter);
     const selected = visible.includes(previewCredential) ? previewCredential : visible[0];
     const chips = [{ value: "all", label: "All", count: items.length }].concat(
       groups.map((g) => ({ value: g.category, label: g.category, count: g.items.length }))
@@ -321,11 +340,12 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
               style={{ "--highlight-y": `${highlight?.top || 0}px`, "--highlight-height": `${highlight?.height || 0}px`, "--highlight-opacity": highlight ? 1 : 0 }}
             >
               {visible.map((credential) => (
-                <li key={`${credential.issuer}-${credential.title}`}>
+                <li key={`${credential.issuer}-${credential.title}`} className={credential.recognition ? "credential-explorer-item--recognition" : undefined}>
+                  {credential.recognition && <TrophySketch />}
                   <CredentialTrigger
                     credential={credential}
                     onOpenModal={handleOpenModal}
-                    className="credential-explorer-row"
+                    className={credential.recognition ? "credential-explorer-row credential-explorer-row--recognition" : "credential-explorer-row"}
                     onMouseEnter={(event) => previewRow(credential, event)}
                     onFocus={(event) => previewRow(credential, event)}
                     {...(!hasView(credential) ? { tabIndex: 0 } : {})}
