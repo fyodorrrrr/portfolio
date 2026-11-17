@@ -46,7 +46,7 @@ Practical systems builder across AI, data, and full-stack engineering — not a 
 ## Evidence on Hand
 
 - Real projects with confirmed facts (`src/data/projects.js`), each with a home-page thumbnail and case-study screenshots in `public/assets/`:
-  - **AgriWise** — GIS + AI land-use decision support; Top 3 at DOST Hack4AProgress 2026. No public repo/demo link yet (links are `"#"` and hidden).
+  - **AgriWise** — GIS + AI land-use decision support; 2nd Runner-Up at DOST Hack4AProgress 2026. No public repo/demo link yet (links are `"#"` and hidden).
   - **EquipED** — AI-assisted evaluation and continuous-learning pipeline for Self-Paced Learning Modules. No public repo/demo link yet.
   - **SBCC Management System** — Django/PostgreSQL church management system (academic project). No public repo/demo link yet.
   - **Haul Thrift Marketplace** — Flutter/Firebase mobile thrift app. Has a real GitHub link and a screenshot.

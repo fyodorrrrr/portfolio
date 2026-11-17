@@ -8,7 +8,7 @@ export const projects = [
   slug: "agriwise",
   title: "AgriWise",
   caption:
-    "GIS and AI-powered decision support for smarter agricultural planning. Top 3 at DOST Hack4AProgress 2026.",
+    "GIS and AI-powered decision support for smarter agricultural planning. 2nd Runner-Up at DOST Hack4AProgress 2026.",
 
   description:
     "AgriWise combines geospatial data, agricultural forecasts, and AI-powered guidance to help farmers and agricultural stakeholders explore crop opportunities, compare markets, and make more informed planning decisions.",
@@ -30,7 +30,7 @@ export const projects = [
   ],
 
   outcome:
-    "Placed among the Top 3 at DOST Hack4AProgress 2026, delivering a working GIS and AI-powered agricultural decision-support platform within a 2-day hackathon.",
+    "Placed 2nd Runner-Up at DOST Hack4AProgress 2026, delivering a working GIS and AI-powered agricultural decision-support platform within a 2-day hackathon.",
 
   tech: [
     "Python",

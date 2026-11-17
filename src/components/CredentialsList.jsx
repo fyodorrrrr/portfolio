@@ -196,7 +196,7 @@ function CredentialDetailPreview({ credential }) {
     <aside className="credential-detail-preview" aria-label="Credential preview">
       {image && !imageFailed && (
         <div className={`credential-detail-image${certificate ? "" : " credential-detail-image--icon"}`}>
-          <img src={image} alt={certificate ? `${credential.title} certificate` : `${credential.issuer} icon`} decoding="async" onError={() => setImageFailed(true)} />
+          <img src={image} alt={certificate ? (credential.imageAlt ?? `${credential.title} certificate`) : `${credential.issuer} icon`} decoding="async" onError={() => setImageFailed(true)} />
         </div>
       )}
       <h2>{credential.title}</h2>
