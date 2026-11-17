@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import PageCurtain from "@/components/PageCurtain";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -21,6 +22,8 @@ export default function RootLayout({ children }) {
         <div id="route-content">{children}</div>
         <SmoothScroll />
         <PageCurtain />
+        {/* Cookieless visitor/page-view counts; active only on Vercel with Web Analytics enabled. */}
+        <Analytics />
       </body>
     </html>
   );
