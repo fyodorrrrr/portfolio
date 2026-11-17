@@ -62,6 +62,7 @@ export const credentials = [
     issuer: "Meralco Power Academy · Meralco",
     date: "2026",
     verifyUrl: null,
+    logo: "/assets/logo/meralco.svg",
     // An award photo, not a certificate scan, so `imageAlt` describes it honestly.
     image: "/assets/certificates/meralco-idol-hackathon.webp",
     imageAlt: "Team CodeBearers holding the IDOL Hackathon 2026 2nd place award cheque",
