@@ -41,7 +41,7 @@ export const credentials = [
   },
   {
     category: "Hackathons & Competitions",
-    title: "TEAM EVERFORGE: Top 3 — Regional Hackathon",
+    title: "TEAM EVERFORGE: 2nd Runner-Up — Regional Hackathon",
     issuer: "DOST Hack4AProgress",
     date: "2026",
     verifyUrl: null,
@@ -49,10 +49,29 @@ export const credentials = [
     image: "/assets/certificates/hack4aprogress.webp",
     modal: true,
     description:
-      "Placed Top 3 at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
+      "Placed 2nd Runner-Up at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
     skills: ["Machine Learning", "RAG", "FastAPI", "Next.js"],
-    result: "Top 3 — Regional",
+    result: "2nd Runner-Up — Regional",
+    // Award placement: the row gets the green recognition highlight.
+    recognition: true,
     related: { label: "See the AgriWise project", href: "/projects/agriwise" },
+  },
+  {
+    category: "Hackathons & Competitions",
+    title: "TEAM CODEBEARERS: 1st Runner-Up — IDOL Hackathon",
+    issuer: "Meralco Power Academy · Meralco",
+    date: "2026",
+    verifyUrl: null,
+    logo: "/assets/logo/meralco.svg",
+    // An award photo, not a certificate scan, so `imageAlt` describes it honestly.
+    image: "/assets/certificates/meralco-idol-hackathon.webp",
+    imageAlt: "Team CodeBearers holding the IDOL Hackathon 2026 2nd place award cheque",
+    modal: true,
+    description:
+      "Placed 1st Runner-Up at Meralco's IDOL Hackathon 2026 (Digital Sparks) with KapitWatt, a residential demand-response platform that extends Meralco's Interruptible Load Program to households. A mobile app lets households commit to peak-hour reductions and earn rewards for verified savings, while an operator dashboard issues alerts and tracks committed versus delivered load. Built as a simulated pilot across seven Laguna municipalities.",
+    skills: ["Demand Response", "Mobile App", "Operator Dashboard"],
+    result: "1st Runner-Up (2nd Place)",
+    recognition: true,
   },
   {
     category: "Certifications & Training",

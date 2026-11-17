@@ -62,6 +62,8 @@ Images live in `public/assets/`. Project thumbnails and gallery screenshots use 
 
 The contact form posts to FormSubmit.co (`Contact.jsx`); there is no server code.
 
+Visitor analytics use Vercel Web Analytics (`<Analytics />` from `@vercel/analytics/next` in `layout.js`). It is cookieless, collects only on a Vercel deployment with Web Analytics enabled in the project dashboard, and does nothing locally.
+
 ### GitHub activity
 
 `GitHubActivity.jsx` is an async Server Component embedded in the hero through Suspense. `src/lib/github-activity.mjs` prefers GraphQL when an optional server-side `GITHUB_TOKEN` is present, falling back to GitHub's public HTML contribution calendar when the token is absent or the API fails. Both sources refresh hourly and return the latest 12 weeks. Public HTML is parsed into dates, levels, and exact tooltip counts; changed or incomplete markup returns unavailable instead of invented data. Secrets stay server-side. Run `npm test` for parsing and fallback checks.

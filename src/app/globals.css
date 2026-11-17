@@ -61,6 +61,12 @@
   --field-border: #858580;
   --radius-control: 8px;
   --surface-muted: #e4e4e0;
+  /* Pine Tint wash behind award-placement credential rows (see DESIGN.md). */
+  --recognition-tint: rgba(63, 122, 93, .09);
+  --recognition-tint-strong: rgba(63, 122, 93, .15);
+  /* Opaque equivalents, for /credentials rows that hide the trophy sketch behind them. */
+  --recognition-solid: color-mix(in srgb, var(--accent-soft) 9%, var(--paper));
+  --recognition-solid-strong: color-mix(in srgb, var(--accent-soft) 15%, var(--paper));
   --text-detail: 1.0625rem;
   --background: var(--paper);
   --foreground: var(--ink);
@@ -1510,6 +1516,30 @@ a.credential-row::before, button.credential-row::before { border-radius: inherit
 .credentials-explorer-list::before, .credential-group-rows::before { content:""; position:absolute; inset:0 0 auto; height:var(--highlight-height,0px); transform:translateY(var(--highlight-y,0px)); opacity:var(--highlight-opacity,0); border-radius:24px; background:var(--line-soft); pointer-events:none; z-index:-1; }
 .credential-explorer-row { position:relative; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; width:100%; padding:1.5rem; min-height:88px; border:0; border-radius:24px; background:transparent; color:var(--ink); font:inherit; text-align:left; text-decoration:none; cursor:pointer; }
 .credential-explorer-row--static { cursor:default; }
+
+/* Award placements: a soft Pine Tint row with green metadata instead of hairline separation. */
+.credential-group-rows .credential-row.credential-row--recognition,
+.credential-explorer-row.credential-explorer-row--recognition { background:var(--recognition-tint); transition:background-color .25s ease; }
+.credential-group-rows .credential-row.credential-row--recognition { border-top-color:transparent; border-bottom-color:transparent; margin-bottom:.5rem; }
+.credential-group-rows .credential-row--recognition + .credential-row { border-top-color:transparent; }
+.credential-group-rows .credential-row.credential-row--recognition:hover, .credential-group-rows .credential-row.credential-row--recognition:focus-visible,
+.credential-explorer-row--recognition:hover, .credential-explorer-row--recognition:focus-visible { background:var(--recognition-tint-strong); }
+.credential-row--recognition .credential-year,
+.credential-row--recognition .credential-issuer,
+.credential-explorer-row--recognition .credential-explorer-issuer,
+.credential-explorer-row--recognition .credential-explorer-date { color:var(--accent); }
+.credential-row--recognition .credential-view { color:var(--accent); border-bottom-color:var(--accent); }
+/* /credentials list: a small gray one-line trophy tucked behind the row, peeking past its right edge. */
+.credential-explorer-item--recognition { position:relative; }
+.credential-explorer-item--recognition .credential-explorer-row { z-index:1; background:var(--recognition-solid); }
+.credential-explorer-item--recognition .credential-explorer-row:hover,
+.credential-explorer-item--recognition .credential-explorer-row:focus-visible { background:var(--recognition-solid-strong); }
+.credential-trophy { position:absolute; top:50%; right:-1.9rem; width:3.5rem; height:3.5rem; color:var(--ink-soft); opacity:.7; transform:translateY(-50%) rotate(16deg); pointer-events:none; z-index:0; }
+@media (max-width:900px) { .credential-trophy { display:none; } }
+@media (prefers-reduced-motion:reduce) {
+ .credential-group-rows .credential-row.credential-row--recognition,
+ .credential-explorer-row.credential-explorer-row--recognition { transition:none; }
+}
 .credential-group-rows { position:relative; isolation:isolate; }
 .credential-group-rows::before { left:-.75rem; right:-.75rem; }
 .credential-group-rows .credential-row::before { content:none; }

@@ -61,9 +61,9 @@ export default function CredentialModal({ credential, onClose, triggerRef }) {
               target="_blank"
               rel="noreferrer"
               className="credential-modal-plate"
-              aria-label={`Open ${credential.title} certificate at full size (opens in a new tab)`}
+              aria-label={`Open ${credential.imageAlt ?? `${credential.title} certificate`} at full size (opens in a new tab)`}
             >
-              <img src={credential.image} alt={`${credential.title} certificate`} decoding="async" />
+              <img src={credential.image} alt={credential.imageAlt ?? `${credential.title} certificate`} decoding="async" />
             </a>
           </div>
         )}
