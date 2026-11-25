@@ -70,7 +70,7 @@
   --text-detail: 1.0625rem;
   --background: var(--paper);
   --foreground: var(--ink);
-  --gutter: clamp(1rem, 2.5vw, 2.5rem); /* main left/right page margin */
+  --gutter: clamp(1rem, 5vw, 6rem); /* main left/right page margin */
   --content-max: 100rem; /* widest a section's content gets */
   --accent-soft: #3f7a5d; /* tinted second line of big headings (~4.9:1 on paper) */
   --topbar-h: 4.5rem; /* the sticky nav's height; the hero and anchor offsets are built on it */

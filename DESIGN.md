@@ -162,7 +162,7 @@ The system also keeps its honesty constraint: when a project has no real screens
 **Key Characteristics:**
 - One section skeleton: a **section intro** (small gray note left, large light-weight heading right, second line tinted) followed by content. The hero is the exception: its own composition (see Layout).
 - A **pinned index** pattern (sticky left column of large names, active one dark, content scrolling on the right) for Projects.
-- Wide layout, small margins: content up to 100rem with fluid `clamp(1rem, 2.5vw, 2.5rem)` side gutters; long-form pages cap at 72rem.
+- Wide layout, generous margins: content up to 100rem with fluid `clamp(1rem, 5vw, 6rem)` side gutters (about 20px on phones, 72px on a 1440px laptop, capped at 96px); long-form pages cap at 72rem.
 - Light weights throughout (400 for the hero name and every section heading); functional text distinguished by case and tracking, not a second typeface.
 - Mostly flat: hairline borders and tonal contrast carry hierarchy; shadows exist only on a few floating or framed objects (see Elevation).
 - One green accent, plus its lighter tint for heading emphasis.
@@ -218,7 +218,7 @@ The palette is warm paper neutrals and near-black ink with one desaturated green
 ## Layout
 
 Three tokens in `globals.css` own the page geometry; change them rather than adding per-section padding:
-- `--gutter`: `clamp(1rem, 2.5vw, 2.5rem)` — left/right padding for sections, nav, and footer.
+- `--gutter`: `clamp(1rem, 5vw, 6rem)` — left/right padding for sections, nav, and footer.
 - `--content-max`: `100rem` — the widest any section's content, the nav row, or the footer gets.
 - `--prose-max`: `72rem` — reading width for case-study pages and the `/credentials` page.
 - `--topbar-h`: `4.5rem` (`5rem` below 720px) — the sticky nav's minimum height. The nav is given exactly this height, and the hero (`min-height: calc(100svh - var(--topbar-h))`) and anchor scroll offsets are built on it.
