@@ -15,20 +15,6 @@ export const credentials = [
   },
   {
     category: "Certifications & Training",
-    title: "AI For Everyone",
-    issuer: "DeepLearning.AI · Coursera",
-    date: "2026",
-    verifyUrl: "https://coursera.org/verify/ZHLETY91K1QT",
-    logo: "/assets/logo/deeplearning-ai.png",
-    image: "/assets/certificates/ai-for-everyone.webp",
-    description:
-      "A non-technical introduction to AI taught by Andrew Ng, covering what AI can and can't do, how machine learning and data science projects work, and how to apply AI thoughtfully in an organization.",
-    skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
-    fullDate: "Oct 7, 2026",
-    credentialId: "ZHLETY91K1QT",
-  },
-  {
-    category: "Certifications & Training",
     title: "Google AI Essentials",
     issuer: "Google · Coursera",
     date: "2026",
@@ -41,6 +27,20 @@ export const credentials = [
     fullDate: "Nov 18, 2026",
     credentialId: "W8HH2G9XW45E",
     result: "5-course specialization",
+  },
+  {
+    category: "Certifications & Training",
+    title: "AI For Everyone",
+    issuer: "DeepLearning.AI · Coursera",
+    date: "2026",
+    verifyUrl: "https://coursera.org/verify/ZHLETY91K1QT",
+    logo: "/assets/logo/deeplearning-ai.png",
+    image: "/assets/certificates/ai-for-everyone.webp",
+    description:
+      "A non-technical introduction to AI taught by Andrew Ng, covering what AI can and can't do, how machine learning and data science projects work, and how to apply AI thoughtfully in an organization.",
+    skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
+    fullDate: "Oct 7, 2026",
+    credentialId: "ZHLETY91K1QT",
   },
   {
     category: "Hackathons & Competitions",
