@@ -1,74 +1,51 @@
-// Pixel icons echo the hero's contribution graph. They are decorative (aria-hidden); the words carry the meaning.
-function PixelIcon({ name, viewBox, width, height, children }) {
+import SpriteTrigger from "./SpriteTrigger";
+
+// Pixel sprite icons from Pixelarticons by Gerrit Halfmann (MIT License; see THIRD_PARTY_NOTICES.md).
+// Paths are split into parts so frames can be swapped: `f1`/`f2` alternate and `drift` moves.
+const SPRITES = {
+  robot: [
+    { d: "M5 7h14v2H5zm0 12h14v2H5zM3 9h2v10H3zm16 0h2v10h-2zM1 13h2v2H1zm20 0h2v2h-2z" },
+    { d: "M11 5h2v2h-2zM7 3h4v2H7z", part: "f1" },
+    { d: "M11 5h2v2h-2zM13 3h4v2h-4z", part: "f2" },
+    { d: "M8 12h2v4H8zM14 12h2v4h-2z", part: "f1" },
+    { d: "M8 14h2v2H8zM14 14h2v2h-2z", part: "f2" },
+  ],
+  cloud: [
+    {
+      d: "M22 10h-4v2h4v-2Zm2 2h-2v6h2v-6Zm-2 6H2v2h20v-2ZM2 12H0v6h2v-6Zm2-2H2v2h2v-2Zm4-2H4v2h4V8Zm8-4h-6v2h6V4Zm-6 2H8v2h2V6Zm0 4H8v2h2v-2Zm8-4h-2v2h2V6ZM20 8h-2v4h2V8Zm-2 4h-2v2h2v-2Z",
+      part: "drift",
+    },
+  ],
+};
+
+function SpriteParts({ name }) {
+  return SPRITES[name].map(({ d, part }) => <path key={d} d={d} className={part ? `sprite-${part}` : undefined} />);
+}
+
+// Two-tone pixel sprite: a light pixel shadow offset by two grid units, with the pine icon on top.
+// Decorative (aria-hidden); the words carry the meaning.
+function PixelSprite({ name }) {
   return (
-    <span className={`about-icon about-icon--${name}`} aria-hidden="true">
-      <svg viewBox={viewBox} width={width} height={height} shapeRendering="crispEdges" focusable="false">
-        {children}
+    <span className="about-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <g className="about-sprite-shadow" transform="translate(2 2)">
+          <SpriteParts name={name} />
+        </g>
+        <g>
+          <SpriteParts name={name} />
+        </g>
       </svg>
     </span>
   );
 }
 
-const ServerIcon = () => (
-  <PixelIcon name="server" viewBox="0 0 9 9" width="0.9em" height="0.9em">
-    <rect className="px-a" x="0" y="0" width="9" height="2" />
-    <rect className="px-b" x="0" y="3" width="9" height="2" />
-    <rect className="px-a" x="0" y="6" width="9" height="2" />
-    <rect className="px-led" x="7" y="0" width="1" height="1" style={{ "--d": "0s" }} />
-    <rect className="px-led" x="7" y="3" width="1" height="1" style={{ "--d": "0.12s" }} />
-    <rect className="px-led" x="7" y="6" width="1" height="1" style={{ "--d": "0.24s" }} />
-  </PixelIcon>
-);
-
-const ChartIcon = () => (
-  <PixelIcon name="chart" viewBox="0 0 8 9" width="0.8em" height="0.9em">
-    <rect className="px-c px-bar" x="0" y="5" width="2" height="4" style={{ "--d": "0s" }} />
-    <rect className="px-a px-bar" x="3" y="1" width="2" height="8" style={{ "--d": "0.1s" }} />
-    <rect className="px-b px-bar" x="6" y="3" width="2" height="6" style={{ "--d": "0.2s" }} />
-  </PixelIcon>
-);
-
-const SparkIcon = () => (
-  <PixelIcon name="spark" viewBox="0 0 9 9" width="0.9em" height="0.9em">
-    <rect className="px-b" x="4" y="0" width="1" height="9" />
-    <rect className="px-b" x="0" y="4" width="9" height="1" />
-    <rect className="px-a" x="3" y="3" width="3" height="3" />
-    <rect className="px-d" x="4" y="1" width="1" height="1" />
-    <rect className="px-d" x="7" y="4" width="1" height="1" />
-  </PixelIcon>
-);
-
-const AgentsIcon = () => (
-  <PixelIcon name="agents" viewBox="0 0 11 9" width="1.1em" height="0.9em">
-    <rect className="px-b" x="3" y="1" width="1" height="1" />
-    <rect className="px-b" x="5" y="1" width="1" height="1" />
-    <rect className="px-b" x="7" y="2" width="1" height="1" />
-    <rect className="px-b" x="2" y="3" width="1" height="1" />
-    <rect className="px-b" x="3" y="4" width="1" height="1" />
-    <rect className="px-b" x="8" y="4" width="1" height="1" />
-    <rect className="px-b" x="7" y="5" width="1" height="1" />
-    <rect className="px-a px-node" x="0" y="0" width="3" height="3" style={{ "--d": "0s" }} />
-    <rect className="px-b px-node" x="8" y="1" width="3" height="3" style={{ "--d": "0.18s" }} />
-    <rect className="px-c px-node" x="4" y="6" width="3" height="3" style={{ "--d": "0.32s" }} />
-  </PixelIcon>
-);
-
-const CloudIcon = () => (
-  <PixelIcon name="cloud" viewBox="0 0 12 8" width="1.2em" height="0.8em">
-    <rect className="px-c" x="4" y="1" width="4" height="1" />
-    <rect className="px-b" x="3" y="2" width="6" height="1" />
-    <rect className="px-b" x="1" y="3" width="10" height="1" />
-    <rect className="px-b" x="0" y="4" width="12" height="2" />
-    <rect className="px-a" x="1" y="6" width="10" height="1" />
-  </PixelIcon>
-);
-
-// A highlighted phrase whose last word stays glued to its icon (and trailing punctuation),
-// so the icon never wraps alone. The phrase may break only between words, never at a word's
+// A highlighted phrase. With an icon, its last word stays glued to the sprite (and trailing punctuation),
+// so the sprite never wraps alone. The phrase may break only between words, never at a word's
 // own hyphen (e.g. "AI-powered").
-function Marked({ children, icon: Icon, after = "" }) {
+function Marked({ children, icon = null, after = "" }) {
   const words = children.split(" ");
   const last = words.pop();
+  const end = <span className={words.length > 0 ? "about-highlight about-highlight--end" : "about-highlight"}>{last}</span>;
   return (
     <>
       {words.length > 0 && (
@@ -81,11 +58,18 @@ function Marked({ children, icon: Icon, after = "" }) {
           ))}
         </span>
       )}
-      <span className="about-keep">
-        <span className={words.length > 0 ? "about-highlight about-highlight--end" : "about-highlight"}>{last}</span>
-        <Icon />
-        {after}
-      </span>
+      {icon ? (
+        <SpriteTrigger>
+          {end}
+          <PixelSprite name={icon} />
+          {after}
+        </SpriteTrigger>
+      ) : (
+        <span className="about-keep">
+          {end}
+          {after}
+        </span>
+      )}
     </>
   );
 }
@@ -101,13 +85,13 @@ export default function AboutMe() {
         <div className="about-content">
           <p className="about-intro">
             I build software that makes complex information easier to use:{" "}
-            <Marked icon={ServerIcon} after=",">backend development</Marked>{" "}
-            <Marked icon={ChartIcon} after=",">data-driven applications</Marked> and{" "}
-            <Marked icon={SparkIcon} after=".">AI-powered systems</Marked>
+            <Marked after=",">backend development</Marked>{" "}
+            <Marked after=",">data-driven applications</Marked> and{" "}
+            <Marked after=".">AI-powered systems</Marked>
           </p>
           <p className="about-intro about-intro--now">
-            Exploring <Marked icon={AgentsIcon}>AI agent architectures</Marked> and{" "}
-            <Marked icon={CloudIcon} after=".">AWS cloud technologies</Marked>
+            Exploring <Marked icon="robot">AI agent architectures</Marked> and{" "}
+            <Marked icon="cloud" after=".">AWS cloud technologies</Marked>
           </p>
           <dl className="about-facts">
             <div className="about-fact">

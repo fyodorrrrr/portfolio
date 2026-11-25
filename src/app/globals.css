@@ -67,6 +67,8 @@
   /* Opaque equivalents, for /credentials rows that hide the trophy sketch behind them. */
   --recognition-solid: color-mix(in srgb, var(--accent-soft) 9%, var(--paper));
   --recognition-solid-strong: color-mix(in srgb, var(--accent-soft) 15%, var(--paper));
+  /* Light pine pixel shadow behind the About sprites. */
+  --sprite-shadow: color-mix(in srgb, var(--accent-soft) 38%, var(--paper-deep));
   --text-detail: 1.0625rem;
   --background: var(--paper);
   --foreground: var(--ink);
@@ -1501,7 +1503,7 @@ body { background-image: var(--paper-texture), var(--paper-ambient); background-
 .about-layout { grid-template-columns: minmax(10rem, .55fr) minmax(0, 1.95fr); }
 .about-layout > .section-intro-title { font-size: clamp(1.5rem, 2.3cqw, 2rem); line-height: 1.2; }
 .about-layout > .section-intro-title span { white-space: normal; }
-.about-intro { max-width: 45ch; font-size: clamp(1.75rem, 2.4vw, 2.125rem); line-height: 1.55; text-align: left; text-wrap: pretty; }
+.about-intro { max-width: 34ch; font-size: clamp(1.75rem, 2.4vw, 2.125rem); line-height: 1.55; text-align: left; text-wrap: pretty; }
 .about-intro + .about-intro { margin-top: 1.5rem; }
 .about-intro--now { color: var(--ink-soft); }
 .about-highlight { padding: .015em .18em .045em; border-radius: .22em; background: var(--surface-muted); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -1514,27 +1516,20 @@ body { background-image: var(--paper-texture), var(--paper-ambient); background-
 @container (max-width: 14rem) { .about-keep { white-space: normal; } }
 @media (max-width: 640px) { .about-intro { font-size: 1.5rem; } }
 
-/* About pixel icons: decorative, echoing the hero's contribution graph. Motion only on hover, once. */
-.about-icon { display: inline-block; margin: 0 .06em 0 .16em; vertical-align: -.08em; line-height: 0; }
-.about-icon svg { display: block; overflow: visible; }
-.about-icon rect { transform-box: fill-box; transform-origin: center bottom; }
-.px-a { fill: var(--accent); }
-.px-b { fill: var(--accent-soft); }
-.px-c { fill: color-mix(in srgb, var(--accent-soft) 80%, var(--paper-deep)); }
-.px-d { fill: color-mix(in srgb, var(--accent-soft) 60%, var(--paper-deep)); }
-.px-led { fill: var(--accent-soft); }
-.about-icon--spark svg { transform-origin: 50% 55%; }
-@keyframes about-px-lift { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-22%); } }
-@keyframes about-px-blink { 0%, 100% { fill: var(--accent-soft); } 40% { fill: color-mix(in srgb, var(--accent-soft) 35%, var(--paper-deep)); } }
-@keyframes about-px-grow { 0%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.35); } }
-@keyframes about-px-twinkle { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(45deg) scale(.8); } }
-@keyframes about-px-drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8%); } }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .about-keep:hover .px-led { animation: about-px-blink .5s ease var(--d) both; }
-  .about-keep:hover .px-bar { animation: about-px-grow .6s cubic-bezier(.3,.7,.3,1) var(--d) both; }
-  .about-keep:hover .about-icon--spark svg { animation: about-px-twinkle .6s ease both; }
-  .about-keep:hover .px-node { animation: about-px-lift .55s cubic-bezier(.3,.7,.3,1) var(--d) both; }
-  .about-keep:hover .about-icon--cloud svg { animation: about-px-drift .9s ease-in-out both; }
+/* About pixel sprites (Pixelarticons, MIT): two-tone pine icon over a light pixel shadow, sized to the text.
+   Decorative. Frames swap in discrete steps like a game sprite, once per hover (mouse) or tap; never idle. */
+.about-icon { display: inline-block; margin: 0 .05em 0 .18em; vertical-align: -.14em; line-height: 0; color: var(--accent); }
+.about-icon svg { display: block; width: 1em; height: 1em; overflow: visible; shape-rendering: crispEdges; }
+.about-icon path { fill: currentColor; }
+.about-sprite-shadow path { fill: var(--sprite-shadow); }
+.sprite-f2 { opacity: 0; }
+@keyframes about-sprite-frame-a { 0%, 100% { opacity: 1; } 25% { opacity: 0; } 50% { opacity: 1; } 75% { opacity: 0; } }
+@keyframes about-sprite-frame-b { 0%, 100% { opacity: 0; } 25% { opacity: 1; } 50% { opacity: 0; } 75% { opacity: 1; } }
+@keyframes about-sprite-drift { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(2px); } 50% { transform: translateX(4px); } 75% { transform: translateX(2px); } }
+@media (prefers-reduced-motion: no-preference) {
+  .is-playing .sprite-f1 { animation: about-sprite-frame-a .9s steps(1, end) both; }
+  .is-playing .sprite-f2 { animation: about-sprite-frame-b .9s steps(1, end) both; }
+  .is-playing .sprite-drift { animation: about-sprite-drift .9s steps(1, end) both; }
 }
 .credential-row { border-radius: 24px; }
 .credential-watermark-clip { border-radius: inherit; }
