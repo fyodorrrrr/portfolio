@@ -70,7 +70,7 @@
   --text-detail: 1.0625rem;
   --background: var(--paper);
   --foreground: var(--ink);
-  --gutter: clamp(1rem, 2.5vw, 2.5rem); /* main left/right page margin */
+  --gutter: clamp(1rem, 5vw, 6rem); /* main left/right page margin */
   --content-max: 100rem; /* widest a section's content gets */
   --accent-soft: #3f7a5d; /* tinted second line of big headings (~4.9:1 on paper) */
   --topbar-h: 4.5rem; /* the sticky nav's height; the hero and anchor offsets are built on it */
@@ -321,6 +321,8 @@ body {
 .masthead-grid {
   max-width: 48rem;
   display: grid;
+  /* minmax(0, 1fr) stops a wide unbreakable item (enlarged text) from stretching the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 .masthead-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
@@ -420,6 +422,10 @@ button.masthead-activity { font: inherit; cursor: pointer; }
 @media (hover: hover) and (prefers-reduced-motion: reduce) { .masthead-activity:hover { color: var(--accent-soft); } }
 .masthead-location { display: block; margin-top: .35em; }
 .masthead-location-end { display: inline-block; white-space: nowrap; }
+/* Same text-size-aware escape as About: when enlarged text leaves the hero column narrower than
+   "Philippines" + mascot (~10rem), let the mascot wrap instead of pushing the page sideways. */
+.masthead-grid { container-type: inline-size; }
+@container (max-width: 12rem) { .masthead-location-end { white-space: normal; } }
 .masthead-mascot {
   display: inline-block;
   padding: 0;
@@ -517,15 +523,6 @@ button.masthead-activity { font: inherit; cursor: pointer; }
   text-align: justify;
   text-wrap: wrap;
 }
-.about-body {
-  margin: 1.5rem 0 0;
-  font-size: clamp(var(--text-detail), 1.3vw, 1.125rem);
-  line-height: 1.65;
-  color: var(--ink-soft);
-  text-align: justify;
-  text-wrap: wrap;
-}
-
 .about-facts {
   margin: 2.5rem 0 0;
   display: grid;
@@ -552,7 +549,6 @@ button.masthead-activity { font: inherit; cursor: pointer; }
   .about-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
 }
 @media (max-width: 640px) {
-  .about-intro, .about-body { text-align: left; }
   .about-facts { grid-template-columns: minmax(0, 1fr); }
   .about-fact { width: 100%; }
 }
@@ -647,6 +643,11 @@ button.masthead-activity { font: inherit; cursor: pointer; }
   font-size: .85rem;
 }
 .project-stage-tags span { padding: .45rem .9rem; color: var(--ink); }
+/* Small phones: tighten the pill so up to three tags stay on one line. */
+@media (max-width: 400px) {
+  .project-stage-tags { font-size: .78rem; gap: 0; }
+  .project-stage-tags span { padding: .45rem .55rem; }
+}
 .project-shot {
   position: relative;
   width: 100%;
@@ -661,7 +662,10 @@ button.masthead-activity { font: inherit; cursor: pointer; }
 .project-card:hover .project-shot { transform: translateY(-4px); }
 
 .project-caption { margin-top: 1.2rem; }
-.project-caption-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; }
+.project-caption-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; }
+/* A long title wraps beside the cue instead of pushing "View project" down onto the caption.
+   The cue only stacks when even a 10rem title cannot fit beside it (very large text on tiny screens). */
+.project-caption-top h3 { flex: 1 1 0; min-width: min(10rem, 100%); }
 .project-view {
   display: inline-flex;
   align-items: center;
@@ -1467,6 +1471,7 @@ a:focus-visible, button:focus-visible, .form-submit:focus-visible {
 .footer-nav a {
   display: inline-flex;
   min-height: 44px;
+  min-width: 44px;
   align-items: center;
   gap: .5rem;
   font-size: 1rem;
@@ -1496,11 +1501,43 @@ body { background-image: var(--paper-texture), var(--paper-ambient); background-
 .about-layout { grid-template-columns: minmax(10rem, .55fr) minmax(0, 1.95fr); }
 .about-layout > .section-intro-title { font-size: clamp(1.5rem, 2.3cqw, 2rem); line-height: 1.2; }
 .about-layout > .section-intro-title span { white-space: normal; }
-.about-intro { max-width: 45ch; font-size: clamp(1.75rem, 2.4vw, 2.125rem); line-height: 1.55; text-align: left; text-wrap: pretty; }
+.about-intro { max-width: 45ch; font-size: clamp(1.75rem, 2.4vw, 2.125rem); line-height: 1.55; text-align: justify; hyphens: auto; text-wrap: pretty; }
 .about-intro + .about-intro { margin-top: 1.5rem; }
+.about-intro--now { color: var(--ink-soft); }
 .about-highlight { padding: .015em .18em .045em; border-radius: .22em; background: var(--surface-muted); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.about-body { font-size: clamp(1.125rem, 1.4vw, 1.25rem); max-width: 65ch; text-align: left; text-wrap: pretty; }
+/* A highlight split so its last word can stay with the icon: the two halves join seamlessly on one line. */
+.about-highlight--start { border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0; }
+.about-highlight--end { border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 0; }
+.about-keep { white-space: nowrap; }
+/* Text-size-aware escape: rem grows with the reader's text size, so when enlarged text leaves the column
+   narrower than a phrase+icon group (~12rem), let groups wrap instead of overflowing (WCAG 1.4.10). */
+@container (max-width: 14rem) { .about-keep { white-space: normal; } }
+/* Justify only where the column is wide enough; narrower columns open large word gaps around the icons. */
+@media (max-width: 1199px) { .about-intro { text-align: left; hyphens: manual; } }
 @media (max-width: 640px) { .about-intro { font-size: 1.5rem; } }
+
+/* About pixel icons: decorative, echoing the hero's contribution graph. Motion only on hover, once. */
+.about-icon { display: inline-block; margin: 0 .06em 0 .16em; vertical-align: -.08em; line-height: 0; }
+.about-icon svg { display: block; overflow: visible; }
+.about-icon rect { transform-box: fill-box; transform-origin: center bottom; }
+.px-a { fill: var(--accent); }
+.px-b { fill: var(--accent-soft); }
+.px-c { fill: color-mix(in srgb, var(--accent-soft) 80%, var(--paper-deep)); }
+.px-d { fill: color-mix(in srgb, var(--accent-soft) 60%, var(--paper-deep)); }
+.px-led { fill: var(--accent-soft); }
+.about-icon--spark svg { transform-origin: 50% 55%; }
+@keyframes about-px-lift { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-22%); } }
+@keyframes about-px-blink { 0%, 100% { fill: var(--accent-soft); } 40% { fill: color-mix(in srgb, var(--accent-soft) 35%, var(--paper-deep)); } }
+@keyframes about-px-grow { 0%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.35); } }
+@keyframes about-px-twinkle { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(45deg) scale(.8); } }
+@keyframes about-px-drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8%); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .about-keep:hover .px-led { animation: about-px-blink .5s ease var(--d) both; }
+  .about-keep:hover .px-bar { animation: about-px-grow .6s cubic-bezier(.3,.7,.3,1) var(--d) both; }
+  .about-keep:hover .about-icon--spark svg { animation: about-px-twinkle .6s ease both; }
+  .about-keep:hover .px-node { animation: about-px-lift .55s cubic-bezier(.3,.7,.3,1) var(--d) both; }
+  .about-keep:hover .about-icon--cloud svg { animation: about-px-drift .9s ease-in-out both; }
+}
 .credential-row { border-radius: 24px; }
 .credential-watermark-clip { border-radius: inherit; }
 a.credential-row::before, button.credential-row::before { border-radius: inherit; }

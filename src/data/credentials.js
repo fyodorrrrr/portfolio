@@ -15,6 +15,21 @@ export const credentials = [
   },
   {
     category: "Certifications & Training",
+    title: "Google AI Essentials",
+    issuer: "Google · Coursera",
+    date: "2026",
+    verifyUrl: "https://coursera.org/verify/specialization/W8HH2G9XW45E",
+    logo: "/assets/logo/google.svg",
+    image: "/assets/certificates/google-ai-essentials.webp",
+    description:
+      "A five-course specialization developed by Google with hands-on practice in using AI tools responsibly and improving productivity across a workflow. Courses: Introduction to AI, Maximize Productivity With AI Tools, Discover the Art of Prompting, Use AI Responsibly, and Stay Ahead of the AI Curve.",
+    skills: ["AI Fundamentals", "Prompting", "Responsible AI", "AI Productivity"],
+    fullDate: "Nov 18, 2026",
+    credentialId: "W8HH2G9XW45E",
+    result: "5-course specialization",
+  },
+  {
+    category: "Certifications & Training",
     title: "AI For Everyone",
     issuer: "DeepLearning.AI · Coursera",
     date: "2026",
@@ -26,18 +41,6 @@ export const credentials = [
     skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
     fullDate: "Oct 7, 2026",
     credentialId: "ZHLETY91K1QT",
-  },
-  {
-    category: "Certifications & Training",
-    title: "Introduction to AI",
-    issuer: "Coursera · Google",
-    date: "2026",
-    verifyUrl: "https://coursera.org/share/d76aa4c843759d56ce2118dfaad8ccdd",
-    logo: "/assets/logo/google.svg",
-    image: "/assets/certificates/coursera.webp",
-    description:
-      "An introduction to core AI and machine learning concepts, and how they're applied responsibly in practical, real-world tools.",
-    skills: ["AI Fundamentals", "Machine Learning", "Responsible AI"],
   },
   {
     category: "Hackathons & Competitions",

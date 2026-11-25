@@ -206,13 +206,13 @@ function CredentialCard({ credential, onOpenModal }) {
   );
 }
 
-function CredentialDetailPreview({ credential }) {
+function CredentialDetailPreview({ credential, ref }) {
   const [imageFailed, setImageFailed] = useState(false);
   const certificate = credential.image?.startsWith("/assets/certificates/");
   const image = certificate ? credential.image : credential.logo;
 
   return (
-    <aside className="credential-detail-preview" aria-label="Credential preview">
+    <aside ref={ref} className="credential-detail-preview" aria-label="Credential preview">
       {image && !imageFailed && (
         <div className={`credential-detail-image${certificate ? "" : " credential-detail-image--icon"}`}>
           <img src={image} alt={certificate ? (credential.imageAlt ?? `${credential.title} certificate`) : `${credential.issuer} icon`} decoding="async" onError={() => setImageFailed(true)} />
@@ -263,6 +263,39 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
     observer.observe(list);
     return () => observer.disconnect();
   }, [view, variant]);
+
+  // The sticky preview can be taller than a short filtered list, so its height sets the page height.
+  // If hovering a row shrank the page while scrolled to the bottom, the browser would scroll, move a
+  // different row under the pointer, and swap the preview back: a shaking loop. Keep the explorer at
+  // least as tall as the tallest preview shown for this filter/view so hovering never shrinks the page.
+  const explorerRef = useRef(null);
+  const previewRef = useRef(null);
+  const tallestPreviewRef = useRef(0);
+
+  useEffect(() => {
+    const explorer = explorerRef.current;
+    const reset = () => {
+      tallestPreviewRef.current = previewRef.current?.offsetHeight ?? 0;
+      if (explorer) explorer.style.minHeight = tallestPreviewRef.current ? `${tallestPreviewRef.current}px` : "";
+    };
+    reset();
+    window.addEventListener("resize", reset);
+    return () => window.removeEventListener("resize", reset);
+  }, [filter, view, variant]);
+
+  useEffect(() => {
+    const explorer = explorerRef.current;
+    const preview = previewRef.current;
+    if (!explorer || !preview) return;
+    const observer = new ResizeObserver(() => {
+      const height = preview.offsetHeight;
+      if (height <= tallestPreviewRef.current) return;
+      tallestPreviewRef.current = height;
+      explorer.style.minHeight = `${height}px`;
+    });
+    observer.observe(preview);
+    return () => observer.disconnect();
+  }, [previewCredential, filter, view, variant]);
 
   useEffect(() => {
     if (variant !== "rows") return;
@@ -324,6 +357,7 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
 
         {variant === "explorer" && view === "list" ? (
           <div
+            ref={explorerRef}
             className="credentials-explorer"
             onMouseLeave={() => { setHighlight(null); highlightedRowRef.current = null; }}
             onBlur={(event) => {
@@ -361,6 +395,7 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
             </ul>
             {selected && (
               <CredentialDetailPreview
+                ref={previewRef}
                 key={`${selected.issuer}-${selected.title}`}
                 credential={selected}
               />
