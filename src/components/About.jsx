@@ -106,8 +106,8 @@ export default function AboutMe() {
             <Marked icon={SparkIcon} after=".">AI-powered systems</Marked>
           </p>
           <p className="about-intro about-intro--now">
-            Now researching <Marked icon={AgentsIcon}>AI agents</Marked> and learning{" "}
-            <Marked icon={CloudIcon} after=".">AWS</Marked>
+            Exploring <Marked icon={AgentsIcon}>AI agent architectures</Marked> and{" "}
+            <Marked icon={CloudIcon} after=".">AWS cloud technologies</Marked>
           </p>
           <dl className="about-facts">
             <div className="about-fact">
