@@ -1142,7 +1142,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
   /* Tailwind's reset zeroes margins, which removes the UA's margin:auto that centers a modal dialog. */
   margin: auto;
   inset: 0;
-  width: min(66rem, calc(100% - 3rem));
+  width: min(58rem, calc(100% - 3rem));
   max-width: none;
   max-height: none;
   padding: 0;
@@ -1158,10 +1158,10 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .credential-modal {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2.5rem;
   width: 100%;
-  max-width: 66rem;
+  max-width: 58rem;
   max-height: 90vh;
   overflow-y: auto;
   background: var(--paper);
@@ -1182,7 +1182,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .credential-modal-close {
   position: absolute;
   top: .9rem;
-  right: .9rem;
+  right: .9rem;  /* anchored to the dialog, so it stays visible while the panel scrolls */
   z-index: 2;
   width: 2.75rem;
   height: 2.75rem;
@@ -1212,7 +1212,7 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .credential-modal-plate img {
   display: block;
   max-width: 100%;
-  max-height: 68vh;
+  max-height: min(420px, 68vh);
   width: auto;
   height: auto;
   border-radius: 4px;
@@ -1221,32 +1221,24 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .credential-modal-plate { cursor: zoom-in; }
 .credential-modal-plate:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-.credential-modal-body { display: flex; flex-direction: column; min-width: 0; padding-top: 2.5rem; }
+/* Minimal details: title, one-sentence summary, skills, Verify. Issuer and year live on the row and the certificate. */
+/* Wide screens: details read top-down beside a certificate sized to roughly the same height. */
+.credential-modal:not(.credential-modal--compact) { align-items: start; }
+.credential-modal-foot { padding-top: 1.25rem; }
+.credential-modal-foot > .credential-modal-label:first-child { margin-top: 0; }
+/* Top padding keeps the title clear of the close button beside it. */
+.credential-modal-body { display: flex; flex-direction: column; min-width: 0; padding-top: 1.25rem; }
 @media (max-width: 860px) { .credential-modal-body { padding-top: 0; } }
-.credential-modal-logo { height: 2.25rem; width: auto; max-width: 8rem; object-fit: contain; align-self: flex-start; margin-bottom: 1rem; }
-.credential-modal-body .eyebrow { display: block; margin-bottom: .5rem; }
-.credential-modal-body h3 { margin: 0; font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
-
-.credential-modal-skills { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
-.credential-modal-skills li {
-  font-size: .72rem;
-  letter-spacing: .02em;
-  padding: .3rem .6rem;
-  border: 1px solid var(--ink-faint);
-  border-radius: 999px;
-  color: var(--ink);
-}
-
-.credential-modal-facts { margin: 1.5rem 0 0; padding: 1rem 0 0; border-top: 1px solid var(--line); display: grid; gap: .6rem; }
-.credential-modal-facts div { display: flex; justify-content: space-between; gap: 1rem; }
-.credential-modal-facts dt { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
-.credential-modal-facts dd { margin: 0; font-size: .9rem; font-weight: 600; text-align: right; }
-
-.credential-modal-desc { margin: 1.25rem 0 0; line-height: 1.6; color: var(--ink-soft); font-size: .92rem; }
+.credential-modal--compact .credential-modal-body { padding-right: 3rem; padding-bottom: 0; }
+.credential-modal-body h3 { margin: 0; font-size: clamp(1.5rem, 2.2vw, 1.9rem); font-weight: 400; letter-spacing: -.02em; line-height: 1.15; }
+.credential-modal-desc { margin: .9rem 0 0; line-height: 1.6; color: var(--ink-soft); font-size: .95rem; }
+.credential-modal-label { margin: 1.25rem 0 .45rem; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.credential-modal-skills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.credential-modal-skills li { font-size: .78rem; padding: .15rem .45rem; border-radius: .22em; background: var(--surface-muted); color: var(--ink); }
 
 .credential-dialog--compact { width: min(36rem, calc(100% - 3rem)); }
 .credential-modal--compact { grid-template-columns: minmax(0, 1fr); max-width: 36rem; }
-.credential-modal-actions { margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.credential-modal-actions { margin-top: 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.5rem; }
 .credential-modal-related {
   font-size: .8rem;
   letter-spacing: .06em;
@@ -1261,19 +1253,15 @@ button.credential-card:focus-visible .credential-card-arrow { transform: transla
 .credential-modal-verify {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: .8rem 1.3rem;
-  font-size: .8rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--paper);
-  background: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background .2s ease, border-color .2s ease;
+  gap: .4rem;
+  min-height: 44px;
+  font-size: .95rem;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .25em;
 }
-.credential-modal-verify:hover { background: var(--accent); border-color: var(--accent); }
+.credential-modal-verify:hover { text-decoration-thickness: 2px; }
 .credential-modal-verify:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* ---------- contact ---------- */

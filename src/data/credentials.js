@@ -10,7 +10,7 @@ export const credentials = [
     // `modal: true` still opens the compact details dialog; add an `image` once the scan exists.
     modal: true,
     description:
-      "Covers core data analytics skills — working with datasets, applying statistical reasoning, and turning raw data into decisions.",
+      "Earned an industry certification in core data analytics: preparing datasets, applying statistical reasoning and turning data into decisions. Verified through Credly.",
     skills: ["Data Analytics", "Statistical Reasoning"],
   },
   {
@@ -22,7 +22,7 @@ export const credentials = [
     logo: "/assets/logo/google.svg",
     image: "/assets/certificates/google-ai-essentials.webp",
     description:
-      "A five-course specialization developed by Google with hands-on practice in using AI tools responsibly and improving productivity across a workflow. Courses: Introduction to AI, Maximize Productivity With AI Tools, Discover the Art of Prompting, Use AI Responsibly, and Stay Ahead of the AI Curve.",
+      "Completed Google's five-course specialization on using AI tools at work, from prompting to responsible use. Practised applying AI to improve productivity across a workflow.",
     skills: ["AI Fundamentals", "Prompting", "Responsible AI", "AI Productivity"],
     fullDate: "Nov 18, 2026",
     credentialId: "W8HH2G9XW45E",
@@ -37,7 +37,7 @@ export const credentials = [
     logo: "/assets/logo/deeplearning-ai.png",
     image: "/assets/certificates/ai-for-everyone.webp",
     description:
-      "A non-technical introduction to AI taught by Andrew Ng, covering what AI can and can't do, how machine learning and data science projects work, and how to apply AI thoughtfully in an organization.",
+      "Completed Andrew Ng's non-technical course on what AI can and can't do and how AI projects are run. Learned how to apply AI thoughtfully inside an organization.",
     skills: ["AI Fundamentals", "Machine Learning", "AI Strategy"],
     fullDate: "Oct 7, 2026",
     credentialId: "ZHLETY91K1QT",
@@ -52,7 +52,7 @@ export const credentials = [
     image: "/assets/certificates/hack4aprogress.webp",
     modal: true,
     description:
-      "Placed 2nd Runner-Up at the DOST Hack4AProgress regional hackathon with AgriWise, a decision-support platform that turns scattered CALABARZON agricultural data into crop forecasts, market recommendations, and a cited Q&A assistant, built within a 2-day hackathon.",
+      "Built AgriWise, a GIS and AI platform that turns scattered CALABARZON farm data into crop forecasts, market recommendations and a cited Q&A assistant. Placed 2nd Runner-Up with a team of three after a two-day build.",
     skills: ["Machine Learning", "RAG", "FastAPI", "Next.js"],
     result: "2nd Runner-Up — Regional",
     // Award placement: the row gets the green recognition highlight.
@@ -71,8 +71,8 @@ export const credentials = [
     imageAlt: "Team CodeBearers holding the IDOL Hackathon 2026 2nd place award cheque",
     modal: true,
     description:
-      "Placed 1st Runner-Up at Meralco's IDOL Hackathon 2026 (Digital Sparks) with KapitWatt, a residential demand-response platform that extends Meralco's Interruptible Load Program to households. A mobile app lets households commit to peak-hour reductions and earn rewards for verified savings, while an operator dashboard issues alerts and tracks committed versus delivered load. Built as a simulated pilot across seven Laguna municipalities.",
-    skills: ["Demand Response", "Mobile App", "Operator Dashboard"],
+      "Built KapitWatt, a residential demand-response platform that adapts Meralco's Interruptible Load Program for households, rewarding verified energy savings during peak demand. Placed 1st Runner-Up with a simulated pilot across seven Laguna municipalities.",
+    skills: ["TypeScript", "React Native", "Cloudflare Workers", "PostgreSQL", "Demand Response"],
     result: "1st Runner-Up (2nd Place)",
     recognition: true,
   },
@@ -84,7 +84,8 @@ export const credentials = [
     verifyUrl: "https://lspu.codechum.com/certificates/20454",
     logo: "/assets/logo/java.svg",
     image: "/assets/certificates/codechum-java.webp",
-    description: "Completed Java Software Engineering 1, covering core software engineering concepts and Java programming with a final score of 408/431.",
+    description:
+      "Completed CodeChum's Java Software Engineering 1, covering core software engineering concepts and Java programming. Scored 408 out of 431.",
     skills: ["Java", "Software Engineering"],
     fullDate: "Dec 15, 2025",
     credentialId: "20454",
@@ -98,7 +99,8 @@ export const credentials = [
     verifyUrl: null,
     logo: "/assets/logo/python.svg",
     image: "/assets/certificates/python-fundamentals.webp",
-    description: "Completed introductory training in Python programming, covering Python essentials, installation, scripts, and basic operations.",
+    description:
+      "Completed introductory Python training covering essentials, setup, scripts and basic operations. Three hours of guided practice.",
     skills: ["Python", "Jupyter Notebooks", "Python Scripting"],
     fullDate: "Apr 5, 2025",
     credentialId: "DAPh-25-434913",
@@ -112,8 +114,9 @@ export const credentials = [
     verifyUrl: null,
     logo: "/assets/logo/n8n.svg",
     image: "/assets/certificates/isite-ai-hackathon.webp",
-    description: "Participated in the ISITE AI Hackathon, an n8n competition focused on building AI-driven solutions to real-world challenges.",
-    skills: ["n8n", "AI Solutions"],
+    description:
+      "Built an n8n workflow that screens job applications straight from Gmail, using Groq-powered AI agents to parse each résumé PDF and evaluate the candidate. Approved applicants are logged to Google Sheets and every applicant gets a personalized approval or rejection email.",
+    skills: ["n8n", "AI Agents", "Groq", "Workflow Automation"],
     fullDate: "Apr 30, 2026",
   },
   {
@@ -124,7 +127,8 @@ export const credentials = [
     verifyUrl: null,
     logo: "/assets/logo/ai-ready-asean.png",
     image: "/assets/certificates/hour-of-code.webp",
-    description: "Participated in the Hour of Code Campaign under the AI Ready ASEAN Programme, supported by the ASEAN Foundation and Google.org.",
+    description:
+      "Joined the Hour of Code campaign under the AI Ready ASEAN Programme. Supported by the ASEAN Foundation and Google.org.",
     skills: ["AI Literacy", "Coding"],
     fullDate: "Sep 4, 2025",
   },
@@ -136,7 +140,8 @@ export const credentials = [
     verifyUrl: null,
     logo: "/assets/logo/dict.png",
     image: "/assets/certificates/prompt-engineering.webp",
-    description: "Attended an information session on prompt engineering and the practical use of generative AI.",
+    description:
+      "Attended DICT Region V's session on prompt engineering and the practical use of generative AI.",
     skills: ["Prompt Engineering", "Generative AI"],
     fullDate: "Sep 6, 2025",
     credentialId: "2025-IBWEB357",
@@ -149,7 +154,8 @@ export const credentials = [
     verifyUrl: null,
     logo: "/assets/logo/dict.png",
     image: "/assets/certificates/ai-powered-canva.webp",
-    description: "Attended a 4-hour online information session on graphics design with AI-powered Canva, hosted by the Department of Information and Communications Technology.",
+    description:
+      "Attended a four-hour DICT session on graphic design with Canva's AI tools.",
     skills: ["Graphic Design", "Canva", "AI-Assisted Design"],
     fullDate: "Mar 20, 2025",
     result: "4-hour session",
