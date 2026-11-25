@@ -69,56 +69,14 @@ function CredentialTrigger({ credential, onOpenModal, className, children, ...pr
   return <div {...props} className={`${className} ${className.split(" ")[0]}--static`}>{children}</div>;
 }
 
-function CertificatePreview({ image }) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed) return null;
-
-  return (
-    <span className="credential-preview" aria-hidden="true">
-      <img src={image} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
-    </span>
-  );
-}
-
-function CredentialRow({ credential, onOpenModal, previewsDismissed, onPreviewEnter, onHighlight }) {
-  const positionPreview = (event) => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const row = event.currentTarget;
-    const preview = row.querySelector(".credential-preview");
-    if (!preview || !preview.offsetWidth) return;
-
-    const bounds = row.getBoundingClientRect();
-    const width = preview.offsetWidth;
-    const height = preview.offsetHeight;
-    const gap = 24;
-    const x = event.clientX + gap + width > window.innerWidth - 16
-      ? event.clientX - gap - width
-      : event.clientX + gap;
-    const y = Math.max(16, Math.min(event.clientY - height / 2, window.innerHeight - height - 16));
-
-    row.style.setProperty("--preview-x", `${Math.max(16, x) - bounds.left}px`);
-    row.style.setProperty("--preview-y", `${y - bounds.top}px`);
-    row.dataset.previewPositioned = "true";
-  };
-
+function CredentialRow({ credential, onOpenModal, onHighlight }) {
   return (
     <CredentialTrigger
       credential={credential}
       onOpenModal={onOpenModal}
       className={credential.recognition ? "credential-row credential-row--recognition" : "credential-row"}
-      data-preview-dismissed={previewsDismissed || undefined}
-      onMouseEnter={(event) => {
-        onHighlight(event);
-        onPreviewEnter();
-        positionPreview(event);
-      }}
-      onMouseMove={positionPreview}
-      onFocus={(event) => {
-        onHighlight(event);
-        delete event.currentTarget.dataset.previewPositioned;
-        onPreviewEnter();
-      }}
+      onMouseEnter={onHighlight}
+      onFocus={onHighlight}
     >
       {credential.logo && (
         <span className="credential-watermark-clip" aria-hidden="true">
@@ -138,14 +96,11 @@ function CredentialRow({ credential, onOpenModal, previewsDismissed, onPreviewEn
           view <span className="credential-view-arrow" aria-hidden="true">→</span>
         </span>
       )}
-      {credential.image?.startsWith("/assets/certificates/") && (
-        <CertificatePreview image={credential.image} />
-      )}
     </CredentialTrigger>
   );
 }
 
-function CredentialRowGroup({ items, onOpenModal, previewsDismissed, onPreviewEnter }) {
+function CredentialRowGroup({ items, onOpenModal }) {
   const listRef = useRef(null);
   const rowRef = useRef(null);
   const [highlight, setHighlight] = useState(null);
@@ -173,8 +128,6 @@ function CredentialRowGroup({ items, onOpenModal, previewsDismissed, onPreviewEn
           key={`${credential.issuer}-${credential.title}`}
           credential={credential}
           onOpenModal={onOpenModal}
-          previewsDismissed={previewsDismissed}
-          onPreviewEnter={onPreviewEnter}
           onHighlight={(event) => { rowRef.current = event.currentTarget; measure(); }}
         />
       ))}
@@ -239,7 +192,6 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
   const [highlight, setHighlight] = useState(null);
   const explorerListRef = useRef(null);
   const highlightedRowRef = useRef(null);
-  const [previewsDismissed, setPreviewsDismissed] = useState(false);
   const activeTriggerRef = useRef(null);
 
   const measureHighlight = () => {
@@ -296,15 +248,6 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
     observer.observe(preview);
     return () => observer.disconnect();
   }, [previewCredential, filter, view, variant]);
-
-  useEffect(() => {
-    if (variant !== "rows") return;
-    const dismissPreviews = (event) => {
-      if (event.key === "Escape") setPreviewsDismissed(true);
-    };
-    document.addEventListener("keydown", dismissPreviews);
-    return () => document.removeEventListener("keydown", dismissPreviews);
-  }, [variant]);
 
   const handleOpenModal = (credential, triggerRef) => {
     activeTriggerRef.current = triggerRef.current;
@@ -427,8 +370,6 @@ export default function CredentialsList({ items, limitPerCategory, variant = "ro
                 <CredentialRowGroup
                   items={limitPerCategory ? group.items.slice(0, limitPerCategory) : group.items}
                   onOpenModal={handleOpenModal}
-                  previewsDismissed={previewsDismissed}
-                  onPreviewEnter={() => setPreviewsDismissed(false)}
                 />
             </div>
           ))}

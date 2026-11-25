@@ -947,59 +947,6 @@ button.credential-row:hover .credential-info,
 a.credential-row:focus-visible .credential-info,
 button.credential-row:focus-visible .credential-info { transform: translateX(.4rem); }
 
-.credential-preview { display: none; }
-@media (min-width: 901px) {
-  .credential-row:hover,
-  .credential-row:focus-visible { z-index: 2; }
-  .credential-preview {
-    display: block;
-    position: absolute;
-    right: 4.5rem;
-    bottom: calc(100% - .75rem);
-    width: clamp(14rem, 22vw, 20rem);
-    padding: .4rem;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--paper-deep);
-    box-shadow: 0 12px 28px -12px rgba(23, 23, 23, .3);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(.5rem);
-    transition: opacity .18s ease, transform .18s ease, visibility .18s;
-    pointer-events: none;
-    user-select: none;
-  }
-  .credential-preview img { display: block; width: 100%; max-height: 14rem; object-fit: contain; }
-  .credential-row[data-preview-positioned] .credential-preview {
-    left: var(--preview-x);
-    top: var(--preview-y);
-    right: auto;
-    bottom: auto;
-    pointer-events: none;
-  }
-  .credential-row:focus-visible .credential-preview {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-  }
-}
-@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
-  .credential-row:hover .credential-preview {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-  }
-}
-.credential-row[data-preview-positioned] .credential-preview { pointer-events: none; }
-.credential-row[data-preview-dismissed] .credential-preview { opacity: 0; visibility: hidden; }
-@media (prefers-reduced-motion: reduce) {
-  .credential-preview { transition: none; }
-  .credential-row:hover .credential-preview,
-  .credential-row:focus-visible .credential-preview { transform: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   a.credential-row:hover .credential-watermark,
   button.credential-row:hover .credential-watermark { transform: translateY(-50%); }
@@ -1573,7 +1520,6 @@ a.credential-row::before, button.credential-row::before { border-radius: inherit
 .credential-group-rows { position:relative; isolation:isolate; }
 .credential-group-rows::before { left:-.75rem; right:-.75rem; }
 .credential-group-rows .credential-row::before { content:none; }
-.credential-group-rows:has(.credential-row:hover, .credential-row:focus-visible) { z-index:2; }
 @media (prefers-reduced-motion:no-preference) {
  .credentials-explorer-list::before, .credential-group-rows::before { transition:transform .42s cubic-bezier(.22,.68,.2,1),opacity .22s ease; }
  .credential-detail-preview { animation:credential-detail-enter .36s cubic-bezier(.2,.7,.2,1) both; }
