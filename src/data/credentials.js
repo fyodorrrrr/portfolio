@@ -154,17 +154,5 @@ export const credentials = [
     fullDate: "Mar 20, 2025",
     result: "4-hour session",
   },
-  {
-    category: "Participations & Events",
-    title: "STEAM in the Digital Age",
-    issuer: "SEAMEO STEM-ED · Johannes Kepler University",
-    date: "2025",
-    verifyUrl: null,
-    logo: "/assets/logo/seameo-stem-ed.png",
-    image: "/assets/certificates/steam-digital-age.webp",
-    description: "Participated in a hybrid webinar exploring innovations in STEAM education and technology integration.",
-    skills: ["STEAM Education", "Educational Technology"],
-    fullDate: "Mar 19, 2025",
-  },
   
 ];
